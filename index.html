@@ -232,8 +232,8 @@
 
     <!-- NAVIGATION TABS -->
     <div class="nav-tabs">
-        <button class="tab-btn active" onclick="switchTab('feedback')">Mix Feedback</button>
-        <button class="tab-btn" onclick="switchTab('sonic-dna')">Sonic DNA Blueprint</button>
+        <button class="tab-btn active" onclick="switchTab('feedback', event)">Mix Feedback</button>
+        <button class="tab-btn" onclick="switchTab('sonic-dna', event)">Sonic DNA Blueprint</button>
     </div>
 
     <!-- TAB 1: FEEDBACK TRANSLATOR -->
@@ -299,13 +299,13 @@
 </footer>
 
 <script>
-    // --- TAB SWITCHING LOGIC ---
-    function switchTab(tabName) {
+    // --- TAB SWITCHING LOGIC (BUG FIXED) ---
+    function switchTab(tabName, evt) {
         document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
         
         document.getElementById(tabName).classList.add('active');
-        event.target.classList.add('active');
+        evt.currentTarget.classList.add('active');
     }
 
     // --- MODULE 1: FEEDBACK TRANSLATOR LOGIC ---
