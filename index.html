@@ -12,6 +12,8 @@
             --text-secondary: #8b949e;
             --accent: #58a6ff;
             --accent-glow: rgba(88, 166, 255, 0.2);
+            --success: #3fb950;
+            --success-glow: rgba(63, 185, 80, 0.2);
             --border: #30363d;
         }
 
@@ -33,7 +35,7 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 40px;
-            max-width: 650px;
+            max-width: 700px;
             width: 100%;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
@@ -70,7 +72,7 @@
             border: none;
             padding: 15px 0;
             color: var(--text-secondary);
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             text-transform: uppercase;
@@ -79,19 +81,13 @@
             border-bottom: 2px solid transparent;
         }
 
-        .tab-btn:hover {
-            color: var(--text-primary);
-        }
-
+        .tab-btn:hover { color: var(--text-primary); }
         .tab-btn.active {
             color: var(--accent);
             border-bottom: 2px solid var(--accent);
         }
 
-        .tab-content {
-            display: none;
-        }
-
+        .tab-content { display: none; }
         .tab-content.active {
             display: block;
             animation: fadeIn 0.4s ease;
@@ -103,9 +99,7 @@
         }
 
         /* --- FORM ELEMENTS --- */
-        .input-group {
-            margin-bottom: 20px;
-        }
+        .input-group { margin-bottom: 20px; }
 
         label {
             display: block;
@@ -128,10 +122,7 @@
             font-family: inherit;
         }
 
-        textarea {
-            height: 100px;
-            resize: vertical;
-        }
+        textarea { height: 100px; resize: vertical; }
 
         textarea:focus, input[type="text"]:focus, select:focus {
             outline: none;
@@ -167,18 +158,8 @@
             display: none;
         }
 
-        .result-box h3 {
-            margin: 0 0 15px 0;
-            color: var(--accent);
-            font-size: 16px;
-        }
-
-        .result-box p, .result-box div {
-            margin: 0;
-            line-height: 1.6;
-            color: var(--text-primary);
-            font-size: 14px;
-        }
+        .result-box h3 { margin: 0 0 15px 0; color: var(--accent); font-size: 16px; }
+        .result-box p, .result-box div { margin: 0; line-height: 1.6; color: var(--text-primary); font-size: 14px; }
         
         .badge {
             display: inline-block;
@@ -191,24 +172,49 @@
             margin-right: 5px;
         }
 
-        .dna-item {
-            margin-bottom: 12px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border);
+        .dna-item { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+        .dna-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .dna-label { font-weight: 700; color: var(--accent); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+
+        /* --- MODULE 3: STUDIO PREP STYLES --- */
+        .prep-card {
+            background: var(--bg-color);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
         }
-        .dna-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-        .dna-label {
-            font-weight: 700;
+        .prep-card h4 {
+            margin: 0 0 10px 0;
             color: var(--accent);
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+        .prep-card p, .prep-card li {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+        }
+        .prep-card ul {
+            margin: 10px 0 0 0;
+            padding-left: 20px;
+        }
+        .prep-card li { margin-bottom: 6px; }
+
+        .success-box {
+            margin-top: 25px;
+            padding: 25px;
+            background-color: rgba(63, 185, 80, 0.05);
+            border: 1px solid var(--success);
+            border-radius: 8px;
+            display: none;
+            text-align: center;
+        }
+        .success-box h3 { color: var(--success); margin: 0 0 10px 0; }
+        .success-box p { color: var(--text-primary); }
 
         /* --- FOOTER --- */
         .footer {
@@ -233,7 +239,8 @@
     <!-- NAVIGATION TABS -->
     <div class="nav-tabs">
         <button class="tab-btn active" onclick="switchTab('feedback', event)">Mix Feedback</button>
-        <button class="tab-btn" onclick="switchTab('sonic-dna', event)">Sonic DNA Blueprint</button>
+        <button class="tab-btn" onclick="switchTab('sonic-dna', event)">Sonic DNA</button>
+        <button class="tab-btn" onclick="switchTab('studio-ready', event)">Studio Prep</button>
     </div>
 
     <!-- TAB 1: FEEDBACK TRANSLATOR -->
@@ -266,17 +273,17 @@
 
         <div class="input-group">
             <label>2. The "Anti-Reference" (What we are avoiding)</label>
-            <input type="text" id="dna-anti" placeholder="e.g., We do NOT want it to sound like generic TikTok pop, or overly polished 80s rock...">
+            <input type="text" id="dna-anti" placeholder="e.g., We do NOT want it to sound like generic TikTok pop...">
         </div>
 
         <div class="input-group">
             <label>3. The Emotional Arc</label>
             <select id="dna-arc">
                 <option value="">Select the journey...</option>
-                <option value="Starts vulnerable and quiet, builds to a massive, triumphant climax.">Starts vulnerable and quiet ➡️ Builds to a massive, triumphant climax.</option>
-                <option value="Starts aggressive and chaotic, resolves into a peaceful, atmospheric outro.">Starts aggressive and chaotic ➡️ Resolves into a peaceful, atmospheric outro.</option>
-                <option value="Stays consistently dark, heavy, and hypnotic from start to finish.">Stays consistently dark, heavy, and hypnotic from start to finish.</option>
-                <option value="Starts upbeat and catchy, but the lyrics reveal a deep, hidden sadness.">Starts upbeat and catchy ➡️ Lyrics reveal deep, hidden sadness.</option>
+                <option value="Starts vulnerable and quiet, builds to a massive, triumphant climax.">Starts vulnerable ➡️ Builds to triumphant climax.</option>
+                <option value="Starts aggressive and chaotic, resolves into a peaceful, atmospheric outro.">Starts aggressive ➡️ Resolves into peaceful outro.</option>
+                <option value="Stays consistently dark, heavy, and hypnotic from start to finish.">Stays consistently dark, heavy, and hypnotic.</option>
+                <option value="Starts upbeat and catchy, but the lyrics reveal a deep, hidden sadness.">Starts upbeat ➡️ Lyrics reveal hidden sadness.</option>
             </select>
         </div>
 
@@ -292,6 +299,36 @@
             <div id="dna-translated-text"></div>
         </div>
     </div>
+
+    <!-- TAB 3: STUDIO READINESS PROTOCOL -->
+    <div id="studio-ready" class="tab-content">
+        <div class="prep-card">
+            <h4>🏗️ 1. The "House Building" Rule</h4>
+            <p>Making a record is like building a house. We must pour the foundation (drums/bass) before we paint the walls (synths/guitars), and we can't hang the art (vocals) until the walls are up. <b>Revisions on the arrangement must happen before we mix.</b></p>
+        </div>
+
+        <div class="prep-card">
+            <h4>🎤 2. Vocal & Mental Prep Checklist</h4>
+            <ul>
+                <li><b>Hydrate:</b> Drink room-temperature water for 24 hours before the session. Avoid ice cold water or dairy.</li>
+                <li><b>Rest:</b> Your vocal cords need sleep. No late nights before recording.</li>
+                <li><b>Know Your Lyrics:</b> We are here to capture emotion, not read off a phone screen. Memorize your parts.</li>
+                <li><b>Bring the Vibe:</b> Bring a playlist of songs that get you in the right headspace to play in the studio.</li>
+            </ul>
+        </div>
+
+        <div class="prep-card">
+            <h4>🤝 3. The Feedback Agreement</h4>
+            <p>To get your song to the radio-ready standard, we use the <b>AllEars Mix Feedback</b> tab for all revisions. We do not accept notes via random text messages or voice notes. This ensures every change is tracked, translated technically, and executed perfectly.</p>
+        </div>
+
+        <button class="primary-btn" onclick="certifyReady()">I Am Ready To Create</button>
+
+        <div id="ready-result" class="success-box">
+            <h3>✅ STUDIO ACCESS GRANTED</h3>
+            <p>You are officially prepped and aligned. Your producer is ready to bring your vision to life. Let's make a hit.</p>
+        </div>
+    </div>
 </div>
 
 <footer class="footer">
@@ -299,7 +336,7 @@
 </footer>
 
 <script>
-    // --- TAB SWITCHING LOGIC (BUG FIXED) ---
+    // --- TAB SWITCHING LOGIC ---
     function switchTab(tabName, evt) {
         document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -365,6 +402,13 @@
 
         output.innerHTML = html;
         resultBox.style.display = 'block';
+    }
+
+    // --- MODULE 3: STUDIO PREP LOGIC ---
+    function certifyReady() {
+        const resultBox = document.getElementById('ready-result');
+        resultBox.style.display = 'block';
+        resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 </script>
 
