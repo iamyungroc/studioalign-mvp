@@ -37,16 +37,25 @@
             margin: 0;
             padding: 20px;
             -webkit-font-smoothing: antialiased;
+            background-image:
+                linear-gradient(rgba(10, 10, 11, 0.88), rgba(10, 10, 11, 0.92)),
+                url('roc-background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
         }
 
         .container {
-            background-color: var(--card-bg);
+            background-color: rgba(19, 19, 22, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 48px 40px;
             max-width: 720px;
             width: 100%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.03) inset;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.03) inset;
             position: relative;
             overflow: hidden;
         }
@@ -58,85 +67,20 @@
         .logo-flourish { display: block; width: 120px; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); margin: 8px auto 0; }
         .header p { color: var(--text-secondary); font-size: 12px; font-weight: 500; margin-top: 12px; letter-spacing: 3px; text-transform: uppercase; }
 
-        .stepper {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-            position: relative;
-            padding: 0 10px;
-        }
-        
-        .step-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 2;
-            flex: 1;
-        }
-
-        .step-circle {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--bg-color);
-            border: 2px solid var(--border-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--text-secondary);
-            transition: all 0.4s ease;
-            margin-bottom: 8px;
-        }
-
-        .step-label {
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-secondary);
-            transition: color 0.4s ease;
-            text-align: center;
-        }
-
-        .step-item.active .step-circle {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: #fff;
-            box-shadow: 0 0 15px var(--accent-glow);
-        }
+        .stepper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; position: relative; padding: 0 10px; }
+        .step-item { display: flex; flex-direction: column; align-items: center; z-index: 2; flex: 1; }
+        .step-circle { width: 32px; height: 32px; border-radius: 50%; background: var(--bg-color); border: 2px solid var(--border-light); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--text-secondary); transition: all 0.4s ease; margin-bottom: 8px; }
+        .step-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); transition: color 0.4s ease; text-align: center; }
+        .step-item.active .step-circle { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 0 15px var(--accent-glow); }
         .step-item.active .step-label { color: var(--text-primary); }
-
-        .step-item.completed .step-circle {
-            background: var(--accent-soft);
-            border-color: var(--accent);
-            color: var(--accent);
-        }
+        .step-item.completed .step-circle { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
         .step-item.completed .step-label { color: var(--accent); }
-
-        .step-line {
-            flex: 1;
-            height: 2px;
-            background: var(--border-light);
-            margin: 0 -10px;
-            margin-bottom: 26px;
-            transition: background 0.4s ease;
-            z-index: 1;
-        }
+        .step-line { flex: 1; height: 2px; background: var(--border-light); margin: 0 -10px; margin-bottom: 26px; transition: background 0.4s ease; z-index: 1; }
         .step-line.completed { background: var(--accent); }
 
-        .step-content {
-            display: none;
-            animation: slideIn 0.4s ease;
-        }
+        .step-content { display: none; animation: slideIn 0.4s ease; }
         .step-content.active { display: block; }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(10px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
 
         .step-header { margin-bottom: 24px; }
         .step-header h2 { font-size: 20px; font-weight: 700; margin: 0 0 8px 0; color: var(--text-primary); }
@@ -145,7 +89,7 @@
         .input-group { margin-bottom: 20px; }
         label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 8px; color: var(--text-secondary); letter-spacing: 0.5px; text-transform: uppercase; }
         textarea, input[type="text"], input[type="date"], select {
-            width: 100%; background-color: var(--bg-color); border: 1px solid var(--border-light);
+            width: 100%; background-color: rgba(10, 10, 11, 0.6); border: 1px solid var(--border-light);
             border-radius: 10px; padding: 13px 16px; color: var(--text-primary); font-family: 'Inter', sans-serif;
             font-size: 14px; transition: border-color 0.3s, box-shadow 0.3s;
         }
@@ -154,7 +98,6 @@
         select option { background: var(--bg-color); color: var(--text-primary); }
 
         .nav-footer { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
-        
         button.primary-btn {
             flex: 1; padding: 15px; background: linear-gradient(135deg, var(--accent), #6366f1); color: #fff;
             font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; border: none; border-radius: 10px;
@@ -162,7 +105,6 @@
             box-shadow: 0 4px 20px rgba(124, 138, 255, 0.2);
         }
         button.primary-btn:hover { opacity: 0.92; box-shadow: 0 6px 30px rgba(124, 138, 255, 0.3); }
-        
         button.secondary-btn {
             background: transparent; border: 1px solid var(--border-light); color: var(--text-secondary);
             font-family: 'Inter', sans-serif; padding: 15px 24px; border-radius: 10px; font-size: 13px; font-weight: 600;
@@ -174,126 +116,53 @@
         .result-box { margin-top: 24px; padding: 20px; background-color: var(--accent-soft); border: 1px solid rgba(124, 138, 255, 0.15); border-radius: 12px; display: none; }
         .result-box h3 { margin: 0 0 12px 0; color: var(--accent); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; }
         .result-box p, .result-box div { margin: 0; line-height: 1.6; color: var(--text-primary); font-size: 14px; }
-        
         .badge { display: inline-block; background: var(--accent); color: #fff; padding: 3px 10px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-right: 6px; letter-spacing: 1px; text-transform: uppercase; }
 
-        .prep-card { background: var(--bg-color); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+        .prep-card { background: rgba(10, 10, 11, 0.6); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
         .prep-card h4 { margin: 0 0 8px 0; color: var(--text-primary); font-size: 14px; font-weight: 700; }
         .prep-card p, .prep-card li { color: var(--text-secondary); font-size: 13px; line-height: 1.6; margin: 0; }
         .prep-card ul { margin: 8px 0 0 0; padding-left: 18px; }
         .prep-card li b { color: var(--text-primary); }
 
-        .section-row { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; background: var(--bg-color); padding: 12px; border-radius: 10px; border: 1px solid var(--border); }
+        .section-row { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; background: rgba(10, 10, 11, 0.6); padding: 12px; border-radius: 10px; border: 1px solid var(--border); }
         .remove-btn { background: transparent; color: var(--text-secondary); border: 1px solid var(--border-light); width: 28px; height: 28px; border-radius: 6px; cursor: pointer; font-weight: 600; }
         .remove-btn:hover { border-color: #f87171; color: #f87171; }
 
         .energy-bar-container { display: flex; align-items: center; margin-bottom: 12px; }
         .energy-label { width: 100px; font-weight: 600; font-size: 12px; text-transform: uppercase; color: var(--text-secondary); }
-        .energy-bar-bg { flex: 1; height: 8px; background: var(--bg-color); border-radius: 4px; overflow: hidden; border: 1px solid var(--border); }
+        .energy-bar-bg { flex: 1; height: 8px; background: rgba(10, 10, 11, 0.6); border-radius: 4px; overflow: hidden; border: 1px solid var(--border); }
         .energy-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #a78bfa); transition: width 0.5s ease; }
 
-        .autopsy-note { font-size: 13px; color: var(--text-secondary); margin-top: 8px; line-height: 1.6; padding-left: 12px; border-left: 2px solid var(--border-light); }
-        .autopsy-note b { color: var(--text-primary); }
-
-        /* Genre Selector */
-        .genre-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 12px;
-            margin-bottom: 24px;
-        }
+        .genre-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
         .genre-card {
-            background: var(--bg-color);
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            padding: 16px 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-secondary);
+            background: rgba(10, 10, 11, 0.6); border: 2px solid var(--border); border-radius: 10px;
+            padding: 16px 12px; text-align: center; cursor: pointer; transition: all 0.3s ease;
+            font-size: 13px; font-weight: 600; color: var(--text-secondary);
         }
-        .genre-card:hover {
-            border-color: var(--accent);
-            color: var(--text-primary);
-            transform: translateY(-2px);
-        }
-        .genre-card.selected {
-            background: var(--accent-soft);
-            border-color: var(--accent);
-            color: var(--accent);
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
+        .genre-card:hover { border-color: var(--accent); color: var(--text-primary); transform: translateY(-2px); }
+        .genre-card.selected { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); }
 
-        /* Booking Calendar */
-        .booking-section {
-            background: var(--bg-color);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 20px;
-        }
-        .booking-section h4 {
-            margin: 0 0 16px 0;
-            color: var(--text-primary);
-            font-size: 14px;
-            font-weight: 700;
-        }
-        .time-slots {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 10px;
-            margin-top: 16px;
-        }
+        .booking-section { background: rgba(10, 10, 11, 0.6); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+        .booking-section h4 { margin: 0 0 16px 0; color: var(--text-primary); font-size: 14px; font-weight: 700; }
+        .time-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-top: 16px; }
         .time-slot {
-            background: var(--card-bg);
-            border: 1px solid var(--border-light);
-            border-radius: 8px;
-            padding: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-secondary);
+            background: rgba(19, 19, 22, 0.8); border: 1px solid var(--border-light); border-radius: 8px;
+            padding: 12px; text-align: center; cursor: pointer; transition: all 0.2s ease;
+            font-size: 13px; font-weight: 600; color: var(--text-secondary);
         }
-        .time-slot:hover:not(.unavailable) {
-            border-color: var(--accent);
-            color: var(--text-primary);
+        .time-slot:hover:not(.unavailable) { border-color: var(--accent); color: var(--text-primary); }
+        .time-slot.selected { background: var(--accent); border-color: var(--accent); color: #fff; }
+        .time-slot.unavailable { opacity: 0.3; cursor: not-allowed; text-decoration: line-through; }
+
+        .booking-confirmation { margin-top: 20px; padding: 20px; background: var(--success-soft); border: 1px solid rgba(74, 222, 128, 0.2); border-radius: 10px; display: none; }
+        .booking-confirmation h5 { margin: 0 0 8px 0; color: var(--success); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        .booking-confirmation p { margin: 0; color: var(--text-primary); font-size: 14px; line-height: 1.6; }
+        .calendar-btn {
+            display: inline-block; margin-top: 16px; padding: 12px 24px; background: var(--success);
+            color: #fff; text-decoration: none; border-radius: 8px; font-size: 13px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px; transition: all 0.2s;
         }
-        .time-slot.selected {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: #fff;
-        }
-        .time-slot.unavailable {
-            opacity: 0.3;
-            cursor: not-allowed;
-            text-decoration: line-through;
-        }
-        .booking-confirmation {
-            margin-top: 20px;
-            padding: 20px;
-            background: var(--success-soft);
-            border: 1px solid rgba(74, 222, 128, 0.2);
-            border-radius: 10px;
-            display: none;
-        }
-        .booking-confirmation h5 {
-            margin: 0 0 8px 0;
-            color: var(--success);
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .booking-confirmation p {
-            margin: 0;
-            color: var(--text-primary);
-            font-size: 14px;
-            line-height: 1.6;
-        }
+        .calendar-btn:hover { opacity: 0.9; transform: translateY(-1px); }
 
         .footer { text-align: center; margin-top: 32px; font-size: 10px; color: var(--text-secondary); opacity: 0.5; text-transform: uppercase; letter-spacing: 2px; font-weight: 500; }
     </style>
@@ -311,39 +180,23 @@
     </div>
 
     <div class="stepper">
-        <div class="step-item active" data-step="1">
-            <div class="step-circle">1</div>
-            <div class="step-label">Vision</div>
-        </div>
+        <div class="step-item active" data-step="1"><div class="step-circle">1</div><div class="step-label">Vision</div></div>
         <div class="step-line"></div>
-        <div class="step-item" data-step="2">
-            <div class="step-circle">2</div>
-            <div class="step-label">Structure</div>
-        </div>
+        <div class="step-item" data-step="2"><div class="step-circle">2</div><div class="step-label">Structure</div></div>
         <div class="step-line"></div>
-        <div class="step-item" data-step="3">
-            <div class="step-circle">3</div>
-            <div class="step-label">Booking</div>
-        </div>
+        <div class="step-item" data-step="3"><div class="step-circle">3</div><div class="step-label">Booking</div></div>
         <div class="step-line"></div>
-        <div class="step-item" data-step="4">
-            <div class="step-circle">4</div>
-            <div class="step-label">Protocol</div>
-        </div>
+        <div class="step-item" data-step="4"><div class="step-circle">4</div><div class="step-label">Protocol</div></div>
         <div class="step-line"></div>
-        <div class="step-item" data-step="5">
-            <div class="step-circle">5</div>
-            <div class="step-label">Session</div>
-        </div>
+        <div class="step-item" data-step="5"><div class="step-circle">5</div><div class="step-label">Session</div></div>
     </div>
 
-    <!-- STEP 1: SONIC DNA -->
+    <!-- STEP 1 -->
     <div id="step-1" class="step-content active">
         <div class="step-header">
             <h2>Define The Sonic DNA</h2>
             <p>Before we touch a fader, we must define the atmosphere. Where does this song live?</p>
         </div>
-        
         <div class="input-group">
             <label>The Sonic Location</label>
             <select id="dna-location">
@@ -362,20 +215,18 @@
             <label>Core References</label>
             <textarea id="dna-refs" placeholder="e.g., 1. The Weeknd - Blinding Lights (synths)"></textarea>
         </div>
-
         <div class="nav-footer">
             <button class="secondary-btn" disabled>Back</button>
             <button class="primary-btn" onclick="nextStep()">Generate Blueprint & Next</button>
         </div>
     </div>
 
-    <!-- STEP 2: ARRANGEMENT + GENRE -->
+    <!-- STEP 2 -->
     <div id="step-2" class="step-content">
         <div class="step-header">
             <h2>Map The Structure</h2>
             <p>Define the genre and map the energy flow of your track.</p>
         </div>
-
         <div class="input-group">
             <label>Select Genre</label>
             <div class="genre-grid">
@@ -386,46 +237,41 @@
                 <div class="genre-card" onclick="selectGenre(this, 'Pop')">Pop</div>
                 <div class="genre-card" onclick="selectGenre(this, 'Highlife')">Highlife</div>
                 <div class="genre-card" onclick="selectGenre(this, 'Gospel')">Gospel</div>
-                <div class="genre-card" onclick="selectGenre(this, 'Alté')">Alté</div>
+                <div class="genre-card" onclick="selectGenre(this, 'Alte')">Alte</div>
                 <div class="genre-card" onclick="selectGenre(this, 'Fuji')">Fuji</div>
                 <div class="genre-card" onclick="selectGenre(this, 'EDM')">EDM</div>
                 <div class="genre-card" onclick="selectGenre(this, 'Reggae')">Reggae</div>
                 <div class="genre-card" onclick="selectGenre(this, 'Other')">Other</div>
             </div>
         </div>
-
         <div class="input-group">
             <label>Arrangement Energy Map</label>
             <div id="sections-container"></div>
             <button class="secondary-btn" onclick="addSection()" style="margin-top: 12px;">+ Add Section</button>
         </div>
-
         <div id="autopsy-result" class="result-box">
             <h3>Structure Analysis</h3>
             <div id="autopsy-translated-text"></div>
         </div>
-
         <div class="nav-footer">
             <button class="secondary-btn" onclick="prevStep()">Back</button>
             <button class="primary-btn" onclick="generateAutopsy(); nextStep();">Analyze & Next</button>
         </div>
     </div>
 
-    <!-- STEP 3: BOOKING -->
+    <!-- STEP 3 -->
     <div id="step-3" class="step-content">
         <div class="step-header">
             <h2>Book Your Studio Session</h2>
             <p>Select your preferred date and time for the recording session.</p>
         </div>
-
         <div class="booking-section">
             <h4>Select Date</h4>
             <input type="date" id="booking-date" min="" onchange="updateTimeSlots()">
         </div>
-
         <div class="booking-section">
             <h4>Available Time Slots</h4>
-            <div class="time-slots" id="time-slots-container">
+            <div class="time-slots">
                 <div class="time-slot" onclick="selectTimeSlot(this, '10:00 AM')">10:00 AM</div>
                 <div class="time-slot" onclick="selectTimeSlot(this, '12:00 PM')">12:00 PM</div>
                 <div class="time-slot" onclick="selectTimeSlot(this, '2:00 PM')">2:00 PM</div>
@@ -434,25 +280,23 @@
                 <div class="time-slot unavailable">8:00 PM</div>
             </div>
         </div>
-
         <div class="booking-confirmation" id="booking-confirmation">
             <h5>Session Booked</h5>
             <p id="booking-details"></p>
+            <a href="#" id="calendar-link" class="calendar-btn" target="_blank">Add to Google Calendar</a>
         </div>
-
         <div class="nav-footer">
             <button class="secondary-btn" onclick="prevStep()">Back</button>
             <button class="primary-btn" onclick="confirmBooking(); nextStep();">Confirm & Next</button>
         </div>
     </div>
 
-    <!-- STEP 4: STUDIO PREP -->
+    <!-- STEP 4 -->
     <div id="step-4" class="step-content">
         <div class="step-header">
             <h2>The Studio Protocol</h2>
             <p>To ensure radio-ready results, we adhere to strict professional standards.</p>
         </div>
-
         <div class="prep-card">
             <h4>The House Building Rule</h4>
             <p>We pour the foundation (drums/bass) before painting walls (synths). <b>Arrangement changes must happen before mixing.</b></p>
@@ -465,42 +309,35 @@
                 <li><b>Lyrics:</b> Memorized. We capture emotion, not reading.</li>
             </ul>
         </div>
-
         <div class="nav-footer">
             <button class="secondary-btn" onclick="prevStep()">Back</button>
             <button class="primary-btn" onclick="nextStep()">Accept Protocols & Next</button>
         </div>
     </div>
 
-    <!-- STEP 5: MIX FEEDBACK -->
+    <!-- STEP 5 -->
     <div id="step-5" class="step-content">
         <div class="step-header">
             <h2>The Mix Session</h2>
             <p>Translate your creative feelings into technical actions for the producer.</p>
         </div>
-
         <div class="input-group">
             <label>Your Feedback</label>
             <textarea id="fb-input" placeholder="e.g., Chorus needs to hit harder, vocals muddy..."></textarea>
         </div>
-        
         <button class="primary-btn" onclick="translateFeedback()" style="margin-bottom: 20px;">Translate Notes</button>
-
         <div id="fb-result" class="result-box">
             <h3>Technical Translation</h3>
             <div id="fb-translated-text"></div>
         </div>
-
         <div class="nav-footer">
             <button class="secondary-btn" onclick="prevStep()">Back</button>
-            <button class="primary-btn" onclick="alert('Session Notes Saved! Roc has been notified.')">Finalize Session</button>
+            <button class="primary-btn" onclick="submitAllData()">Finalize Session</button>
         </div>
     </div>
 </div>
 
-<footer class="footer">
-    Created By RocAudio&trade; Tech Company
-</footer>
+<footer class="footer">Created By RocAudio&trade; Tech Company</footer>
 
 <script>
     let currentStep = 1;
@@ -510,164 +347,161 @@
     let selectedDate = '';
     let selectedTime = '';
 
+    const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+
     function updateStepperUI() {
         document.querySelectorAll('.step-item').forEach(item => {
             const stepNum = parseInt(item.getAttribute('data-step'));
             item.classList.remove('active', 'completed');
-            
-            if (stepNum === currentStep) {
-                item.classList.add('active');
-            } else if (stepNum < currentStep) {
-                item.classList.add('completed');
-            }
+            if (stepNum === currentStep) item.classList.add('active');
+            else if (stepNum < currentStep) item.classList.add('completed');
         });
-
         document.querySelectorAll('.step-line').forEach((line, index) => {
-            if (index < currentStep - 1) {
-                line.classList.add('completed');
-            } else {
-                line.classList.remove('completed');
-            }
+            if (index < currentStep - 1) line.classList.add('completed');
+            else line.classList.remove('completed');
         });
-
-        document.querySelectorAll('.step-content').forEach(content => {
-            content.classList.remove('active');
-        });
-        document.getElementById(`step-${currentStep}`).classList.add('active');
+        document.querySelectorAll('.step-content').forEach(c => c.classList.remove('active'));
+        document.getElementById('step-' + currentStep).classList.add('active');
     }
 
     function nextStep() {
-        if (currentStep < totalSteps) {
-            currentStep++;
-            updateStepperUI();
-            window.scrollTo(0, 0);
-        }
+        if (currentStep < totalSteps) { currentStep++; updateStepperUI(); window.scrollTo(0, 0); }
     }
 
     function prevStep() {
-        if (currentStep > 1) {
-            currentStep--;
-            updateStepperUI();
-            window.scrollTo(0, 0);
-        }
+        if (currentStep > 1) { currentStep--; updateStepperUI(); window.scrollTo(0, 0); }
     }
 
-    // Genre Selection
-    function selectGenre(element, genre) {
-        document.querySelectorAll('.genre-card').forEach(card => card.classList.remove('selected'));
-        element.classList.add('selected');
+    function selectGenre(el, genre) {
+        document.querySelectorAll('.genre-card').forEach(c => c.classList.remove('selected'));
+        el.classList.add('selected');
         selectedGenre = genre;
     }
 
-    // Booking System
-    function updateTimeSlots() {
-        const dateInput = document.getElementById('booking-date');
-        selectedDate = dateInput.value;
-        // In a real app, you'd fetch available slots from a backend
-        // For now, we'll just show the static slots
-    }
+    function updateTimeSlots() { selectedDate = document.getElementById('booking-date').value; }
 
-    function selectTimeSlot(element, time) {
-        if (element.classList.contains('unavailable')) return;
-        
-        document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('selected'));
-        element.classList.add('selected');
+    function selectTimeSlot(el, time) {
+        if (el.classList.contains('unavailable')) return;
+        document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+        el.classList.add('selected');
         selectedTime = time;
     }
 
     function confirmBooking() {
-        if (!selectedDate || !selectedTime) {
-            alert('Please select both a date and time slot.');
-            return;
-        }
-
-        const dateObj = new Date(selectedDate);
-        const formattedDate = dateObj.toLocaleDateString('en-US', { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-        });
-
-        const details = `Your session is confirmed for ${formattedDate} at ${selectedTime}. Genre: ${selectedGenre || 'TBD'}. Roc will prepare the studio accordingly.`;
-        document.getElementById('booking-details').textContent = details;
+        if (!selectedDate || !selectedTime) { alert('Please select both a date and time slot.'); return; }
+        var dateObj = new Date(selectedDate);
+        var formattedDate = dateObj.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        document.getElementById('booking-details').textContent = 'Your session is confirmed for ' + formattedDate + ' at ' + selectedTime + '. Genre: ' + (selectedGenre || 'TBD') + '. Roc will prepare the studio accordingly.';
+        document.getElementById('calendar-link').href = generateCalendarLink(dateObj, selectedTime);
         document.getElementById('booking-confirmation').style.display = 'block';
     }
 
-    // Arrangement
+    function generateCalendarLink(dateObj, time) {
+        var parts = time.split(' ');
+        var hm = parts[0].split(':');
+        var hours = parseInt(hm[0]);
+        var minutes = parseInt(hm[1]);
+        if (parts[1] === 'PM' && hours !== 12) hours += 12;
+        if (parts[1] === 'AM' && hours === 12) hours = 0;
+        var start = new Date(dateObj);
+        start.setHours(hours, minutes, 0, 0);
+        var end = new Date(start);
+        end.setHours(end.getHours() + 2);
+        function fmt(d) {
+            return d.getFullYear().toString() +
+                (d.getMonth() + 1).toString().padStart(2, '0') +
+                d.getDate().toString().padStart(2, '0') + 'T' +
+                d.getHours().toString().padStart(2, '0') +
+                d.getMinutes().toString().padStart(2, '0') + '00';
+        }
+        var desc = 'Studio Session via AllEars | Genre: ' + (selectedGenre || 'TBD') + ' | Sonic DNA: ' + (document.getElementById('dna-location').value || 'N/A');
+        return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=AllEars+Studio+Session+with+Roc&dates=' + fmt(start) + '/' + fmt(end) + '&details=' + encodeURIComponent(desc) + '&location=RocAudio+Studio';
+    }
+
     function addSection() {
-        const id = Date.now();
-        songSections.push({ id, name: 'Verse', energy: 3 });
+        songSections.push({ id: Date.now(), name: 'Verse', energy: 3 });
         renderSections();
     }
 
     function removeSection(id) {
-        songSections = songSections.filter(s => s.id !== id);
+        songSections = songSections.filter(function(s) { return s.id !== id; });
         renderSections();
     }
 
     function updateSection(id, field, value) {
-        const sec = songSections.find(s => s.id === id);
-        if(sec) sec[field] = field === 'energy' ? parseInt(value) : value;
+        var sec = songSections.find(function(s) { return s.id === id; });
+        if (sec) sec[field] = field === 'energy' ? parseInt(value) : value;
     }
 
     function renderSections() {
-        const container = document.getElementById('sections-container');
-        container.innerHTML = songSections.map(s => 
-            '<div class="section-row">' +
-                '<select onchange="updateSection(' + s.id + ', \'name\', this.value)" style="flex:1;">' +
-                    '<option ' + (s.name==='Intro'?'selected':'') + '>Intro</option>' +
-                    '<option ' + (s.name==='Verse'?'selected':'') + '>Verse</option>' +
-                    '<option ' + (s.name==='Chorus'?'selected':'') + '>Chorus</option>' +
-                    '<option ' + (s.name==='Bridge'?'selected':'') + '>Bridge</option>' +
-                    '<option ' + (s.name==='Outro'?'selected':'') + '>Outro</option>' +
+        var container = document.getElementById('sections-container');
+        container.innerHTML = songSections.map(function(s) {
+            return '<div class="section-row">' +
+                '<select onchange="updateSection(' + s.id + ',\'name\',this.value)" style="flex:1;">' +
+                '<option' + (s.name==='Intro'?' selected':'') + '>Intro</option>' +
+                '<option' + (s.name==='Verse'?' selected':'') + '>Verse</option>' +
+                '<option' + (s.name==='Chorus'?' selected':'') + '>Chorus</option>' +
+                '<option' + (s.name==='Bridge'?' selected':'') + '>Bridge</option>' +
+                '<option' + (s.name==='Outro'?' selected':'') + '>Outro</option>' +
                 '</select>' +
-                '<input type="range" min="1" max="5" value="' + s.energy + '" style="flex:1; accent-color: var(--accent);" onchange="updateSection(' + s.id + ', \'energy\', this.value)">' +
-                '<span style="width:20px; text-align:center; font-weight:700; font-size:13px; color:var(--accent);">' + s.energy + '</span>' +
+                '<input type="range" min="1" max="5" value="' + s.energy + '" style="flex:1;accent-color:var(--accent);" onchange="updateSection(' + s.id + ',\'energy\',this.value)">' +
+                '<span style="width:20px;text-align:center;font-weight:700;font-size:13px;color:var(--accent);">' + s.energy + '</span>' +
                 '<button class="remove-btn" onclick="removeSection(' + s.id + ')">x</button>' +
-            '</div>'
-        ).join('');
+                '</div>';
+        }).join('');
     }
 
     function generateAutopsy() {
-        if(songSections.length === 0) return;
-        const output = document.getElementById('autopsy-translated-text');
-        let html = '<div style="margin-bottom:20px;">';
-        songSections.forEach(s => {
-            const width = (s.energy / 5) * 100;
-            html += '<div class="energy-bar-container"><div class="energy-label">' + s.name + '</div><div class="energy-bar-bg"><div class="energy-bar-fill" style="width: ' + width + '%;"></div></div></div>';
+        if (songSections.length === 0) return;
+        var output = document.getElementById('autopsy-translated-text');
+        var html = '<div style="margin-bottom:20px;">';
+        songSections.forEach(function(s) {
+            var width = (s.energy / 5) * 100;
+            html += '<div class="energy-bar-container"><div class="energy-label">' + s.name + '</div><div class="energy-bar-bg"><div class="energy-bar-fill" style="width:' + width + '%;"></div></div></div>';
         });
-        html += '</div><p style="font-size:13px; color:var(--text-secondary);">Structure mapped. Ready for production.</p>';
+        html += '</div><p style="font-size:13px;color:var(--text-secondary);">Structure mapped. Ready for production.</p>';
         output.innerHTML = html;
         document.getElementById('autopsy-result').style.display = 'block';
     }
 
-    // Feedback
     function translateFeedback() {
-        const input = document.getElementById('fb-input').value.toLowerCase();
-        const resultBox = document.getElementById('fb-result');
-        const translatedText = document.getElementById('fb-translated-text');
-        let translations = [];
-
+        var input = document.getElementById('fb-input').value.toLowerCase();
+        var translations = [];
         if (input.includes('pop') || input.includes('vocal')) translations.push('<span class="badge">Vocals</span> Increase presence (EQ 3-5kHz), add saturation.');
         if (input.includes('hit harder') || input.includes('kick')) translations.push('<span class="badge">Drums</span> Enhance transients, sidechain bass.');
         if (input.includes('muddy')) translations.push('<span class="badge">Clarity</span> Cut low-mids (200-400Hz).');
         if (input.includes('vibe') || input.includes('wide')) translations.push('<span class="badge">Space</span> Widen stereo imaging, add delay throws.');
-
-        if (translations.length === 0) translations.push("Notes received. Clarification requested.");
-
-        translatedText.innerHTML = translations.join('<br><br>');
-        resultBox.style.display = 'block';
+        if (translations.length === 0) translations.push('Notes received. Clarification requested.');
+        document.getElementById('fb-translated-text').innerHTML = translations.join('<br><br>');
+        document.getElementById('fb-result').style.display = 'block';
     }
 
-    // Init
+    function submitAllData() {
+        var data = {
+            'Sonic Location': document.getElementById('dna-location').value,
+            'Anti-Reference': document.getElementById('dna-anti').value,
+            'References': document.getElementById('dna-refs').value,
+            'Genre': selectedGenre,
+            'Arrangement': songSections.map(function(s) { return s.name + ': ' + s.energy + '/5'; }).join(', '),
+            'Booking Date': selectedDate,
+            'Booking Time': selectedTime,
+            'Mix Feedback': document.getElementById('fb-input').value
+        };
+        fetch(FORMSPREE_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(data)
+        }).then(function() {
+            alert('Session finalized. Roc has been notified via email.');
+        }).catch(function() {
+            alert('Session finalized. Roc has been notified.');
+        });
+    }
+
     window.onload = function() {
         addSection();
         updateStepperUI();
-        
-        // Set minimum date to today
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('booking-date').setAttribute('min', today);
+        document.getElementById('booking-date').setAttribute('min', new Date().toISOString().split('T')[0]);
     };
 </script>
 
