@@ -47,115 +47,252 @@
             max-width: 720px;
             width: 100%;
             box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.03) inset;
+            position: relative;
+            overflow: hidden;
         }
 
-        .header { text-align: center; margin-bottom: 36px; }
-        
-        .logo-wrapper {
-            display: inline-flex;
-            align-items: baseline;
-            gap: 12px;
-        }
-        
-        .logo { 
-            font-family: 'Great Vibes', cursive; 
-            font-size: 56px; 
-            color: var(--accent); 
-            margin: 0; 
-            line-height: 1; 
-            letter-spacing: 1px;
-        }
-        
-        .logo-beta {
-            font-family: 'Inter', sans-serif;
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--warning);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            padding: 4px 10px;
-            border-radius: 6px;
-            margin-bottom: 8px;
-        }
-        
+        .header { text-align: center; margin-bottom: 32px; }
+        .logo-wrapper { display: inline-flex; align-items: baseline; gap: 12px; }
+        .logo { font-family: 'Great Vibes', cursive; font-size: 56px; color: var(--accent); margin: 0; line-height: 1; letter-spacing: 1px; }
+        .logo-beta { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; color: var(--warning); text-transform: uppercase; letter-spacing: 1.5px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); padding: 4px 10px; border-radius: 6px; margin-bottom: 8px; }
         .logo-flourish { display: block; width: 120px; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); margin: 8px auto 0; }
         .header p { color: var(--text-secondary); font-size: 12px; font-weight: 500; margin-top: 12px; letter-spacing: 3px; text-transform: uppercase; }
 
-        .nav-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 32px; overflow-x: auto; gap: 0; }
-        .tab-btn { flex: 1; background: none; border: none; padding: 14px 8px; color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 1.5px; transition: all 0.3s; border-bottom: 2px solid transparent; white-space: nowrap; }
-        .tab-btn:hover { color: var(--text-primary); }
-        .tab-btn.active { color: var(--accent); border-bottom: 2px solid var(--accent); }
+        .stepper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding: 0 10px;
+        }
+        
+        .step-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+            flex: 1;
+        }
 
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.35s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        .step-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--bg-color);
+            border: 2px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            transition: all 0.4s ease;
+            margin-bottom: 8px;
+        }
 
-        .input-group { margin-bottom: 22px; }
+        .step-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            transition: color 0.4s ease;
+            text-align: center;
+        }
+
+        .step-item.active .step-circle {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+        .step-item.active .step-label { color: var(--text-primary); }
+
+        .step-item.completed .step-circle {
+            background: var(--accent-soft);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .step-item.completed .step-label { color: var(--accent); }
+
+        .step-line {
+            flex: 1;
+            height: 2px;
+            background: var(--border-light);
+            margin: 0 -10px;
+            margin-bottom: 26px;
+            transition: background 0.4s ease;
+            z-index: 1;
+        }
+        .step-line.completed { background: var(--accent); }
+
+        .step-content {
+            display: none;
+            animation: slideIn 0.4s ease;
+        }
+        .step-content.active { display: block; }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .step-header { margin-bottom: 24px; }
+        .step-header h2 { font-size: 20px; font-weight: 700; margin: 0 0 8px 0; color: var(--text-primary); }
+        .step-header p { font-size: 14px; color: var(--text-secondary); margin: 0; line-height: 1.5; }
+
+        .input-group { margin-bottom: 20px; }
         label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 8px; color: var(--text-secondary); letter-spacing: 0.5px; text-transform: uppercase; }
-
-        textarea, input[type="text"], select {
+        textarea, input[type="text"], input[type="date"], select {
             width: 100%; background-color: var(--bg-color); border: 1px solid var(--border-light);
             border-radius: 10px; padding: 13px 16px; color: var(--text-primary); font-family: 'Inter', sans-serif;
-            font-size: 14px; font-weight: 400; transition: border-color 0.3s, box-shadow 0.3s;
+            font-size: 14px; transition: border-color 0.3s, box-shadow 0.3s;
         }
         textarea { height: 100px; resize: vertical; }
-        textarea:focus, input[type="text"]:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+        textarea:focus, input[type="text"]:focus, input[type="date"]:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
         select option { background: var(--bg-color); color: var(--text-primary); }
 
+        .nav-footer { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+        
         button.primary-btn {
-            width: 100%; padding: 15px; background: linear-gradient(135deg, var(--accent), #6366f1); color: #fff;
+            flex: 1; padding: 15px; background: linear-gradient(135deg, var(--accent), #6366f1); color: #fff;
             font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; border: none; border-radius: 10px;
             cursor: pointer; transition: transform 0.15s, opacity 0.3s, box-shadow 0.3s; text-transform: uppercase; letter-spacing: 2px;
             box-shadow: 0 4px 20px rgba(124, 138, 255, 0.2);
         }
         button.primary-btn:hover { opacity: 0.92; box-shadow: 0 6px 30px rgba(124, 138, 255, 0.3); }
-        button.primary-btn:active { transform: scale(0.98); }
+        
+        button.secondary-btn {
+            background: transparent; border: 1px solid var(--border-light); color: var(--text-secondary);
+            font-family: 'Inter', sans-serif; padding: 15px 24px; border-radius: 10px; font-size: 13px; font-weight: 600;
+            cursor: pointer; transition: all 0.2s; text-transform: uppercase; letter-spacing: 1px;
+        }
+        button.secondary-btn:hover { border-color: var(--text-primary); color: var(--text-primary); }
+        button.secondary-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
-        button.secondary-btn { background: transparent; border: 1px solid var(--border-light); color: var(--text-secondary); font-family: 'Inter', sans-serif; padding: 9px 18px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; margin-right: 10px; margin-bottom: 10px; letter-spacing: 0.5px; transition: all 0.2s; }
-        button.secondary-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-        .result-box { margin-top: 28px; padding: 24px; background-color: var(--accent-soft); border: 1px solid rgba(124, 138, 255, 0.15); border-radius: 12px; display: none; }
-        .result-box h3 { margin: 0 0 16px 0; color: var(--accent); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; }
-        .result-box p, .result-box div { margin: 0; line-height: 1.7; color: var(--text-primary); font-size: 14px; }
+        .result-box { margin-top: 24px; padding: 20px; background-color: var(--accent-soft); border: 1px solid rgba(124, 138, 255, 0.15); border-radius: 12px; display: none; }
+        .result-box h3 { margin: 0 0 12px 0; color: var(--accent); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; }
+        .result-box p, .result-box div { margin: 0; line-height: 1.6; color: var(--text-primary); font-size: 14px; }
         
         .badge { display: inline-block; background: var(--accent); color: #fff; padding: 3px 10px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-right: 6px; letter-spacing: 1px; text-transform: uppercase; }
 
-        .dna-item { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
-        .dna-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .dna-label { font-weight: 700; color: var(--accent); font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 5px; }
-
-        .prep-card { background: var(--bg-color); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 16px; }
-        .prep-card h4 { margin: 0 0 10px 0; color: var(--text-primary); font-size: 14px; font-weight: 700; letter-spacing: 0.3px; }
-        .prep-card p, .prep-card li { color: var(--text-secondary); font-size: 13px; line-height: 1.7; margin: 0; }
-        .prep-card ul { margin: 10px 0 0 0; padding-left: 18px; }
-        .prep-card li { margin-bottom: 6px; }
-        .prep-card li b { color: var(--text-primary); font-weight: 600; }
-        
-        .success-box { margin-top: 28px; padding: 28px; background-color: var(--success-soft); border: 1px solid rgba(74, 222, 128, 0.2); border-radius: 12px; display: none; text-align: center; }
-        .success-box h3 { color: var(--success); margin: 0 0 10px 0; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
-        .success-box p { color: var(--text-primary); font-size: 14px; }
+        .prep-card { background: var(--bg-color); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+        .prep-card h4 { margin: 0 0 8px 0; color: var(--text-primary); font-size: 14px; font-weight: 700; }
+        .prep-card p, .prep-card li { color: var(--text-secondary); font-size: 13px; line-height: 1.6; margin: 0; }
+        .prep-card ul { margin: 8px 0 0 0; padding-left: 18px; }
+        .prep-card li b { color: var(--text-primary); }
 
         .section-row { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; background: var(--bg-color); padding: 12px; border-radius: 10px; border: 1px solid var(--border); }
-        .section-row select, .section-row input { margin: 0; padding: 8px 10px; font-size: 13px; }
-        .remove-btn { background: transparent; color: var(--text-secondary); border: 1px solid var(--border-light); width: 28px; height: 28px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 14px; transition: all 0.2s; }
+        .remove-btn { background: transparent; color: var(--text-secondary); border: 1px solid var(--border-light); width: 28px; height: 28px; border-radius: 6px; cursor: pointer; font-weight: 600; }
         .remove-btn:hover { border-color: #f87171; color: #f87171; }
 
         .energy-bar-container { display: flex; align-items: center; margin-bottom: 12px; }
-        .energy-label { width: 100px; font-weight: 600; font-size: 12px; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 0.5px; }
+        .energy-label { width: 100px; font-weight: 600; font-size: 12px; text-transform: uppercase; color: var(--text-secondary); }
         .energy-bar-bg { flex: 1; height: 8px; background: var(--bg-color); border-radius: 4px; overflow: hidden; border: 1px solid var(--border); }
-        .energy-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #a78bfa); border-radius: 4px; transition: width 0.5s ease; }
+        .energy-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #a78bfa); transition: width 0.5s ease; }
 
         .autopsy-note { font-size: 13px; color: var(--text-secondary); margin-top: 8px; line-height: 1.6; padding-left: 12px; border-left: 2px solid var(--border-light); }
         .autopsy-note b { color: var(--text-primary); }
-        .autopsy-note.positive { border-left-color: var(--success); }
-        .autopsy-note.warning { border-left-color: var(--warning); }
 
-        .beta-badge {
-            display: inline-block; background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff;
-            font-size: 9px; font-weight: 800; padding: 3px 8px; border-radius: 4px;
-            letter-spacing: 1px; text-transform: uppercase; margin-left: 8px; vertical-align: middle;
+        /* Genre Selector */
+        .genre-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .genre-card {
+            background: var(--bg-color);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 16px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        .genre-card:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+        .genre-card.selected {
+            background: var(--accent-soft);
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        /* Booking Calendar */
+        .booking-section {
+            background: var(--bg-color);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .booking-section h4 {
+            margin: 0 0 16px 0;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 700;
+        }
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 16px;
+        }
+        .time-slot {
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        .time-slot:hover:not(.unavailable) {
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+        .time-slot.selected {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+        .time-slot.unavailable {
+            opacity: 0.3;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+        .booking-confirmation {
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--success-soft);
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            border-radius: 10px;
+            display: none;
+        }
+        .booking-confirmation h5 {
+            margin: 0 0 8px 0;
+            color: var(--success);
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .booking-confirmation p {
+            margin: 0;
+            color: var(--text-primary);
+            font-size: 14px;
+            line-height: 1.6;
         }
 
         .footer { text-align: center; margin-top: 32px; font-size: 10px; color: var(--text-secondary); opacity: 0.5; text-transform: uppercase; letter-spacing: 2px; font-weight: 500; }
@@ -173,105 +310,190 @@
         <p>Producer-Client Alignment OS</p>
     </div>
 
-    <div class="nav-tabs">
-        <button class="tab-btn active" onclick="switchTab('feedback', event)">Mix Feedback</button>
-        <button class="tab-btn" onclick="switchTab('sonic-dna', event)">Sonic DNA</button>
-        <button class="tab-btn" onclick="switchTab('studio-ready', event)">Studio Prep</button>
-        <button class="tab-btn" onclick="switchTab('autopsy', event)">Arrangement <span class="beta-badge">Beta</span></button>
+    <div class="stepper">
+        <div class="step-item active" data-step="1">
+            <div class="step-circle">1</div>
+            <div class="step-label">Vision</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-item" data-step="2">
+            <div class="step-circle">2</div>
+            <div class="step-label">Structure</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-item" data-step="3">
+            <div class="step-circle">3</div>
+            <div class="step-label">Booking</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-item" data-step="4">
+            <div class="step-circle">4</div>
+            <div class="step-label">Protocol</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-item" data-step="5">
+            <div class="step-circle">5</div>
+            <div class="step-label">Session</div>
+        </div>
     </div>
 
-    <!-- TAB 1: FEEDBACK -->
-    <div id="feedback" class="tab-content active">
-        <div class="input-group">
-            <label for="fb-input">What are your thoughts on the latest mix?</label>
-            <textarea id="fb-input" placeholder="e.g., The chorus needs to hit harder, but the vocals are a bit muddy..."></textarea>
+    <!-- STEP 1: SONIC DNA -->
+    <div id="step-1" class="step-content active">
+        <div class="step-header">
+            <h2>Define The Sonic DNA</h2>
+            <p>Before we touch a fader, we must define the atmosphere. Where does this song live?</p>
         </div>
-        <button class="primary-btn" onclick="translateFeedback()">Translate to Producer Notes</button>
-        <div id="fb-result" class="result-box">
-            <h3>Translated Technical Notes</h3>
-            <div id="fb-translated-text"></div>
-        </div>
-    </div>
-
-    <!-- TAB 2: SONIC DNA -->
-    <div id="sonic-dna" class="tab-content">
+        
         <div class="input-group">
-            <label>1. The Sonic Location</label>
+            <label>The Sonic Location</label>
             <select id="dna-location">
-                <option value="">Select the environment...</option>
-                <option value="A dimly lit, intimate lounge at 2 AM.">Dimly lit lounge at 2 AM</option>
-                <option value="A sun-drenched coastal highway with the top down.">Sun-drenched coastal highway</option>
-                <option value="A dark, gritty underground warehouse rave.">Dark underground warehouse rave</option>
-                <option value="A massive, echoing cathedral or stadium.">Massive echoing stadium</option>
+                <option value="">Select environment...</option>
+                <option value="Dimly lit lounge at 2 AM">Dimly lit lounge at 2 AM</option>
+                <option value="Sun-drenched coastal highway">Sun-drenched coastal highway</option>
+                <option value="Dark underground warehouse">Dark underground warehouse</option>
+                <option value="Massive echoing stadium">Massive echoing stadium</option>
             </select>
         </div>
         <div class="input-group">
-            <label>2. The Anti-Reference (What we are avoiding)</label>
-            <input type="text" id="dna-anti" placeholder="e.g., We do NOT want it to sound like generic TikTok pop...">
+            <label>The Anti-Reference (What to avoid)</label>
+            <input type="text" id="dna-anti" placeholder="e.g., Generic TikTok pop...">
         </div>
         <div class="input-group">
-            <label>3. The Emotional Arc</label>
-            <select id="dna-arc">
-                <option value="">Select the journey...</option>
-                <option value="Starts vulnerable, builds to a massive, triumphant climax.">Vulnerable to Triumphant climax</option>
-                <option value="Starts aggressive, resolves into a peaceful outro.">Aggressive to Peaceful outro</option>
-                <option value="Stays consistently dark, heavy, and hypnotic.">Consistently dark and hypnotic</option>
-            </select>
+            <label>Core References</label>
+            <textarea id="dna-refs" placeholder="e.g., 1. The Weeknd - Blinding Lights (synths)"></textarea>
         </div>
-        <div class="input-group">
-            <label>4. Core Reference Tracks</label>
-            <textarea id="dna-refs" placeholder="e.g., 1. The Weeknd - Blinding Lights (for synths)"></textarea>
-        </div>
-        <button class="primary-btn" onclick="generateDNA()">Generate Sonic DNA Blueprint</button>
-        <div id="dna-result" class="result-box">
-            <h3>Sonic DNA Blueprint</h3>
-            <div id="dna-translated-text"></div>
+
+        <div class="nav-footer">
+            <button class="secondary-btn" disabled>Back</button>
+            <button class="primary-btn" onclick="nextStep()">Generate Blueprint & Next</button>
         </div>
     </div>
 
-    <!-- TAB 3: STUDIO PREP -->
-    <div id="studio-ready" class="tab-content">
-        <div class="prep-card">
-            <h4>The House Building Rule</h4>
-            <p>Making a record is like building a house. We pour the foundation (drums/bass) before we paint the walls (synths/guitars). <b>Revisions on arrangement must happen before we mix.</b></p>
-        </div>
-        <div class="prep-card">
-            <h4>Vocal and Mental Prep</h4>
-            <ul>
-                <li><b>Hydrate:</b> Room-temperature water for 24 hours prior. No ice water or dairy.</li>
-                <li><b>Rest:</b> Vocal cords need sleep. No late nights before recording.</li>
-                <li><b>Know Your Lyrics:</b> We are here to capture emotion, not read off a screen.</li>
-            </ul>
-        </div>
-        <div class="prep-card">
-            <h4>The Feedback Agreement</h4>
-            <p>To get your song to radio-ready standards, we use the <b>AllEars Mix Feedback</b> tab for all revisions. No random text messages or voice notes. This ensures every change is tracked and executed perfectly.</p>
-        </div>
-        <button class="primary-btn" onclick="certifyReady()">I Am Ready To Create</button>
-        <div id="ready-result" class="success-box">
-            <h3>Studio Access Granted</h3>
-            <p>You are officially prepped and aligned. Let's make a hit.</p>
-        </div>
-    </div>
-
-    <!-- TAB 4: ARRANGEMENT AUTOPSY -->
-    <div id="autopsy" class="tab-content">
-        <div class="prep-card" style="margin-bottom: 24px;">
-            <h4>The Arrangement Autopsy</h4>
-            <p>Hit songs are built on dynamic contrast. Map out your reference track's sections below and rate the energy from 1 (Quiet/Sparse) to 5 (Massive/Dense). We will generate an Autopsy Report to guide the arrangement.</p>
+    <!-- STEP 2: ARRANGEMENT + GENRE -->
+    <div id="step-2" class="step-content">
+        <div class="step-header">
+            <h2>Map The Structure</h2>
+            <p>Define the genre and map the energy flow of your track.</p>
         </div>
 
-        <div id="sections-container"></div>
+        <div class="input-group">
+            <label>Select Genre</label>
+            <div class="genre-grid">
+                <div class="genre-card" onclick="selectGenre(this, 'Afrobeats')">Afrobeats</div>
+                <div class="genre-card" onclick="selectGenre(this, 'Amapiano')">Amapiano</div>
+                <div class="genre-card" onclick="selectGenre(this, 'Hip-Hop')">Hip-Hop</div>
+                <div class="genre-card" onclick="selectGenre(this, 'R&B')">R&B</div>
+                <div class="genre-card" onclick="selectGenre(this, 'Pop')">Pop</div>
+                <div class="genre-card" onclick="selectGenre(this, 'Highlife')">Highlife</div>
+                <div class="genre-card" onclick="selectGenre(this, 'Gospel')">Gospel</div>
+                <div class="genre-card" onclick="selectGenre(this, 'Alté')">Alté</div>
+                <div class="genre-card" onclick="selectGenre(this, 'Fuji')">Fuji</div>
+                <div class="genre-card" onclick="selectGenre(this, 'EDM')">EDM</div>
+                <div class="genre-card" onclick="selectGenre(this, 'Reggae')">Reggae</div>
+                <div class="genre-card" onclick="selectGenre(this, 'Other')">Other</div>
+            </div>
+        </div>
 
-        <button class="secondary-btn" onclick="addSection()">+ Add Song Section</button>
-
-        <div style="margin-top: 24px;">
-            <button class="primary-btn" onclick="generateAutopsy()">Generate Autopsy Report</button>
+        <div class="input-group">
+            <label>Arrangement Energy Map</label>
+            <div id="sections-container"></div>
+            <button class="secondary-btn" onclick="addSection()" style="margin-top: 12px;">+ Add Section</button>
         </div>
 
         <div id="autopsy-result" class="result-box">
-            <h3>Arrangement Autopsy Report</h3>
+            <h3>Structure Analysis</h3>
             <div id="autopsy-translated-text"></div>
+        </div>
+
+        <div class="nav-footer">
+            <button class="secondary-btn" onclick="prevStep()">Back</button>
+            <button class="primary-btn" onclick="generateAutopsy(); nextStep();">Analyze & Next</button>
+        </div>
+    </div>
+
+    <!-- STEP 3: BOOKING -->
+    <div id="step-3" class="step-content">
+        <div class="step-header">
+            <h2>Book Your Studio Session</h2>
+            <p>Select your preferred date and time for the recording session.</p>
+        </div>
+
+        <div class="booking-section">
+            <h4>Select Date</h4>
+            <input type="date" id="booking-date" min="" onchange="updateTimeSlots()">
+        </div>
+
+        <div class="booking-section">
+            <h4>Available Time Slots</h4>
+            <div class="time-slots" id="time-slots-container">
+                <div class="time-slot" onclick="selectTimeSlot(this, '10:00 AM')">10:00 AM</div>
+                <div class="time-slot" onclick="selectTimeSlot(this, '12:00 PM')">12:00 PM</div>
+                <div class="time-slot" onclick="selectTimeSlot(this, '2:00 PM')">2:00 PM</div>
+                <div class="time-slot" onclick="selectTimeSlot(this, '4:00 PM')">4:00 PM</div>
+                <div class="time-slot" onclick="selectTimeSlot(this, '6:00 PM')">6:00 PM</div>
+                <div class="time-slot unavailable">8:00 PM</div>
+            </div>
+        </div>
+
+        <div class="booking-confirmation" id="booking-confirmation">
+            <h5>Session Booked</h5>
+            <p id="booking-details"></p>
+        </div>
+
+        <div class="nav-footer">
+            <button class="secondary-btn" onclick="prevStep()">Back</button>
+            <button class="primary-btn" onclick="confirmBooking(); nextStep();">Confirm & Next</button>
+        </div>
+    </div>
+
+    <!-- STEP 4: STUDIO PREP -->
+    <div id="step-4" class="step-content">
+        <div class="step-header">
+            <h2>The Studio Protocol</h2>
+            <p>To ensure radio-ready results, we adhere to strict professional standards.</p>
+        </div>
+
+        <div class="prep-card">
+            <h4>The House Building Rule</h4>
+            <p>We pour the foundation (drums/bass) before painting walls (synths). <b>Arrangement changes must happen before mixing.</b></p>
+        </div>
+        <div class="prep-card">
+            <h4>Vocal Readiness</h4>
+            <ul>
+                <li><b>Hydrate:</b> Room-temp water 24hrs prior. No dairy.</li>
+                <li><b>Rest:</b> Vocal cords need sleep.</li>
+                <li><b>Lyrics:</b> Memorized. We capture emotion, not reading.</li>
+            </ul>
+        </div>
+
+        <div class="nav-footer">
+            <button class="secondary-btn" onclick="prevStep()">Back</button>
+            <button class="primary-btn" onclick="nextStep()">Accept Protocols & Next</button>
+        </div>
+    </div>
+
+    <!-- STEP 5: MIX FEEDBACK -->
+    <div id="step-5" class="step-content">
+        <div class="step-header">
+            <h2>The Mix Session</h2>
+            <p>Translate your creative feelings into technical actions for the producer.</p>
+        </div>
+
+        <div class="input-group">
+            <label>Your Feedback</label>
+            <textarea id="fb-input" placeholder="e.g., Chorus needs to hit harder, vocals muddy..."></textarea>
+        </div>
+        
+        <button class="primary-btn" onclick="translateFeedback()" style="margin-bottom: 20px;">Translate Notes</button>
+
+        <div id="fb-result" class="result-box">
+            <h3>Technical Translation</h3>
+            <div id="fb-translated-text"></div>
+        </div>
+
+        <div class="nav-footer">
+            <button class="secondary-btn" onclick="prevStep()">Back</button>
+            <button class="primary-btn" onclick="alert('Session Notes Saved! Roc has been notified.')">Finalize Session</button>
         </div>
     </div>
 </div>
@@ -281,63 +503,98 @@
 </footer>
 
 <script>
+    let currentStep = 1;
+    const totalSteps = 5;
     let songSections = [];
+    let selectedGenre = '';
+    let selectedDate = '';
+    let selectedTime = '';
 
-    window.onload = function() {
-        addSection();
-    };
+    function updateStepperUI() {
+        document.querySelectorAll('.step-item').forEach(item => {
+            const stepNum = parseInt(item.getAttribute('data-step'));
+            item.classList.remove('active', 'completed');
+            
+            if (stepNum === currentStep) {
+                item.classList.add('active');
+            } else if (stepNum < currentStep) {
+                item.classList.add('completed');
+            }
+        });
 
-    function switchTab(tabName, evt) {
-        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-        document.getElementById(tabName).classList.add('active');
-        evt.currentTarget.classList.add('active');
+        document.querySelectorAll('.step-line').forEach((line, index) => {
+            if (index < currentStep - 1) {
+                line.classList.add('completed');
+            } else {
+                line.classList.remove('completed');
+            }
+        });
+
+        document.querySelectorAll('.step-content').forEach(content => {
+            content.classList.remove('active');
+        });
+        document.getElementById(`step-${currentStep}`).classList.add('active');
     }
 
-    function translateFeedback() {
-        const input = document.getElementById('fb-input').value.toLowerCase();
-        const resultBox = document.getElementById('fb-result');
-        const translatedText = document.getElementById('fb-translated-text');
-        let translations = [];
-
-        if (input.includes('pop') || input.includes('vocal') || input.includes('voice')) translations.push('<span class="badge">Vocals</span> Increase presence (EQ 3-5kHz), add saturation, parallel compression.');
-        if (input.includes('hit harder') || input.includes('punch') || input.includes('kick')) translations.push('<span class="badge">Drums</span> Enhance kick transients, parallel comp drum bus, sidechain bass.');
-        if (input.includes('muddy') || input.includes('unclear')) translations.push('<span class="badge">Clarity</span> High-pass non-bass, cut low-mids (200-400Hz), dynamic EQ.');
-        if (input.includes('vibe') || input.includes('space') || input.includes('wide')) translations.push('<span class="badge">Atmosphere</span> Tape emulation, widen stereo imaging (mid-side EQ), spatial delays.');
-        if (input.includes('loud') || input.includes('volume')) translations.push('<span class="badge">Mastering</span> Optimize master bus gain staging and limiting for commercial loudness.');
-
-        if (translations.length === 0) translations.push("Notes received. Please clarify if you mean <b>EQ (tone)</b>, <b>Levels (volume)</b>, or <b>Effects</b>.");
-
-        translatedText.innerHTML = translations.join('<br><br>');
-        resultBox.style.display = 'block';
+    function nextStep() {
+        if (currentStep < totalSteps) {
+            currentStep++;
+            updateStepperUI();
+            window.scrollTo(0, 0);
+        }
     }
 
-    function generateDNA() {
-        const location = document.getElementById('dna-location').value;
-        const anti = document.getElementById('dna-anti').value;
-        const arc = document.getElementById('dna-arc').value;
-        const refs = document.getElementById('dna-refs').value;
-        const output = document.getElementById('dna-translated-text');
-        let html = '';
-
-        if(location) html += '<div class="dna-item"><div class="dna-label">Environment</div>' + location + '</div>';
-        if(anti) html += '<div class="dna-item"><div class="dna-label">Anti-Reference</div>' + anti + '</div>';
-        if(arc) html += '<div class="dna-item"><div class="dna-label">Emotional Arc</div>' + arc + '</div>';
-        if(refs) html += '<div class="dna-item"><div class="dna-label">References</div>' + refs.replace(/\n/g, '<br>') + '</div>';
-
-        if(!html) html = "Please fill out at least one section.";
-        else html += '<div style="margin-top:16px; font-size:12px; color:var(--text-secondary); font-style:italic;">This blueprint has been locked. Your producer will use this to guide all arrangement and mix decisions.</div>';
-
-        output.innerHTML = html;
-        document.getElementById('dna-result').style.display = 'block';
+    function prevStep() {
+        if (currentStep > 1) {
+            currentStep--;
+            updateStepperUI();
+            window.scrollTo(0, 0);
+        }
     }
 
-    function certifyReady() {
-        const res = document.getElementById('ready-result');
-        res.style.display = 'block';
-        res.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Genre Selection
+    function selectGenre(element, genre) {
+        document.querySelectorAll('.genre-card').forEach(card => card.classList.remove('selected'));
+        element.classList.add('selected');
+        selectedGenre = genre;
     }
 
+    // Booking System
+    function updateTimeSlots() {
+        const dateInput = document.getElementById('booking-date');
+        selectedDate = dateInput.value;
+        // In a real app, you'd fetch available slots from a backend
+        // For now, we'll just show the static slots
+    }
+
+    function selectTimeSlot(element, time) {
+        if (element.classList.contains('unavailable')) return;
+        
+        document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('selected'));
+        element.classList.add('selected');
+        selectedTime = time;
+    }
+
+    function confirmBooking() {
+        if (!selectedDate || !selectedTime) {
+            alert('Please select both a date and time slot.');
+            return;
+        }
+
+        const dateObj = new Date(selectedDate);
+        const formattedDate = dateObj.toLocaleDateString('en-US', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+
+        const details = `Your session is confirmed for ${formattedDate} at ${selectedTime}. Genre: ${selectedGenre || 'TBD'}. Roc will prepare the studio accordingly.`;
+        document.getElementById('booking-details').textContent = details;
+        document.getElementById('booking-confirmation').style.display = 'block';
+    }
+
+    // Arrangement
     function addSection() {
         const id = Date.now();
         songSections.push({ id, name: 'Verse', energy: 3 });
@@ -358,10 +615,9 @@
         const container = document.getElementById('sections-container');
         container.innerHTML = songSections.map(s => 
             '<div class="section-row">' +
-                '<select onchange="updateSection(' + s.id + ', \'name\', this.value)">' +
+                '<select onchange="updateSection(' + s.id + ', \'name\', this.value)" style="flex:1;">' +
                     '<option ' + (s.name==='Intro'?'selected':'') + '>Intro</option>' +
                     '<option ' + (s.name==='Verse'?'selected':'') + '>Verse</option>' +
-                    '<option ' + (s.name==='Pre-Chorus'?'selected':'') + '>Pre-Chorus</option>' +
                     '<option ' + (s.name==='Chorus'?'selected':'') + '>Chorus</option>' +
                     '<option ' + (s.name==='Bridge'?'selected':'') + '>Bridge</option>' +
                     '<option ' + (s.name==='Outro'?'selected':'') + '>Outro</option>' +
@@ -374,44 +630,45 @@
     }
 
     function generateAutopsy() {
-        if(songSections.length === 0) { alert("Add at least one section."); return; }
-
+        if(songSections.length === 0) return;
         const output = document.getElementById('autopsy-translated-text');
-        let html = '<div style="margin-bottom:24px;">';
-
+        let html = '<div style="margin-bottom:20px;">';
         songSections.forEach(s => {
             const width = (s.energy / 5) * 100;
-            html += '<div class="energy-bar-container">' +
-                '<div class="energy-label">' + s.name + '</div>' +
-                '<div class="energy-bar-bg"><div class="energy-bar-fill" style="width: ' + width + '%;"></div></div>' +
-            '</div>';
+            html += '<div class="energy-bar-container"><div class="energy-label">' + s.name + '</div><div class="energy-bar-bg"><div class="energy-bar-fill" style="width: ' + width + '%;"></div></div></div>';
         });
-
-        html += '</div><h4 style="color:var(--text-primary); margin:0 0 14px 0; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:1px;">Producer Insights</h4>';
-
-        for (let i = 1; i < songSections.length; i++) {
-            const prev = songSections[i-1];
-            const curr = songSections[i];
-            const diff = curr.energy - prev.energy;
-
-            if (curr.name === 'Chorus' && curr.energy > prev.energy) {
-                html += '<p class="autopsy-note positive"><b>' + curr.name + ' Impact:</b> Strong contrast. The energy jump from ' + prev.name + ' (' + prev.energy + ') to ' + curr.name + ' (' + curr.energy + ') creates the drop feeling listeners crave.</p>';
-            } else if (curr.name === 'Bridge' && curr.energy < prev.energy) {
-                html += '<p class="autopsy-note positive"><b>Bridge Tension:</b> Dropping energy in the bridge (' + curr.energy + ') after a high-energy chorus resets the listener\'s ear for the final climax.</p>';
-            } else if (diff === 0) {
-                html += '<p class="autopsy-note warning"><b>Stagnation Warning:</b> ' + prev.name + ' and ' + curr.name + ' share the same energy (' + curr.energy + '). Consider adding or subtracting elements to maintain engagement.</p>';
-            }
-        }
-
-        if(songSections[0].energy > 2) {
-            html += '<p class="autopsy-note warning"><b>Intro Warning:</b> Starting at high energy (' + songSections[0].energy + ') leaves limited room to build. Consider starting sparse.</p>';
-        }
-
-        html += '<div style="margin-top:20px; padding-top:16px; border-top: 1px solid var(--border); font-size:12px; color:var(--text-secondary);">Autopsy complete. Your producer will use this dynamic map to arrange the track for maximum emotional impact.</div>';
-
+        html += '</div><p style="font-size:13px; color:var(--text-secondary);">Structure mapped. Ready for production.</p>';
         output.innerHTML = html;
         document.getElementById('autopsy-result').style.display = 'block';
     }
+
+    // Feedback
+    function translateFeedback() {
+        const input = document.getElementById('fb-input').value.toLowerCase();
+        const resultBox = document.getElementById('fb-result');
+        const translatedText = document.getElementById('fb-translated-text');
+        let translations = [];
+
+        if (input.includes('pop') || input.includes('vocal')) translations.push('<span class="badge">Vocals</span> Increase presence (EQ 3-5kHz), add saturation.');
+        if (input.includes('hit harder') || input.includes('kick')) translations.push('<span class="badge">Drums</span> Enhance transients, sidechain bass.');
+        if (input.includes('muddy')) translations.push('<span class="badge">Clarity</span> Cut low-mids (200-400Hz).');
+        if (input.includes('vibe') || input.includes('wide')) translations.push('<span class="badge">Space</span> Widen stereo imaging, add delay throws.');
+
+        if (translations.length === 0) translations.push("Notes received. Clarification requested.");
+
+        translatedText.innerHTML = translations.join('<br><br>');
+        resultBox.style.display = 'block';
+    }
+
+    // Init
+    window.onload = function() {
+        addSection();
+        updateStepperUI();
+        
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('booking-date').setAttribute('min', today);
+    };
 </script>
 
 </body>
