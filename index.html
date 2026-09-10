@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AllEars | Feedback Translator</title>
+    <title>AllEars | Producer-Client OS</title>
     <style>
         :root {
             --bg-color: #0d1117;
@@ -33,14 +33,14 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 40px;
-            max-width: 600px;
+            max-width: 650px;
             width: 100%;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .header h1 {
@@ -57,6 +57,52 @@
             margin-top: 8px;
         }
 
+        /* --- TAB NAVIGATION --- */
+        .nav-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 30px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            padding: 15px 0;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- FORM ELEMENTS --- */
         .input-group {
             margin-bottom: 20px;
         }
@@ -69,27 +115,31 @@
             color: var(--text-secondary);
         }
 
-        textarea {
+        textarea, input[type="text"], select {
             width: 100%;
-            height: 120px;
             background-color: var(--bg-color);
             border: 1px solid var(--border);
             border-radius: 8px;
-            padding: 15px;
+            padding: 12px 15px;
             color: var(--text-primary);
-            font-size: 16px;
-            resize: vertical;
+            font-size: 15px;
             box-sizing: border-box;
             transition: border-color 0.3s;
+            font-family: inherit;
         }
 
-        textarea:focus {
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        textarea:focus, input[type="text"]:focus, select:focus {
             outline: none;
             border-color: var(--accent);
             box-shadow: 0 0 0 3px var(--accent-glow);
         }
 
-        button {
+        button.primary-btn {
             width: 100%;
             padding: 14px;
             background-color: var(--accent);
@@ -104,14 +154,10 @@
             letter-spacing: 1px;
         }
 
-        button:hover {
-            opacity: 0.9;
-        }
+        button.primary-btn:hover { opacity: 0.9; }
+        button.primary-btn:active { transform: scale(0.98); }
 
-        button:active {
-            transform: scale(0.98);
-        }
-
+        /* --- RESULT BOXES --- */
         .result-box {
             margin-top: 25px;
             padding: 20px;
@@ -122,15 +168,16 @@
         }
 
         .result-box h3 {
-            margin: 0 0 10px 0;
+            margin: 0 0 15px 0;
             color: var(--accent);
             font-size: 16px;
         }
 
-        .result-box p {
+        .result-box p, .result-box div {
             margin: 0;
             line-height: 1.6;
             color: var(--text-primary);
+            font-size: 14px;
         }
         
         .badge {
@@ -144,7 +191,26 @@
             margin-right: 5px;
         }
 
-        /* --- NEW FOOTER STYLES --- */
+        .dna-item {
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .dna-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .dna-label {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        /* --- FOOTER --- */
         .footer {
             text-align: center;
             margin-top: 30px;
@@ -161,36 +227,95 @@
 <div class="container">
     <div class="header">
         <h1>AllEars</h1>
-        <p>Translate your creative vision into technical producer notes.</p>
+        <p>The Producer-Client Alignment OS</p>
     </div>
 
-    <div class="input-group">
-        <label for="feedback">What are your thoughts on the latest mix?</label>
-        <textarea id="feedback" placeholder="e.g., The chorus needs to hit harder, but the vocals are a bit muddy and I want them to pop more..."></textarea>
+    <!-- NAVIGATION TABS -->
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('feedback')">Mix Feedback</button>
+        <button class="tab-btn" onclick="switchTab('sonic-dna')">Sonic DNA Blueprint</button>
     </div>
 
-    <button onclick="translateFeedback()">Translate to Producer Notes</button>
+    <!-- TAB 1: FEEDBACK TRANSLATOR -->
+    <div id="feedback" class="tab-content active">
+        <div class="input-group">
+            <label for="fb-input">What are your thoughts on the latest mix?</label>
+            <textarea id="fb-input" placeholder="e.g., The chorus needs to hit harder, but the vocals are a bit muddy and I want them to pop more..."></textarea>
+        </div>
+        <button class="primary-btn" onclick="translateFeedback()">Translate to Producer Notes</button>
 
-    <div id="result" class="result-box">
-        <h3>🎛️ Translated Technical Notes for Your Producer:</h3>
-        <p id="translated-text"></p>
+        <div id="fb-result" class="result-box">
+            <h3>🎛️ Translated Technical Notes:</h3>
+            <div id="fb-translated-text"></div>
+        </div>
+    </div>
+
+    <!-- TAB 2: SONIC DNA BLUEPRINT -->
+    <div id="sonic-dna" class="tab-content">
+        <div class="input-group">
+            <label>1. The Sonic Location</label>
+            <select id="dna-location">
+                <option value="">Select the environment...</option>
+                <option value="A dimly lit, intimate lounge at 2 AM.">A dimly lit, intimate lounge at 2 AM.</option>
+                <option value="A sun-drenched coastal highway with the top down.">A sun-drenched coastal highway with the top down.</option>
+                <option value="A dark, gritty underground warehouse rave.">A dark, gritty underground warehouse rave.</option>
+                <option value="A massive, echoing cathedral or stadium.">A massive, echoing cathedral or stadium.</option>
+                <option value="A cozy, nostalgic living room with a fireplace.">A cozy, nostalgic living room with a fireplace.</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>2. The "Anti-Reference" (What we are avoiding)</label>
+            <input type="text" id="dna-anti" placeholder="e.g., We do NOT want it to sound like generic TikTok pop, or overly polished 80s rock...">
+        </div>
+
+        <div class="input-group">
+            <label>3. The Emotional Arc</label>
+            <select id="dna-arc">
+                <option value="">Select the journey...</option>
+                <option value="Starts vulnerable and quiet, builds to a massive, triumphant climax.">Starts vulnerable and quiet ➡️ Builds to a massive, triumphant climax.</option>
+                <option value="Starts aggressive and chaotic, resolves into a peaceful, atmospheric outro.">Starts aggressive and chaotic ➡️ Resolves into a peaceful, atmospheric outro.</option>
+                <option value="Stays consistently dark, heavy, and hypnotic from start to finish.">Stays consistently dark, heavy, and hypnotic from start to finish.</option>
+                <option value="Starts upbeat and catchy, but the lyrics reveal a deep, hidden sadness.">Starts upbeat and catchy ➡️ Lyrics reveal deep, hidden sadness.</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>4. Core Reference Tracks (Links or Names)</label>
+            <textarea id="dna-refs" placeholder="e.g., 1. The Weeknd - Blinding Lights (for the synth tone) &#10;2. Frank Ocean - Pink + White (for the vocal vibe)"></textarea>
+        </div>
+
+        <button class="primary-btn" onclick="generateDNA()">Generate Sonic DNA Blueprint</button>
+
+        <div id="dna-result" class="result-box">
+            <h3>🧬 Sonic DNA Blueprint Generated:</h3>
+            <div id="dna-translated-text"></div>
+        </div>
     </div>
 </div>
 
-<!-- NEW FOOTER -->
 <footer class="footer">
     Created By RocAudio™ Tech Company
 </footer>
 
 <script>
+    // --- TAB SWITCHING LOGIC ---
+    function switchTab(tabName) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        
+        document.getElementById(tabName).classList.add('active');
+        event.target.classList.add('active');
+    }
+
+    // --- MODULE 1: FEEDBACK TRANSLATOR LOGIC ---
     function translateFeedback() {
-        const input = document.getElementById('feedback').value.toLowerCase();
-        const resultBox = document.getElementById('result');
-        const translatedText = document.getElementById('translated-text');
+        const input = document.getElementById('fb-input').value.toLowerCase();
+        const resultBox = document.getElementById('fb-result');
+        const translatedText = document.getElementById('fb-translated-text');
         
         let translations = [];
 
-        // The "Brain" - Keyword matching
         if (input.includes('pop') || input.includes('vocal') || input.includes('voice')) {
             translations.push('<span class="badge">VOCALS</span> Increase vocal presence (EQ boost around 3-5kHz), add subtle saturation, and apply parallel compression to make them cut through the mix.');
         }
@@ -204,15 +329,41 @@
             translations.push('<span class="badge">ATMOSPHERE</span> Add analog tape emulation for warmth, widen the stereo imaging on synths/pads using mid-side EQ, and introduce subtle spatial effects (delay/reverb throws).');
         }
         if (input.includes('loud') || input.includes('volume') || input.includes('quiet')) {
-            translations.push('<span class="badge">MASTERING</span> Optimize the master bus gain staging and limiting. (Note: We will ensure the loudness matches commercial standards during the final master, rather than just pushing the fader up now).');
+            translations.push('<span class="badge">MASTERING</span> Optimize the master bus gain staging and limiting. (Note: We will ensure the loudness matches commercial standards during the final master).');
         }
 
-        // Fallback if no keywords match
         if (translations.length === 0) {
             translations.push("I've received your notes! To help me dial this in perfectly, could you clarify if you are referring to the <b>EQ (tone)</b>, the <b>Levels (volume)</b>, or the <b>Effects (reverb/delay)</b>?");
         }
 
         translatedText.innerHTML = translations.join('<br><br>');
+        resultBox.style.display = 'block';
+    }
+
+    // --- MODULE 2: SONIC DNA LOGIC ---
+    function generateDNA() {
+        const location = document.getElementById('dna-location').value;
+        const anti = document.getElementById('dna-anti').value;
+        const arc = document.getElementById('dna-arc').value;
+        const refs = document.getElementById('dna-refs').value;
+
+        const resultBox = document.getElementById('dna-result');
+        const output = document.getElementById('dna-translated-text');
+
+        let html = '';
+
+        if(location) html += `<div class="dna-item"><div class="dna-label">Sonic Environment</div>${location}</div>`;
+        if(anti) html += `<div class="dna-item"><div class="dna-label">The Anti-Reference (Avoid)</div>${anti}</div>`;
+        if(arc) html += `<div class="dna-item"><div class="dna-label">Emotional Arc</div>${arc}</div>`;
+        if(refs) html += `<div class="dna-item"><div class="dna-label">Core References</div>${refs.replace(/\n/g, '<br>')}</div>`;
+
+        if(!html) {
+            html = "Please fill out at least one section to generate your Sonic DNA.";
+        } else {
+            html += `<div style="margin-top: 15px; font-size: 12px; color: var(--text-secondary); font-style: italic;">*This blueprint has been locked in. The producer will use this to guide all arrangement, sound design, and mixing decisions.</div>`;
+        }
+
+        output.innerHTML = html;
         resultBox.style.display = 'block';
     }
 </script>
