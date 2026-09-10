@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudioAlign | Feedback Translator</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --accent: #58a6ff;
+            --accent-glow: rgba(88, 166, 255, 0.2);
+            --border: #30363d;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin: 0;
+            color: var(--accent);
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            color: var(--text-primary);
+            font-size: 16px;
+            resize: vertical;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--accent);
+            color: #0d1117;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.1s, opacity 0.3s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .result-box {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: rgba(88, 166, 255, 0.05);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .result-box h3 {
+            margin: 0 0 10px 0;
+            color: var(--accent);
+            font-size: 16px;
+        }
+
+        .result-box p {
+            margin: 0;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+        
+        .badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--bg-color);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>STUDIOALIGN</h1>
+        <p>Translate your creative vision into technical producer notes.</p>
+    </div>
+
+    <div class="input-group">
+        <label for="feedback">What are your thoughts on the latest mix?</label>
+        <textarea id="feedback" placeholder="e.g., The chorus needs to hit harder, but the vocals are a bit muddy and I want them to pop more..."></textarea>
+    </div>
+
+    <button onclick="translateFeedback()">Translate to Producer Notes</button>
+
+    <div id="result" class="result-box">
+        <h3>🎛️ Translated Technical Notes for Roc:</h3>
+        <p id="translated-text"></p>
+    </div>
+</div>
+
+<script>
+    function translateFeedback() {
+        const input = document.getElementById('feedback').value.toLowerCase();
+        const resultBox = document.getElementById('result');
+        const translatedText = document.getElementById('translated-text');
+        
+        let translations = [];
+
+        // The "Brain" - Keyword matching
+        if (input.includes('pop') || input.includes('vocal') || input.includes('voice')) {
+            translations.push('<span class="badge">VOCALS</span> Increase vocal presence (EQ boost around 3-5kHz), add subtle saturation, and apply parallel compression to make them cut through the mix.');
+        }
+        if (input.includes('hit harder') || input.includes('punch') || input.includes('kick') || input.includes('drums')) {
+            translations.push('<span class="badge">DRUMS</span> Enhance kick drum transients, apply parallel compression to the drum bus, and ensure the bass is properly sidechained to the kick for maximum impact.');
+        }
+        if (input.includes('muddy') || input.includes('unclear') || input.includes('clashing')) {
+            translations.push('<span class="badge">CLARITY</span> Apply high-pass filtering to non-bass instruments, cut conflicting low-mids (200-400Hz), and use dynamic EQ to clear up frequency masking.');
+        }
+        if (input.includes('vibe') || input.includes('mood') || input.includes('space') || input.includes('wide')) {
+            translations.push('<span class="badge">ATMOSPHERE</span> Add analog tape emulation for warmth, widen the stereo imaging on synths/pads using mid-side EQ, and introduce subtle spatial effects (delay/reverb throws).');
+        }
+        if (input.includes('loud') || input.includes('volume') || input.includes('quiet')) {
+            translations.push('<span class="badge">MASTERING</span> Optimize the master bus gain staging and limiting. (Note: We will ensure the loudness matches commercial standards during the final master, rather than just pushing the fader up now).');
+        }
+
+        // Fallback if no keywords match
+        if (translations.length === 0) {
+            translations.push("I've received your notes! To help me dial this in perfectly, could you clarify if you are referring to the <b>EQ (tone)</b>, the <b>Levels (volume)</b>, or the <b>Effects (reverb/delay)</b>?");
+        }
+
+        translatedText.innerHTML = translations.join('<br><br>');
+        resultBox.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
