@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudioAlign | Feedback Translator</title>
+    <title>AllEars | Feedback Translator</title>
     <style>
         :root {
             --bg-color: #0d1117;
@@ -20,6 +20,7 @@
             background-color: var(--bg-color);
             color: var(--text-primary);
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
@@ -43,10 +44,11 @@
         }
 
         .header h1 {
-            font-size: 24px;
+            font-size: 28px;
             margin: 0;
             color: var(--accent);
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .header p {
@@ -98,6 +100,8 @@
             border-radius: 8px;
             cursor: pointer;
             transition: transform 0.1s, opacity 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         button:hover {
@@ -139,13 +143,24 @@
             font-weight: bold;
             margin-right: 5px;
         }
+
+        /* --- NEW FOOTER STYLES --- */
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header">
-        <h1>STUDIOALIGN</h1>
+        <h1>AllEars</h1>
         <p>Translate your creative vision into technical producer notes.</p>
     </div>
 
@@ -157,10 +172,15 @@
     <button onclick="translateFeedback()">Translate to Producer Notes</button>
 
     <div id="result" class="result-box">
-        <h3>🎛️ Translated Technical Notes for Roc:</h3>
+        <h3>🎛️ Translated Technical Notes for Your Producer:</h3>
         <p id="translated-text"></p>
     </div>
 </div>
+
+<!-- NEW FOOTER -->
+<footer class="footer">
+    Created By RocAudio™ Tech Company
+</footer>
 
 <script>
     function translateFeedback() {
