@@ -4,21 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AllEars | Producer-Client OS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
-            --text-primary: #f0f6fc;
-            --text-secondary: #8b949e;
-            --accent: #58a6ff;
-            --accent-glow: rgba(88, 166, 255, 0.2);
-            --success: #3fb950;
-            --success-glow: rgba(63, 185, 80, 0.2);
-            --border: #30363d;
+            --bg-color: #0a0a0b;
+            --card-bg: #131316;
+            --text-primary: #e8e8ed;
+            --text-secondary: #6e6e7a;
+            --accent: #7c8aff;
+            --accent-soft: rgba(124, 138, 255, 0.08);
+            --accent-glow: rgba(124, 138, 255, 0.15);
+            --success: #4ade80;
+            --success-soft: rgba(74, 222, 128, 0.08);
+            --warning: #f59e0b;
+            --border: #1e1e24;
+            --border-light: #2a2a32;
         }
 
+        * { box-sizing: border-box; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-primary);
             display: flex;
@@ -28,57 +36,77 @@
             min-height: 100vh;
             margin: 0;
             padding: 20px;
+            -webkit-font-smoothing: antialiased;
         }
 
         .container {
             background-color: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 40px;
-            max-width: 700px;
+            border-radius: 16px;
+            padding: 48px 40px;
+            max-width: 720px;
             width: 100%;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.03) inset;
         }
 
+        /* --- HEADER / LOGO --- */
         .header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 36px;
         }
 
-        .header h1 {
-            font-size: 28px;
-            margin: 0;
+        .logo {
+            font-family: 'Great Vibes', cursive;
+            font-size: 56px;
             color: var(--accent);
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            margin: 0;
+            line-height: 1;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo-flourish {
+            display: block;
+            width: 120px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            margin: 8px auto 0;
         }
 
         .header p {
             color: var(--text-secondary);
-            font-size: 14px;
-            margin-top: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-top: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
 
         /* --- TAB NAVIGATION --- */
         .nav-tabs {
             display: flex;
             border-bottom: 1px solid var(--border);
-            margin-bottom: 30px;
+            margin-bottom: 32px;
+            overflow-x: auto;
+            gap: 0;
         }
 
         .tab-btn {
             flex: 1;
             background: none;
             border: none;
-            padding: 15px 0;
+            padding: 14px 8px;
             color: var(--text-secondary);
-            font-size: 13px;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
             font-weight: 600;
             cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             transition: all 0.3s;
             border-bottom: 2px solid transparent;
+            white-space: nowrap;
         }
 
         .tab-btn:hover { color: var(--text-primary); }
@@ -88,38 +116,33 @@
         }
 
         .tab-content { display: none; }
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.4s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .tab-content.active { display: block; animation: fadeIn 0.35s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- FORM ELEMENTS --- */
-        .input-group { margin-bottom: 20px; }
+        .input-group { margin-bottom: 22px; }
 
         label {
             display: block;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 600;
             margin-bottom: 8px;
             color: var(--text-secondary);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         textarea, input[type="text"], select {
             width: 100%;
             background-color: var(--bg-color);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 12px 15px;
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 13px 16px;
             color: var(--text-primary);
-            font-size: 15px;
-            box-sizing: border-box;
-            transition: border-color 0.3s;
-            font-family: inherit;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
 
         textarea { height: 100px; resize: vertical; }
@@ -130,101 +153,198 @@
             box-shadow: 0 0 0 3px var(--accent-glow);
         }
 
-        button.primary-btn {
-            width: 100%;
-            padding: 14px;
-            background-color: var(--accent);
-            color: #0d1117;
-            font-size: 16px;
-            font-weight: 700;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.1s, opacity 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        select option {
+            background: var(--bg-color);
+            color: var(--text-primary);
         }
 
-        button.primary-btn:hover { opacity: 0.9; }
+        button.primary-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--accent), #6366f1);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.15s, opacity 0.3s, box-shadow 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 20px rgba(124, 138, 255, 0.2);
+        }
+
+        button.primary-btn:hover { opacity: 0.92; box-shadow: 0 6px 30px rgba(124, 138, 255, 0.3); }
         button.primary-btn:active { transform: scale(0.98); }
+
+        button.secondary-btn {
+            background: transparent;
+            border: 1px solid var(--border-light);
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            padding: 9px 18px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+            transition: all 0.2s;
+        }
+        button.secondary-btn:hover { border-color: var(--accent); color: var(--accent); }
 
         /* --- RESULT BOXES --- */
         .result-box {
-            margin-top: 25px;
-            padding: 20px;
-            background-color: rgba(88, 166, 255, 0.05);
-            border: 1px solid var(--accent);
-            border-radius: 8px;
+            margin-top: 28px;
+            padding: 24px;
+            background-color: var(--accent-soft);
+            border: 1px solid rgba(124, 138, 255, 0.15);
+            border-radius: 12px;
             display: none;
         }
 
-        .result-box h3 { margin: 0 0 15px 0; color: var(--accent); font-size: 16px; }
-        .result-box p, .result-box div { margin: 0; line-height: 1.6; color: var(--text-primary); font-size: 14px; }
-        
+        .result-box h3 {
+            margin: 0 0 16px 0;
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .result-box p, .result-box div {
+            margin: 0;
+            line-height: 1.7;
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
         .badge {
             display: inline-block;
             background: var(--accent);
-            color: var(--bg-color);
-            padding: 2px 8px;
+            color: #fff;
+            padding: 3px 10px;
             border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-            margin-right: 5px;
+            font-size: 10px;
+            font-weight: 700;
+            margin-right: 6px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-        .dna-item { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+        .dna-item { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
         .dna-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .dna-label { font-weight: 700; color: var(--accent); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+        .dna-label {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 5px;
+        }
 
-        /* --- MODULE 3: STUDIO PREP STYLES --- */
+        /* --- MODULE 3: STUDIO PREP --- */
         .prep-card {
             background: var(--bg-color);
             border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
         }
+
         .prep-card h4 {
             margin: 0 0 10px 0;
-            color: var(--accent);
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
         }
+
         .prep-card p, .prep-card li {
             color: var(--text-secondary);
-            font-size: 14px;
-            line-height: 1.6;
+            font-size: 13px;
+            line-height: 1.7;
             margin: 0;
         }
-        .prep-card ul {
-            margin: 10px 0 0 0;
-            padding-left: 20px;
-        }
+
+        .prep-card ul { margin: 10px 0 0 0; padding-left: 18px; }
         .prep-card li { margin-bottom: 6px; }
+        .prep-card li b { color: var(--text-primary); font-weight: 600; }
 
         .success-box {
-            margin-top: 25px;
-            padding: 25px;
-            background-color: rgba(63, 185, 80, 0.05);
-            border: 1px solid var(--success);
-            border-radius: 8px;
+            margin-top: 28px;
+            padding: 28px;
+            background-color: var(--success-soft);
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            border-radius: 12px;
             display: none;
             text-align: center;
         }
-        .success-box h3 { color: var(--success); margin: 0 0 10px 0; }
-        .success-box p { color: var(--text-primary); }
+        .success-box h3 {
+            color: var(--success);
+            margin: 0 0 10px 0;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .success-box p { color: var(--text-primary); font-size: 14px; }
+
+        /* --- MODULE 4: AUTOPSY --- */
+        .section-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 10px;
+            background: var(--bg-color);
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+        .section-row select, .section-row input { margin: 0; padding: 8px 10px; font-size: 13px; }
+        .remove-btn {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-light);
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .remove-btn:hover { border-color: #f87171; color: #f87171; }
+
+        .energy-bar-container { display: flex; align-items: center; margin-bottom: 12px; }
+        .energy-label { width: 100px; font-weight: 600; font-size: 12px; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 0.5px; }
+        .energy-bar-bg { flex: 1; height: 8px; background: var(--bg-color); border-radius: 4px; overflow: hidden; border: 1px solid var(--border); }
+        .energy-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #a78bfa); border-radius: 4px; transition: width 0.5s ease; }
+
+        .autopsy-note {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            line-height: 1.6;
+            padding-left: 12px;
+            border-left: 2px solid var(--border-light);
+        }
+        .autopsy-note b { color: var(--text-primary); }
+        .autopsy-note.positive { border-left-color: var(--success); }
+        .autopsy-note.warning { border-left-color: var(--warning); }
 
         /* --- FOOTER --- */
         .footer {
             text-align: center;
-            margin-top: 30px;
-            font-size: 11px;
+            margin-top: 32px;
+            font-size: 10px;
             color: var(--text-secondary);
-            opacity: 0.6;
+            opacity: 0.5;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -232,184 +352,248 @@
 
 <div class="container">
     <div class="header">
-        <h1>AllEars</h1>
-        <p>The Producer-Client Alignment OS</p>
+        <h1 class="logo">AllEars</h1>
+        <span class="logo-flourish"></span>
+        <p>Producer-Client Alignment OS</p>
     </div>
 
-    <!-- NAVIGATION TABS -->
     <div class="nav-tabs">
         <button class="tab-btn active" onclick="switchTab('feedback', event)">Mix Feedback</button>
         <button class="tab-btn" onclick="switchTab('sonic-dna', event)">Sonic DNA</button>
         <button class="tab-btn" onclick="switchTab('studio-ready', event)">Studio Prep</button>
+        <button class="tab-btn" onclick="switchTab('autopsy', event)">Arrangement</button>
     </div>
 
-    <!-- TAB 1: FEEDBACK TRANSLATOR -->
+    <!-- TAB 1: FEEDBACK -->
     <div id="feedback" class="tab-content active">
         <div class="input-group">
             <label for="fb-input">What are your thoughts on the latest mix?</label>
-            <textarea id="fb-input" placeholder="e.g., The chorus needs to hit harder, but the vocals are a bit muddy and I want them to pop more..."></textarea>
+            <textarea id="fb-input" placeholder="e.g., The chorus needs to hit harder, but the vocals are a bit muddy..."></textarea>
         </div>
         <button class="primary-btn" onclick="translateFeedback()">Translate to Producer Notes</button>
-
         <div id="fb-result" class="result-box">
-            <h3>🎛️ Translated Technical Notes:</h3>
+            <h3>Translated Technical Notes</h3>
             <div id="fb-translated-text"></div>
         </div>
     </div>
 
-    <!-- TAB 2: SONIC DNA BLUEPRINT -->
+    <!-- TAB 2: SONIC DNA -->
     <div id="sonic-dna" class="tab-content">
         <div class="input-group">
             <label>1. The Sonic Location</label>
             <select id="dna-location">
                 <option value="">Select the environment...</option>
-                <option value="A dimly lit, intimate lounge at 2 AM.">A dimly lit, intimate lounge at 2 AM.</option>
-                <option value="A sun-drenched coastal highway with the top down.">A sun-drenched coastal highway with the top down.</option>
-                <option value="A dark, gritty underground warehouse rave.">A dark, gritty underground warehouse rave.</option>
-                <option value="A massive, echoing cathedral or stadium.">A massive, echoing cathedral or stadium.</option>
-                <option value="A cozy, nostalgic living room with a fireplace.">A cozy, nostalgic living room with a fireplace.</option>
+                <option value="A dimly lit, intimate lounge at 2 AM.">Dimly lit lounge at 2 AM</option>
+                <option value="A sun-drenched coastal highway with the top down.">Sun-drenched coastal highway</option>
+                <option value="A dark, gritty underground warehouse rave.">Dark underground warehouse rave</option>
+                <option value="A massive, echoing cathedral or stadium.">Massive echoing stadium</option>
             </select>
         </div>
-
         <div class="input-group">
-            <label>2. The "Anti-Reference" (What we are avoiding)</label>
+            <label>2. The Anti-Reference (What we are avoiding)</label>
             <input type="text" id="dna-anti" placeholder="e.g., We do NOT want it to sound like generic TikTok pop...">
         </div>
-
         <div class="input-group">
             <label>3. The Emotional Arc</label>
             <select id="dna-arc">
                 <option value="">Select the journey...</option>
-                <option value="Starts vulnerable and quiet, builds to a massive, triumphant climax.">Starts vulnerable ➡️ Builds to triumphant climax.</option>
-                <option value="Starts aggressive and chaotic, resolves into a peaceful, atmospheric outro.">Starts aggressive ➡️ Resolves into peaceful outro.</option>
-                <option value="Stays consistently dark, heavy, and hypnotic from start to finish.">Stays consistently dark, heavy, and hypnotic.</option>
-                <option value="Starts upbeat and catchy, but the lyrics reveal a deep, hidden sadness.">Starts upbeat ➡️ Lyrics reveal hidden sadness.</option>
+                <option value="Starts vulnerable, builds to a massive, triumphant climax.">Vulnerable to Triumphant climax</option>
+                <option value="Starts aggressive, resolves into a peaceful outro.">Aggressive to Peaceful outro</option>
+                <option value="Stays consistently dark, heavy, and hypnotic.">Consistently dark and hypnotic</option>
             </select>
         </div>
-
         <div class="input-group">
-            <label>4. Core Reference Tracks (Links or Names)</label>
-            <textarea id="dna-refs" placeholder="e.g., 1. The Weeknd - Blinding Lights (for the synth tone) &#10;2. Frank Ocean - Pink + White (for the vocal vibe)"></textarea>
+            <label>4. Core Reference Tracks</label>
+            <textarea id="dna-refs" placeholder="e.g., 1. The Weeknd - Blinding Lights (for synths)"></textarea>
         </div>
-
         <button class="primary-btn" onclick="generateDNA()">Generate Sonic DNA Blueprint</button>
-
         <div id="dna-result" class="result-box">
-            <h3>🧬 Sonic DNA Blueprint Generated:</h3>
+            <h3>Sonic DNA Blueprint</h3>
             <div id="dna-translated-text"></div>
         </div>
     </div>
 
-    <!-- TAB 3: STUDIO READINESS PROTOCOL -->
+    <!-- TAB 3: STUDIO PREP -->
     <div id="studio-ready" class="tab-content">
         <div class="prep-card">
-            <h4>🏗️ 1. The "House Building" Rule</h4>
-            <p>Making a record is like building a house. We must pour the foundation (drums/bass) before we paint the walls (synths/guitars), and we can't hang the art (vocals) until the walls are up. <b>Revisions on the arrangement must happen before we mix.</b></p>
+            <h4>The House Building Rule</h4>
+            <p>Making a record is like building a house. We pour the foundation (drums/bass) before we paint the walls (synths/guitars). <b>Revisions on arrangement must happen before we mix.</b></p>
         </div>
-
         <div class="prep-card">
-            <h4>🎤 2. Vocal & Mental Prep Checklist</h4>
+            <h4>Vocal and Mental Prep</h4>
             <ul>
-                <li><b>Hydrate:</b> Drink room-temperature water for 24 hours before the session. Avoid ice cold water or dairy.</li>
-                <li><b>Rest:</b> Your vocal cords need sleep. No late nights before recording.</li>
-                <li><b>Know Your Lyrics:</b> We are here to capture emotion, not read off a phone screen. Memorize your parts.</li>
-                <li><b>Bring the Vibe:</b> Bring a playlist of songs that get you in the right headspace to play in the studio.</li>
+                <li><b>Hydrate:</b> Room-temperature water for 24 hours prior. No ice water or dairy.</li>
+                <li><b>Rest:</b> Vocal cords need sleep. No late nights before recording.</li>
+                <li><b>Know Your Lyrics:</b> We are here to capture emotion, not read off a screen.</li>
             </ul>
         </div>
-
         <div class="prep-card">
-            <h4>🤝 3. The Feedback Agreement</h4>
-            <p>To get your song to the radio-ready standard, we use the <b>AllEars Mix Feedback</b> tab for all revisions. We do not accept notes via random text messages or voice notes. This ensures every change is tracked, translated technically, and executed perfectly.</p>
+            <h4>The Feedback Agreement</h4>
+            <p>To get your song to radio-ready standards, we use the <b>AllEars Mix Feedback</b> tab for all revisions. No random text messages or voice notes. This ensures every change is tracked and executed perfectly.</p>
+        </div>
+        <button class="primary-btn" onclick="certifyReady()">I Am Ready To Create</button>
+        <div id="ready-result" class="success-box">
+            <h3>Studio Access Granted</h3>
+            <p>You are officially prepped and aligned. Let's make a hit.</p>
+        </div>
+    </div>
+
+    <!-- TAB 4: ARRANGEMENT AUTOPSY -->
+    <div id="autopsy" class="tab-content">
+        <div class="prep-card" style="margin-bottom: 24px;">
+            <h4>The Arrangement Autopsy</h4>
+            <p>Hit songs are built on dynamic contrast. Map out your reference track's sections below and rate the energy from 1 (Quiet/Sparse) to 5 (Massive/Dense). We will generate an Autopsy Report to guide the arrangement.</p>
         </div>
 
-        <button class="primary-btn" onclick="certifyReady()">I Am Ready To Create</button>
+        <div id="sections-container"></div>
 
-        <div id="ready-result" class="success-box">
-            <h3>✅ STUDIO ACCESS GRANTED</h3>
-            <p>You are officially prepped and aligned. Your producer is ready to bring your vision to life. Let's make a hit.</p>
+        <button class="secondary-btn" onclick="addSection()">+ Add Song Section</button>
+
+        <div style="margin-top: 24px;">
+            <button class="primary-btn" onclick="generateAutopsy()">Generate Autopsy Report</button>
+        </div>
+
+        <div id="autopsy-result" class="result-box">
+            <h3>Arrangement Autopsy Report</h3>
+            <div id="autopsy-translated-text"></div>
         </div>
     </div>
 </div>
 
 <footer class="footer">
-    Created By RocAudio™ Tech Company
+    Created By RocAudio&trade; Tech Company
 </footer>
 
 <script>
-    // --- TAB SWITCHING LOGIC ---
+    let songSections = [];
+
     function switchTab(tabName, evt) {
         document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-        
         document.getElementById(tabName).classList.add('active');
         evt.currentTarget.classList.add('active');
     }
 
-    // --- MODULE 1: FEEDBACK TRANSLATOR LOGIC ---
     function translateFeedback() {
         const input = document.getElementById('fb-input').value.toLowerCase();
         const resultBox = document.getElementById('fb-result');
         const translatedText = document.getElementById('fb-translated-text');
-        
         let translations = [];
 
-        if (input.includes('pop') || input.includes('vocal') || input.includes('voice')) {
-            translations.push('<span class="badge">VOCALS</span> Increase vocal presence (EQ boost around 3-5kHz), add subtle saturation, and apply parallel compression to make them cut through the mix.');
-        }
-        if (input.includes('hit harder') || input.includes('punch') || input.includes('kick') || input.includes('drums')) {
-            translations.push('<span class="badge">DRUMS</span> Enhance kick drum transients, apply parallel compression to the drum bus, and ensure the bass is properly sidechained to the kick for maximum impact.');
-        }
-        if (input.includes('muddy') || input.includes('unclear') || input.includes('clashing')) {
-            translations.push('<span class="badge">CLARITY</span> Apply high-pass filtering to non-bass instruments, cut conflicting low-mids (200-400Hz), and use dynamic EQ to clear up frequency masking.');
-        }
-        if (input.includes('vibe') || input.includes('mood') || input.includes('space') || input.includes('wide')) {
-            translations.push('<span class="badge">ATMOSPHERE</span> Add analog tape emulation for warmth, widen the stereo imaging on synths/pads using mid-side EQ, and introduce subtle spatial effects (delay/reverb throws).');
-        }
-        if (input.includes('loud') || input.includes('volume') || input.includes('quiet')) {
-            translations.push('<span class="badge">MASTERING</span> Optimize the master bus gain staging and limiting. (Note: We will ensure the loudness matches commercial standards during the final master).');
-        }
+        if (input.includes('pop') || input.includes('vocal') || input.includes('voice')) translations.push('<span class="badge">Vocals</span> Increase presence (EQ 3-5kHz), add saturation, parallel compression.');
+        if (input.includes('hit harder') || input.includes('punch') || input.includes('kick')) translations.push('<span class="badge">Drums</span> Enhance kick transients, parallel comp drum bus, sidechain bass.');
+        if (input.includes('muddy') || input.includes('unclear')) translations.push('<span class="badge">Clarity</span> High-pass non-bass, cut low-mids (200-400Hz), dynamic EQ.');
+        if (input.includes('vibe') || input.includes('space') || input.includes('wide')) translations.push('<span class="badge">Atmosphere</span> Tape emulation, widen stereo imaging (mid-side EQ), spatial delays.');
+        if (input.includes('loud') || input.includes('volume')) translations.push('<span class="badge">Mastering</span> Optimize master bus gain staging and limiting for commercial loudness.');
 
-        if (translations.length === 0) {
-            translations.push("I've received your notes! To help me dial this in perfectly, could you clarify if you are referring to the <b>EQ (tone)</b>, the <b>Levels (volume)</b>, or the <b>Effects (reverb/delay)</b>?");
-        }
+        if (translations.length === 0) translations.push("Notes received. Please clarify if you mean <b>EQ (tone)</b>, <b>Levels (volume)</b>, or <b>Effects</b>.");
 
         translatedText.innerHTML = translations.join('<br><br>');
         resultBox.style.display = 'block';
     }
 
-    // --- MODULE 2: SONIC DNA LOGIC ---
     function generateDNA() {
         const location = document.getElementById('dna-location').value;
         const anti = document.getElementById('dna-anti').value;
         const arc = document.getElementById('dna-arc').value;
         const refs = document.getElementById('dna-refs').value;
-
-        const resultBox = document.getElementById('dna-result');
         const output = document.getElementById('dna-translated-text');
-
         let html = '';
 
-        if(location) html += `<div class="dna-item"><div class="dna-label">Sonic Environment</div>${location}</div>`;
-        if(anti) html += `<div class="dna-item"><div class="dna-label">The Anti-Reference (Avoid)</div>${anti}</div>`;
-        if(arc) html += `<div class="dna-item"><div class="dna-label">Emotional Arc</div>${arc}</div>`;
-        if(refs) html += `<div class="dna-item"><div class="dna-label">Core References</div>${refs.replace(/\n/g, '<br>')}</div>`;
+        if(location) html += '<div class="dna-item"><div class="dna-label">Environment</div>' + location + '</div>';
+        if(anti) html += '<div class="dna-item"><div class="dna-label">Anti-Reference</div>' + anti + '</div>';
+        if(arc) html += '<div class="dna-item"><div class="dna-label">Emotional Arc</div>' + arc + '</div>';
+        if(refs) html += '<div class="dna-item"><div class="dna-label">References</div>' + refs.replace(/\n/g, '<br>') + '</div>';
 
-        if(!html) {
-            html = "Please fill out at least one section to generate your Sonic DNA.";
-        } else {
-            html += `<div style="margin-top: 15px; font-size: 12px; color: var(--text-secondary); font-style: italic;">*This blueprint has been locked in. The producer will use this to guide all arrangement, sound design, and mixing decisions.</div>`;
-        }
+        if(!html) html = "Please fill out at least one section.";
+        else html += '<div style="margin-top:16px; font-size:12px; color:var(--text-secondary); font-style:italic;">This blueprint has been locked. Your producer will use this to guide all arrangement and mix decisions.</div>';
 
         output.innerHTML = html;
-        resultBox.style.display = 'block';
+        document.getElementById('dna-result').style.display = 'block';
     }
 
-    // --- MODULE 3: STUDIO PREP LOGIC ---
     function certifyReady() {
-        const resultBox = document.getElementById('ready-result');
-        resultBox.style.display = 'block';
-        resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const res = document.getElementById('ready-result');
+        res.style.display = 'block';
+        res.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
+
+    function addSection() {
+        const id = Date.now();
+        songSections.push({ id, name: 'Verse', energy: 3 });
+        renderSections();
+    }
+
+    function removeSection(id) {
+        songSections = songSections.filter(s => s.id !== id);
+        renderSections();
+    }
+
+    function updateSection(id, field, value) {
+        const sec = songSections.find(s => s.id === id);
+        if(sec) sec[field] = field === 'energy' ? parseInt(value) : value;
+    }
+
+    function renderSections() {
+        const container = document.getElementById('sections-container');
+        container.innerHTML = songSections.map(s => 
+            '<div class="section-row">' +
+                '<select onchange="updateSection(' + s.id + ', \'name\', this.value)">' +
+                    '<option ' + (s.name==='Intro'?'selected':'') + '>Intro</option>' +
+                    '<option ' + (s.name==='Verse'?'selected':'') + '>Verse</option>' +
+                    '<option ' + (s.name==='Pre-Chorus'?'selected':'') + '>Pre-Chorus</option>' +
+                    '<option ' + (s.name==='Chorus'?'selected':'') + '>Chorus</option>' +
+                    '<option ' + (s.name==='Bridge'?'selected':'') + '>Bridge</option>' +
+                    '<option ' + (s.name==='Outro'?'selected':'') + '>Outro</option>' +
+                '</select>' +
+                '<input type="range" min="1" max="5" value="' + s.energy + '" style="flex:1; accent-color: var(--accent);" onchange="updateSection(' + s.id + ', \'energy\', this.value)">' +
+                '<span style="width:20px; text-align:center; font-weight:700; font-size:13px; color:var(--accent);">' + s.energy + '</span>' +
+                '<button class="remove-btn" onclick="removeSection(' + s.id + ')">x</button>' +
+            '</div>'
+        ).join('');
+    }
+
+    function generateAutopsy() {
+        if(songSections.length === 0) { alert("Add at least one section."); return; }
+
+        const output = document.getElementById('autopsy-translated-text');
+        let html = '<div style="margin-bottom:24px;">';
+
+        songSections.forEach(s => {
+            const width = (s.energy / 5) * 100;
+            html += '<div class="energy-bar-container">' +
+                '<div class="energy-label">' + s.name + '</div>' +
+                '<div class="energy-bar-bg"><div class="energy-bar-fill" style="width: ' + width + '%;"></div></div>' +
+            '</div>';
+        });
+
+        html += '</div><h4 style="color:var(--text-primary); margin:0 0 14px 0; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:1px;">Producer Insights</h4>';
+
+        for (let i = 1; i < songSections.length; i++) {
+            const prev = songSections[i-1];
+            const curr = songSections[i];
+            const diff = curr.energy - prev.energy;
+
+            if (curr.name === 'Chorus' && curr.energy > prev.energy) {
+                html += '<p class="autopsy-note positive"><b>' + curr.name + ' Impact:</b> Strong contrast. The energy jump from ' + prev.name + ' (' + prev.energy + ') to ' + curr.name + ' (' + curr.energy + ') creates the drop feeling listeners crave.</p>';
+            } else if (curr.name === 'Bridge' && curr.energy < prev.energy) {
+                html += '<p class="autopsy-note positive"><b>Bridge Tension:</b> Dropping energy in the bridge (' + curr.energy + ') after a high-energy chorus resets the listener\'s ear for the final climax.</p>';
+            } else if (diff === 0) {
+                html += '<p class="autopsy-note warning"><b>Stagnation Warning:</b> ' + prev.name + ' and ' + curr.name + ' share the same energy (' + curr.energy + '). Consider adding or subtracting elements to maintain engagement.</p>';
+            }
+        }
+
+        if(songSections[0].energy > 2) {
+            html += '<p class="autopsy-note warning"><b>Intro Warning:</b> Starting at high energy (' + songSections[0].energy + ') leaves limited room to build. Consider starting sparse.</p>';
+        }
+
+        html += '<div style="margin-top:20px; padding-top:16px; border-top: 1px solid var(--border); font-size:12px; color:var(--text-secondary);">Autopsy complete. Your producer will use this dynamic map to arrange the track for maximum emotional impact.</div>';
+
+        output.innerHTML = html;
+        document.getElementById('autopsy-result').style.display = 'block';
+    }
+
+    addSection();
 </script>
 
 </body>
