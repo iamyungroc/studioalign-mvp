@@ -103,13 +103,13 @@
         textarea { height: 100px; resize: vertical; font-size: 15px; }
         textarea:focus, input:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
         select option { background: var(--bg-color); color: var(--text-primary); font-size: 16px; }
+        input[readonly] { opacity: 0.7; cursor: not-allowed; }
 
         .error-input { border-color: var(--error) !important; }
         .error-message { color: var(--error); font-size: 11px; margin-top: 4px; display: none; }
         .error-message.show { display: block; }
 
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
 
         .nav-footer { display: flex; justify-content: space-between; margin-top: 32px; gap: 12px; }
         button {
@@ -182,6 +182,53 @@
         .time-slot:active:not(.unavailable) { transform: scale(0.96); }
         .time-slot.selected { background: var(--accent); border-color: var(--accent); color: var(--bg-color); }
         .time-slot.unavailable { opacity: 0.3; cursor: not-allowed; text-decoration: line-through; }
+
+        .emergency-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 10px;
+            margin-top: 16px;
+        }
+        .emergency-toggle-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--warning);
+        }
+        .emergency-toggle-desc {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: var(--border-light);
+            border-radius: 13px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .toggle-switch.active {
+            background: var(--warning);
+        }
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+        .toggle-switch.active::after {
+            transform: translateX(24px);
+        }
 
         .booking-confirmation { margin-top: 18px; padding: 18px; background: var(--success-soft); border: 1px solid rgba(74, 222, 128, 0.2); border-radius: 10px; display: none; }
         .booking-confirmation h5 { margin: 0 0 6px 0; color: var(--success); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
@@ -454,7 +501,7 @@
             .step-circle { width: 24px; height: 24px; font-size: 10px; }
             .step-label { font-size: 8px; letter-spacing: 0.3px; }
             .step-line { margin-top: 10px; }
-            .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 12px; }
+            .grid-2 { grid-template-columns: 1fr; gap: 12px; }
             .genre-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
             .time-slots { grid-template-columns: repeat(2, 1fr); gap: 8px; }
             .energy-label { width: 70px; font-size: 10px; }
@@ -516,31 +563,6 @@
             <label>Artist / Project Name *</label>
             <input type="text" id="artist-name" placeholder="e.g., Wizkid, Tems...">
             <div class="error-message" id="artist-name-error">Please enter artist name</div>
-        </div>
-        <div class="grid-3">
-            <div class="input-group">
-                <label>BPM (Tempo)</label>
-                <input type="number" id="bpm" placeholder="e.g., 108" min="40" max="220" inputmode="numeric">
-            </div>
-            <div class="input-group">
-                <label>Key</label>
-                <select id="song-key">
-                    <option value="">Select key...</option>
-                    <option>C Major</option><option>C# Major</option><option>D Major</option>
-                    <option>D# Major</option><option>E Major</option><option>F Major</option>
-                    <option>F# Major</option><option>G Major</option><option>G# Major</option>
-                    <option>A Major</option><option>A# Major</option><option>B Major</option>
-                    <option>C Minor</option><option>C# Minor</option><option>D Minor</option>
-                    <option>D# Minor</option><option>E Minor</option><option>F Minor</option>
-                    <option>F# Minor</option><option>G Minor</option><option>G# Minor</option>
-                    <option>A Minor</option><option>A# Minor</option><option>B Minor</option>
-                    <option>Not Sure</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label>Deadline</label>
-                <input type="date" id="deadline" min="">
-            </div>
         </div>
         <div class="nav-footer">
             <button class="secondary-btn" disabled>Back</button>
@@ -674,8 +696,8 @@
             <input type="number" id="session-quantity" min="1" value="1" style="width: 100%;">
         </div>
         <div class="booking-section">
-            <h4>Select Date *</h4>
-            <input type="date" id="booking-date" min="" onchange="updateTimeSlots()">
+            <h4>Select Booking Date *</h4>
+            <input type="date" id="booking-date" min="" onchange="updateDeliveryDate()">
         </div>
         <div class="booking-section">
             <h4>Available Time Slots *</h4>
@@ -689,6 +711,20 @@
             </div>
         </div>
         <div class="booking-section">
+            <h4>Expected Delivery Date</h4>
+            <input type="text" id="delivery-date" readonly placeholder="Select booking date first">
+            <p style="color: var(--text-secondary); font-size: 12px; margin-top: 8px; line-height: 1.4;">
+                <i>Standard delivery is 2 weeks from booking date. Emergency service available below for rush delivery.</i>
+            </p>
+        </div>
+        <div class="emergency-toggle">
+            <div>
+                <div class="emergency-toggle-label">Emergency Service (+10%)</div>
+                <div class="emergency-toggle-desc">Rush delivery in 1 week instead of 2</div>
+            </div>
+            <div class="toggle-switch" id="emergency-toggle" onclick="toggleEmergency()"></div>
+        </div>
+        <div class="booking-section" style="margin-top: 16px;">
             <h4>Studio Location</h4>
             <p style="color: var(--text-secondary); font-size: 13px; line-height: 1.5;">RocAudio Studio<br>Lagos, Nigeria<br><i>Exact address shared upon booking confirmation</i></p>
         </div>
@@ -785,8 +821,16 @@
                 <span class="summary-value" id="summary-quantity"></span>
             </div>
             <div class="summary-item">
-                <span class="summary-label">Date & Time</span>
-                <span class="summary-value" id="summary-datetime"></span>
+                <span class="summary-label">Booking Date</span>
+                <span class="summary-value" id="summary-booking-date"></span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Expected Delivery</span>
+                <span class="summary-value" id="summary-delivery-date"></span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Emergency Service</span>
+                <span class="summary-value" id="summary-emergency"></span>
             </div>
             <div class="summary-item total">
                 <span class="summary-label">Estimated Total</span>
@@ -870,6 +914,7 @@
     let selectedDate = '';
     let selectedTime = '';
     let lovedElements = [];
+    let isEmergency = false;
 
     const FORM_RESPONSE_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdnKJPL4nvoGG0rD8eXzfmUAZ_-D7pn_aWiieqdEIUZZvCwqg/formResponse';
 
@@ -934,8 +979,9 @@
     function validateStep4() {
         var objective = document.getElementById('session-objective').value;
         var quantity = document.getElementById('session-quantity').value;
-        if (!objective || !quantity || quantity < 1 || !selectedDate || !selectedTime) {
-            alert('Please select a service, valid quantity, date, and time slot.');
+        var deliveryDate = document.getElementById('delivery-date').value;
+        if (!objective || !quantity || quantity < 1 || !selectedDate || !selectedTime || !deliveryDate) {
+            alert('Please select a service, valid quantity, date, time slot, and confirm delivery date.');
             return;
         }
         confirmBooking();
@@ -965,12 +1011,37 @@
         selectedTime = time;
     }
 
+    function updateDeliveryDate() {
+        var bookingDate = document.getElementById('booking-date').value;
+        if (!bookingDate) {
+            document.getElementById('delivery-date').value = '';
+            return;
+        }
+        selectedDate = bookingDate;
+        var date = new Date(bookingDate);
+        var daysToAdd = isEmergency ? 7 : 14;
+        date.setDate(date.getDate() + daysToAdd);
+        var formattedDate = date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        document.getElementById('delivery-date').value = formattedDate;
+    }
+
+    function toggleEmergency() {
+        isEmergency = !isEmergency;
+        var toggle = document.getElementById('emergency-toggle');
+        toggle.classList.toggle('active');
+        if (selectedDate) {
+            updateDeliveryDate();
+        }
+    }
+
     function confirmBooking() {
         var dateObj = new Date(selectedDate);
         var formattedDate = dateObj.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
         var objective = document.getElementById('session-objective').value || 'General Session';
         var quantity = document.getElementById('session-quantity').value || 1;
-        document.getElementById('booking-details').textContent = 'Your ' + objective + ' session (Qty: ' + quantity + ') is confirmed for ' + formattedDate + ' at ' + selectedTime + '. Genre: ' + (selectedGenre || 'TBD') + '. Roc will prepare the studio accordingly.';
+        var deliveryDate = document.getElementById('delivery-date').value;
+        var emergencyText = isEmergency ? ' (EMERGENCY - 1 week delivery)' : ' (Standard - 2 weeks delivery)';
+        document.getElementById('booking-details').textContent = 'Your ' + objective + ' session (Qty: ' + quantity + ') is confirmed for ' + formattedDate + ' at ' + selectedTime + '. Delivery: ' + deliveryDate + emergencyText + '. Genre: ' + (selectedGenre || 'TBD') + '. Roc will prepare the studio accordingly.';
         document.getElementById('calendar-link').href = generateCalendarLink(dateObj, selectedTime, objective);
         document.getElementById('booking-confirmation').style.display = 'block';
     }
@@ -1090,6 +1161,12 @@
         else basePrice = 50000;
 
         var total = basePrice * parseInt(quantity || 1);
+        
+        // Add 10% for emergency service
+        if (isEmergency) {
+            total = total * 1.10;
+        }
+        
         return total.toLocaleString();
     }
 
@@ -1117,12 +1194,14 @@
         var clientPhone = document.getElementById('client-phone').value;
         var objective = document.getElementById('session-objective').value;
         var quantity = document.getElementById('session-quantity').value;
+        var deliveryDate = document.getElementById('delivery-date').value;
+        var emergencyStatus = isEmergency ? 'YES (+10%)' : 'NO (Standard)';
 
         addField('entry.483934415', 'Client: ' + clientName + ' | Email: ' + clientEmail + ' | WhatsApp: ' + clientPhone);
         addField('entry.1537868087', document.getElementById('artist-name').value);
-        addField('entry.1518598464', document.getElementById('bpm').value);
-        addField('entry.1209461408', document.getElementById('song-key').value);
-        addField('entry.1005218773', document.getElementById('deadline').value);
+        addField('entry.1518598464', 'N/A');
+        addField('entry.1209461408', 'N/A');
+        addField('entry.1005218773', deliveryDate);
         addField('entry.1366407779', document.getElementById('dna-location').value);
         addField('entry.749912738', document.getElementById('creative-direction').value);
         addField('entry.42572067', document.getElementById('ref-track').value);
@@ -1130,8 +1209,8 @@
         addField('entry.981525809', document.getElementById('dna-anti').value);
         addField('entry.1608215932', selectedGenre);
         addField('entry.42949322', songSections.map(function(s) { return s.name + ': ' + s.energy + '/5'; }).join(', '));
-        addField('entry.337309040', 'Service: ' + objective + ' | Qty: ' + quantity + ' | Time: ' + selectedTime);
-        addField('entry.18715465', 'Date: ' + selectedDate + ' | Feedback: ' + document.getElementById('fb-input').value);
+        addField('entry.337309040', 'Service: ' + objective + ' | Qty: ' + quantity + ' | Time: ' + selectedTime + ' | Emergency: ' + emergencyStatus);
+        addField('entry.18715465', 'Booking Date: ' + selectedDate + ' | Delivery: ' + deliveryDate + ' | Feedback: ' + document.getElementById('fb-input').value);
 
         form.submit();
         showSuccessScreen(objective, quantity);
@@ -1141,14 +1220,17 @@
         document.querySelectorAll('.step-content').forEach(function(c) { c.classList.remove('active'); });
         document.querySelector('.stepper').style.display = 'none';
         
-        var formattedDate = new Date(selectedDate).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+        var formattedBookingDate = new Date(selectedDate).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+        var deliveryDate = document.getElementById('delivery-date').value;
         var price = calculatePrice(objective, quantity);
         
         document.getElementById('summary-client').textContent = document.getElementById('client-name').value;
         document.getElementById('summary-artist').textContent = document.getElementById('artist-name').value;
         document.getElementById('summary-objective').textContent = objective || 'General Session';
         document.getElementById('summary-quantity').textContent = quantity + (quantity > 1 ? ' Tracks/Sessions' : ' Track/Session');
-        document.getElementById('summary-datetime').textContent = formattedDate + ' @ ' + selectedTime;
+        document.getElementById('summary-booking-date').textContent = formattedBookingDate + ' @ ' + selectedTime;
+        document.getElementById('summary-delivery-date').textContent = deliveryDate;
+        document.getElementById('summary-emergency').textContent = isEmergency ? 'Yes (+10%)' : 'No (Standard)';
         document.getElementById('summary-price').textContent = price === 'Contact Producer' ? price : '₦' + price;
 
         document.getElementById('success-screen').classList.add('active');
@@ -1164,7 +1246,6 @@
         updateStepperUI();
         var today = new Date().toISOString().split('T')[0];
         document.getElementById('booking-date').setAttribute('min', today);
-        document.getElementById('deadline').setAttribute('min', today);
     };
 </script>
 
