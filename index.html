@@ -20,7 +20,7 @@
             --success-soft: rgba(74, 222, 128, 0.08);
             --warning: #f59e0b;
             --error: #f87171;
-            --error-soft: rgba(248, 113, 113, 0.08);
+            --whatsapp: #25D366;
             --border: #2a2420;
             --border-light: #3d3530;
         }
@@ -366,8 +366,17 @@
             font-size: 13px;
         }
         .summary-item:last-child { border-bottom: none; }
+        .summary-item.total {
+            border-top: 1px solid var(--accent);
+            border-bottom: none;
+            margin-top: 8px;
+            padding-top: 12px;
+            font-size: 15px;
+        }
+        .summary-item.total .summary-value { color: var(--accent); font-size: 18px; font-weight: 700; }
         .summary-label { color: var(--text-secondary); }
         .summary-value { color: var(--text-primary); font-weight: 600; }
+        
         .contact-info {
             background: var(--accent-soft);
             border: 1px solid rgba(212, 165, 116, 0.2);
@@ -381,13 +390,60 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin: 0 0 8px 0;
+            margin: 0 0 12px 0;
         }
         .contact-info p {
             color: var(--text-primary);
             font-size: 13px;
-            margin: 4px 0;
+            margin: 6px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
+
+        .whatsapp-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            margin-top: 16px;
+            padding: 14px;
+            background: var(--whatsapp);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        .whatsapp-btn:active { transform: scale(0.97); opacity: 0.9; }
+
+        .pay-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            margin-top: 12px;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--success), #22c55e);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(74, 222, 128, 0.3);
+        }
+        .pay-btn:active { transform: scale(0.97); opacity: 0.9; }
 
         .footer { text-align: center; margin-top: 28px; font-size: 10px; color: var(--text-secondary); opacity: 0.5; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
 
@@ -456,7 +512,7 @@
         </div>
         <div class="grid-2">
             <div class="input-group">
-                <label>Phone Number</label>
+                <label>WhatsApp Number</label>
                 <input type="tel" id="client-phone" placeholder="e.g., +234 801 234 5678">
             </div>
             <div class="input-group">
@@ -622,35 +678,35 @@
             <p>Select your date, time, duration, and session objective.</p>
         </div>
         <div class="booking-section">
-            <h4>Session Objective</h4>
+            <h4>Session Objective *</h4>
             <select id="session-objective">
                 <option value="">Select objective...</option>
-                <option value="Recording">Recording Vocals</option>
-                <option value="Production">Production / Beat Making</option>
-                <option value="Writing">Songwriting / Topline</option>
+                <option value="Recording">Voicing Only (Recording)</option>
+                <option value="Production">Beats Only (Production)</option>
                 <option value="Mixing">Mixing</option>
+                <option value="Mastering">Mastering</option>
+                <option value="Full Production">Full Production (Start to Finish)</option>
+                <option value="Writing">Songwriting / Topline</option>
                 <option value="Editing">Vocal Editing / Comping</option>
                 <option value="Review">Review / Feedback Session</option>
-                <option value="Full Production">Full Production (Start to Finish)</option>
-                <option value="Mastering">Mastering</option>
             </select>
         </div>
         <div class="booking-section">
-            <h4>Session Duration</h4>
+            <h4>Session Duration *</h4>
             <select id="session-duration">
                 <option value="">Select duration...</option>
                 <option value="2 hours">2 Hours</option>
                 <option value="4 hours">4 Hours</option>
                 <option value="6 hours">6 Hours</option>
-                <option value="Full Day (8+ hours)">Full Day (8+ hours)</option>
+                <option value="Full Day">Full Day (8+ hours)</option>
             </select>
         </div>
         <div class="booking-section">
-            <h4>Select Date</h4>
+            <h4>Select Date *</h4>
             <input type="date" id="booking-date" min="" onchange="updateTimeSlots()">
         </div>
         <div class="booking-section">
-            <h4>Available Time Slots</h4>
+            <h4>Available Time Slots *</h4>
             <div class="time-slots">
                 <div class="time-slot" onclick="selectTimeSlot(this, '10:00 AM')">10:00 AM</div>
                 <div class="time-slot" onclick="selectTimeSlot(this, '12:00 PM')">12:00 PM</div>
@@ -662,7 +718,7 @@
         </div>
         <div class="booking-section">
             <h4>Studio Location</h4>
-            <p style="color: var(--text-secondary); font-size: 13px; line-height: 1.5;">RocAudio Studio<br>Lagos, Nigeria<br><i>Contact Roc for exact address after booking confirmation</i></p>
+            <p style="color: var(--text-secondary); font-size: 13px; line-height: 1.5;">RocAudio Studio<br>Lagos, Nigeria<br><i>Exact address shared upon booking confirmation</i></p>
         </div>
         <div class="booking-confirmation" id="booking-confirmation">
             <h5>Session Booked</h5>
@@ -736,48 +792,54 @@
     <div id="success-screen" class="success-screen">
         <div class="success-icon">✓</div>
         <h2>Session Finalized!</h2>
-        <p>Your booking has been confirmed and Roc has been notified. Check your email for details.</p>
+        <p>Your booking brief has been sent to Roc. Review your summary and secure your slot below.</p>
         
         <div class="summary-card">
-            <h4>Session Summary</h4>
+            <h4>Session Summary & Estimate</h4>
             <div class="summary-item">
                 <span class="summary-label">Client</span>
                 <span class="summary-value" id="summary-client"></span>
             </div>
             <div class="summary-item">
-                <span class="summary-label">Artist</span>
-                <span class="summary-value" id="summary-artist"></span>
+                <span class="summary-label">Artist / Song</span>
+                <span class="summary-value" id="summary-artist-song"></span>
             </div>
             <div class="summary-item">
-                <span class="summary-label">Song</span>
-                <span class="summary-value" id="summary-song"></span>
+                <span class="summary-label">Objective</span>
+                <span class="summary-value" id="summary-objective"></span>
             </div>
             <div class="summary-item">
-                <span class="summary-label">Genre</span>
-                <span class="summary-value" id="summary-genre"></span>
-            </div>
-            <div class="summary-item">
-                <span class="summary-label">Date</span>
-                <span class="summary-value" id="summary-date"></span>
-            </div>
-            <div class="summary-item">
-                <span class="summary-label">Time</span>
-                <span class="summary-value" id="summary-time"></span>
+                <span class="summary-label">Date & Time</span>
+                <span class="summary-value" id="summary-datetime"></span>
             </div>
             <div class="summary-item">
                 <span class="summary-label">Duration</span>
                 <span class="summary-value" id="summary-duration"></span>
             </div>
+            <div class="summary-item total">
+                <span class="summary-label">Estimated Total</span>
+                <span class="summary-value" id="summary-price"></span>
+            </div>
         </div>
+
+        <!-- PAYMENT & ACTION BUTTONS -->
+        <!-- TODO: Replace '#' with your actual Paystack Payment Link when ready -->
+        <a href="#" class="pay-btn">
+            💳 Pay 50% Deposit to Secure Slot
+        </a>
+        
+        <a href="https://wa.me/2348037643281?text=Hi%20Roc,%20I%20just%20finalized%20my%20session%20brief%20on%20AllEars!%20Let's%20connect." target="_blank" class="whatsapp-btn">
+            💬 Chat with Roc on WhatsApp
+        </a>
 
         <div class="contact-info">
-            <h5>Need to Contact Roc?</h5>
-            <p>Email: rocaudio@example.com</p>
-            <p>Phone: +234 XXX XXX XXXX</p>
-            <p>Instagram: @rocaudio</p>
+            <h5>Producer Contact</h5>
+            <p>📧 thebbrgroupllc@outlook.com</p>
+            <p>📱 +234 803 764 3281</p>
+            <p>📸 @iamyungroc</p>
         </div>
 
-        <button class="primary-btn" onclick="resetApp()" style="margin-top: 24px; width: 100%;">Book Another Session</button>
+        <button class="secondary-btn" onclick="resetApp()" style="margin-top: 24px; width: 100%;">Book Another Session</button>
     </div>
 </div>
 
@@ -793,52 +855,33 @@
         <div class="modal-body">
             <p><b>Effective Date:</b> September 2026</p>
             <p>By using the AllEars platform and booking a session with RocAudio Tech Company, you agree to the following terms:</p>
-
             <h4>1. Booking & Payment</h4>
             <ul>
                 <li>All sessions must be booked through the AllEars platform.</li>
-                <li>Payment is required to confirm your booking. Sessions are not confirmed until payment is received.</li>
+                <li>A 50% deposit is required to confirm your booking. Sessions are not confirmed until payment is received.</li>
                 <li>Prices are quoted in Nigerian Naira (NGN) and are non-negotiable once confirmed.</li>
             </ul>
-
             <h4>2. Cancellation & Rescheduling</h4>
             <ul>
                 <li>Cancellations made less than 24 hours before the session are non-refundable.</li>
                 <li>Rescheduling is allowed once, with at least 24 hours notice, at no extra cost.</li>
                 <li>No-shows forfeit the full session fee.</li>
             </ul>
-
             <h4>3. Revisions</h4>
             <ul>
                 <li>Each project includes up to <b>2 free revisions</b> after the initial mix delivery.</li>
-                <li>Additional revisions beyond the included limit will be charged at a per-revision rate, quoted before work begins.</li>
-                <li>All revision notes must be submitted through the AllEars Mix Feedback system. Notes sent via text, WhatsApp, or voice notes may be disregarded or delayed.</li>
+                <li>Additional revisions beyond the included limit will be charged at a per-revision rate.</li>
+                <li>All revision notes must be submitted through the AllEars Mix Feedback system.</li>
             </ul>
-
-            <h4>4. File Delivery</h4>
-            <ul>
-                <li>Final deliverables (mix, master, stems) will be delivered within the agreed timeline.</li>
-                <li>Files will be delivered as high-quality WAV files unless otherwise agreed.</li>
-                <li>Project files (DAW sessions) are not included in the deliverables unless separately purchased.</li>
-            </ul>
-
-            <h4>5. Intellectual Property</h4>
+            <h4>4. Intellectual Property</h4>
             <ul>
                 <li>The artist retains full ownership of their composition, lyrics, and master recording upon full payment.</li>
-                <li>RocAudio reserves the right to use short audio clips (under 30 seconds) for portfolio and promotional purposes, unless the artist requests otherwise in writing.</li>
+                <li>RocAudio reserves the right to use short audio clips (under 30 seconds) for portfolio purposes, unless requested otherwise in writing.</li>
             </ul>
-
-            <h4>6. Studio Conduct</h4>
+            <h4>5. Studio Conduct</h4>
             <ul>
                 <li>Artists must arrive prepared as outlined in the Studio Protocol (Step 5).</li>
                 <li>Excessive lateness (over 30 minutes) may result in a shortened session with no partial refund.</li>
-                <li>RocAudio reserves the right to end a session if the artist is under the influence of substances that impair the recording process.</li>
-            </ul>
-
-            <h4>7. Liability</h4>
-            <ul>
-                <li>RocAudio is not responsible for data loss due to hardware failure, power outages, or unforeseen technical issues. All project files are backed up regularly.</li>
-                <li>AllEars is a beta platform. RocAudio is not liable for any temporary service interruptions or data display errors during the beta testing phase.</li>
             </ul>
         </div>
         <div class="modal-footer">
@@ -881,7 +924,6 @@
         if (currentStep > 1) { currentStep--; updateStepperUI(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
     }
 
-    // VALIDATION FUNCTIONS
     function showError(fieldId, show) {
         var field = document.getElementById(fieldId);
         var error = document.getElementById(fieldId + '-error');
@@ -920,8 +962,10 @@
     }
 
     function validateStep4() {
-        if (!selectedDate || !selectedTime) {
-            alert('Please select both a date and time slot.');
+        var objective = document.getElementById('session-objective').value;
+        var duration = document.getElementById('session-duration').value;
+        if (!objective || !duration || !selectedDate || !selectedTime) {
+            alert('Please select an objective, duration, date, and time slot.');
             return;
         }
         confirmBooking();
@@ -981,8 +1025,8 @@
         }
         var artistName = document.getElementById('artist-name').value || 'Artist';
         var songTitle = document.getElementById('song-title').value || 'Untitled';
-        var desc = 'AllEars Studio Session\n\nObjective: ' + objective + '\nArtist: ' + artistName + '\nSong: ' + songTitle + '\nGenre: ' + (selectedGenre || 'TBD') + '\nCreative Direction: ' + (document.getElementById('creative-direction').value || 'N/A');
-        return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(objective + ': ' + artistName + ' - ' + songTitle) + '&dates=' + fmt(start) + '/' + fmt(end) + '&details=' + encodeURIComponent(desc) + '&location=RocAudio+Studio';
+        var desc = 'AllEars Studio Session\n\nObjective: ' + objective + '\nArtist: ' + artistName + '\nSong: ' + songTitle + '\nGenre: ' + (selectedGenre || 'TBD');
+        return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(objective + ': ' + artistName + ' - ' + songTitle) + '&dates=' + fmt(start) + '/' + fmt(end) + '&details=' + encodeURIComponent(desc) + '&location=RocAudio+Studio+Lagos';
     }
 
     function addSection() {
@@ -1064,6 +1108,23 @@
         btn.disabled = !checkbox.checked;
     }
 
+    // UPDATED PRICING CALCULATOR
+    function calculatePrice(objective, duration) {
+        var basePrice = 0;
+        if (objective === 'Recording') {
+            basePrice = 50000; // Voicing Only
+        } else if (objective === 'Production') {
+            basePrice = 100000; // Beats Only
+        } else if (objective === 'Full Production') {
+            basePrice = 200000; // Full Production
+        } else if (objective === 'Mixing' || objective === 'Mastering') {
+            basePrice = 100000; // Mixing & Mastering
+        } else {
+            basePrice = 50000; // Default base for Writing, Editing, Review
+        }
+        return basePrice.toLocaleString();
+    }
+
     function submitAllData() {
         if (!document.getElementById('tc-checkbox').checked) {
             alert('Please agree to the Terms & Conditions before finalizing.');
@@ -1083,13 +1144,14 @@
             form.appendChild(input);
         }
 
-        // Client Contact Info
         var clientName = document.getElementById('client-name').value;
         var clientEmail = document.getElementById('client-email').value;
         var clientPhone = document.getElementById('client-phone').value;
         var budget = document.getElementById('budget-range').value;
+        var objective = document.getElementById('session-objective').value;
+        var duration = document.getElementById('session-duration').value;
 
-        addField('entry.483934415', 'Client: ' + clientName + ' | Email: ' + clientEmail + ' | Phone: ' + clientPhone + ' | Budget: ' + budget);
+        addField('entry.483934415', 'Client: ' + clientName + ' | Email: ' + clientEmail + ' | WhatsApp: ' + clientPhone + ' | Budget: ' + budget);
         addField('entry.1537868087', document.getElementById('artist-name').value + ' - ' + document.getElementById('song-title').value);
         addField('entry.1518598464', document.getElementById('bpm').value);
         addField('entry.1209461408', document.getElementById('song-key').value);
@@ -1101,28 +1163,25 @@
         addField('entry.981525809', document.getElementById('dna-anti').value);
         addField('entry.1608215932', selectedGenre);
         addField('entry.42949322', songSections.map(function(s) { return s.name + ': ' + s.energy + '/5'; }).join(', '));
-        
-        var duration = document.getElementById('session-duration').value || 'Not specified';
-        addField('entry.337309040', 'Objective: ' + document.getElementById('session-objective').value + ' | Duration: ' + duration + ' | Time: ' + selectedTime);
+        addField('entry.337309040', 'Objective: ' + objective + ' | Duration: ' + duration + ' | Time: ' + selectedTime);
         addField('entry.18715465', 'Date: ' + selectedDate + ' | Feedback: ' + document.getElementById('fb-input').value);
 
         form.submit();
-
-        // Show success screen
-        showSuccessScreen();
+        showSuccessScreen(objective, duration);
     }
 
-    function showSuccessScreen() {
+    function showSuccessScreen(objective, duration) {
         document.querySelectorAll('.step-content').forEach(function(c) { c.classList.remove('active'); });
         document.querySelector('.stepper').style.display = 'none';
         
+        var formattedDate = new Date(selectedDate).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+        
         document.getElementById('summary-client').textContent = document.getElementById('client-name').value;
-        document.getElementById('summary-artist').textContent = document.getElementById('artist-name').value;
-        document.getElementById('summary-song').textContent = document.getElementById('song-title').value;
-        document.getElementById('summary-genre').textContent = selectedGenre || 'TBD';
-        document.getElementById('summary-date').textContent = new Date(selectedDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-        document.getElementById('summary-time').textContent = selectedTime;
-        document.getElementById('summary-duration').textContent = document.getElementById('session-duration').value || 'Not specified';
+        document.getElementById('summary-artist-song').textContent = document.getElementById('artist-name').value + ' - ' + document.getElementById('song-title').value;
+        document.getElementById('summary-objective').textContent = objective || 'General Session';
+        document.getElementById('summary-datetime').textContent = formattedDate + ' @ ' + selectedTime;
+        document.getElementById('summary-duration').textContent = duration || 'Not specified';
+        document.getElementById('summary-price').textContent = '₦' + calculatePrice(objective, duration);
 
         document.getElementById('success-screen').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
