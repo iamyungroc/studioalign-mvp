@@ -74,12 +74,10 @@
         .step-item { display: flex; flex-direction: column; align-items: center; z-index: 2; flex: 1; min-width: 0; }
         .step-circle { width: 28px; height: 28px; border-radius: 50%; background: var(--bg-color); border: 2px solid var(--border-light); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--text-secondary); transition: all 0.3s ease; margin-bottom: 6px; flex-shrink: 0; }
         .step-label { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-secondary); transition: color 0.3s ease; text-align: center; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
-        
         .step-item.active .step-circle { background: var(--accent); border-color: var(--accent); color: var(--bg-color); box-shadow: 0 0 12px var(--accent-glow); }
         .step-item.active .step-label { color: var(--text-primary); }
         .step-item.completed .step-circle { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
         .step-item.completed .step-label { color: var(--accent); }
-        
         .step-line { flex: 1; height: 2px; background: var(--border-light); margin: 0 -4px; margin-top: 12px; transition: background 0.3s ease; z-index: 1; }
         .step-line.completed { background: var(--accent); }
 
@@ -93,7 +91,6 @@
 
         .input-group { margin-bottom: 18px; }
         label { display: block; font-size: 11px; font-weight: 600; margin-bottom: 6px; color: var(--text-secondary); letter-spacing: 0.5px; text-transform: uppercase; }
-        
         textarea, input[type="text"], input[type="date"], input[type="number"], select {
             width: 100%; background-color: rgba(15, 13, 10, 0.6); border: 1px solid var(--border-light);
             border-radius: 10px; padding: 14px 16px; color: var(--text-primary); font-family: 'Inter', sans-serif;
@@ -118,7 +115,7 @@
             box-shadow: 0 4px 20px rgba(212, 165, 116, 0.25);
         }
         button.primary-btn:active { transform: scale(0.97); opacity: 0.9; }
-        
+        button.primary-btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none; }
         button.secondary-btn {
             background: transparent; border: 1px solid var(--border-light); color: var(--text-secondary);
             padding: 14px 20px;
@@ -190,6 +187,126 @@
         }
         .calendar-btn:active { transform: scale(0.97); opacity: 0.9; }
 
+        /* --- T&C CHECKBOX --- */
+        .tc-agreement {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-top: 24px;
+            padding: 16px;
+            background: rgba(15, 13, 10, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+        .tc-checkbox {
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            margin-top: 2px;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+        .tc-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .tc-link {
+            color: var(--accent);
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .tc-link:hover { opacity: 0.8; }
+
+        /* --- T&C MODAL --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+        .modal-header h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-close {
+            background: transparent;
+            border: 1px solid var(--border-light);
+            color: var(--text-secondary);
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: auto;
+            padding: 0;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+        .modal-close:active { background: rgba(255,255,255,0.05); }
+        .modal-body {
+            padding: 24px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .modal-body h4 {
+            margin: 20px 0 8px 0;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 700;
+        }
+        .modal-body h4:first-child { margin-top: 0; }
+        .modal-body p, .modal-body li {
+            color: var(--text-secondary);
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 0 0 8px 0;
+        }
+        .modal-body ul { margin: 0 0 12px 0; padding-left: 18px; }
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border);
+            text-align: right;
+        }
+        .modal-footer button {
+            min-height: 44px;
+            padding: 12px 28px;
+            flex: none;
+        }
+
         .footer { text-align: center; margin-top: 28px; font-size: 10px; color: var(--text-secondary); opacity: 0.5; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
 
         @media (max-width: 480px) {
@@ -205,6 +322,8 @@
             .energy-label { width: 70px; font-size: 10px; }
             .nav-footer { gap: 10px; }
             button { font-size: 12px; padding: 14px 12px; }
+            .modal-box { max-height: 85vh; border-radius: 12px; }
+            .modal-body { padding: 18px; }
         }
     </style>
 </head>
@@ -234,6 +353,7 @@
         <div class="step-item" data-step="6"><div class="step-circle">6</div><div class="step-label">Session</div></div>
     </div>
 
+    <!-- STEP 1 -->
     <div id="step-1" class="step-content active">
         <div class="step-header">
             <h2>Project Brief</h2>
@@ -281,12 +401,12 @@
         <iframe name="hidden_iframe" style="display:none;"></iframe>
     </div>
 
+    <!-- STEP 2 -->
     <div id="step-2" class="step-content">
         <div class="step-header">
             <h2>The Vision</h2>
             <p>Define the atmosphere, creative direction, and references.</p>
         </div>
-
         <div class="input-group">
             <label>The Sonic Location</label>
             <select id="dna-location">
@@ -297,7 +417,6 @@
                 <option value="Massive echoing stadium">Massive echoing stadium</option>
             </select>
         </div>
-
         <div class="input-group">
             <label>Creative Direction — What should the listener feel?</label>
             <select id="creative-direction">
@@ -314,12 +433,10 @@
                 <option value="Mysterious">Mysterious</option>
             </select>
         </div>
-
         <div class="input-group">
             <label>Reference Track</label>
             <input type="text" id="ref-track" placeholder="e.g., Burna Boy - Last Last">
         </div>
-
         <div class="input-group">
             <label>What I Love About The Reference</label>
             <div class="chip-group" id="love-chips">
@@ -335,18 +452,17 @@
                 <div class="chip" onclick="toggleChip(this)">Vibe</div>
             </div>
         </div>
-
         <div class="input-group">
             <label>What I Don't Want (Anti-Reference)</label>
             <textarea id="dna-anti" placeholder="e.g., Don't want it to sound like generic TikTok pop..."></textarea>
         </div>
-
         <div class="nav-footer">
             <button class="secondary-btn" onclick="prevStep()">Back</button>
             <button class="primary-btn" onclick="nextStep()">Save & Next</button>
         </div>
     </div>
 
+    <!-- STEP 3 -->
     <div id="step-3" class="step-content">
         <div class="step-header">
             <h2>Map The Structure</h2>
@@ -384,14 +500,14 @@
         </div>
     </div>
 
+    <!-- STEP 4 -->
     <div id="step-4" class="step-content">
         <div class="step-header">
             <h2>Book Your Studio Session</h2>
             <p>Select your date, time, and session objective.</p>
         </div>
-
         <div class="booking-section">
-            <h4>Session Objective — What are we doing today?</h4>
+            <h4>Session Objective</h4>
             <select id="session-objective">
                 <option value="">Select objective...</option>
                 <option value="Recording">Recording Vocals</option>
@@ -404,12 +520,10 @@
                 <option value="Mastering">Mastering</option>
             </select>
         </div>
-
         <div class="booking-section">
             <h4>Select Date</h4>
             <input type="date" id="booking-date" min="" onchange="updateTimeSlots()">
         </div>
-
         <div class="booking-section">
             <h4>Available Time Slots</h4>
             <div class="time-slots">
@@ -421,19 +535,18 @@
                 <div class="time-slot unavailable">8:00 PM</div>
             </div>
         </div>
-
         <div class="booking-confirmation" id="booking-confirmation">
             <h5>Session Booked</h5>
             <p id="booking-details"></p>
             <a href="#" id="calendar-link" class="calendar-btn" target="_blank">Add to Google Calendar</a>
         </div>
-
         <div class="nav-footer">
             <button class="secondary-btn" onclick="prevStep()">Back</button>
             <button class="primary-btn" onclick="confirmBooking(); nextStep();">Confirm & Next</button>
         </div>
     </div>
 
+    <!-- STEP 5 -->
     <div id="step-5" class="step-content">
         <div class="step-header">
             <h2>The Studio Protocol</h2>
@@ -453,7 +566,7 @@
         </div>
         <div class="prep-card">
             <h4>The Feedback Agreement</h4>
-            <p>All revisions go through the <b>AllEars Mix Feedback</b> system. No random text messages or voice notes. This ensures every change is tracked and executed perfectly.</p>
+            <p>All revisions go through the <b>AllEars Mix Feedback</b> system. No random text messages or voice notes.</p>
         </div>
         <div class="nav-footer">
             <button class="secondary-btn" onclick="prevStep()">Back</button>
@@ -461,6 +574,7 @@
         </div>
     </div>
 
+    <!-- STEP 6 -->
     <div id="step-6" class="step-content">
         <div class="step-header">
             <h2>The Mix Session</h2>
@@ -475,14 +589,87 @@
             <h3>Technical Translation</h3>
             <div id="fb-translated-text"></div>
         </div>
+
+        <!-- T&C AGREEMENT -->
+        <div class="tc-agreement">
+            <input type="checkbox" class="tc-checkbox" id="tc-checkbox" onchange="toggleFinalizeBtn()">
+            <div class="tc-text">
+                I have read and agree to the <span class="tc-link" onclick="openModal()">Terms & Conditions</span> of RocAudio Tech Company.
+            </div>
+        </div>
+
         <div class="nav-footer">
             <button class="secondary-btn" onclick="prevStep()">Back</button>
-            <button class="primary-btn" onclick="submitAllData()">Finalize Session</button>
+            <button class="primary-btn" id="finalize-btn" onclick="submitAllData()" disabled>Finalize Session</button>
         </div>
     </div>
 </div>
 
 <footer class="footer">Created By RocAudio&trade; Tech Company</footer>
+
+<!-- T&C MODAL -->
+<div class="modal-overlay" id="tc-modal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3>Terms & Conditions</h3>
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p><b>Effective Date:</b> September 2026</p>
+            <p>By using the AllEars platform and booking a session with RocAudio Tech Company, you agree to the following terms:</p>
+
+            <h4>1. Booking & Payment</h4>
+            <ul>
+                <li>All sessions must be booked through the AllEars platform.</li>
+                <li>Payment is required to confirm your booking. Sessions are not confirmed until payment is received.</li>
+                <li>Prices are quoted in Nigerian Naira (NGN) and are non-negotiable once confirmed.</li>
+            </ul>
+
+            <h4>2. Cancellation & Rescheduling</h4>
+            <ul>
+                <li>Cancellations made less than 24 hours before the session are non-refundable.</li>
+                <li>Rescheduling is allowed once, with at least 24 hours notice, at no extra cost.</li>
+                <li>No-shows forfeit the full session fee.</li>
+            </ul>
+
+            <h4>3. Revisions</h4>
+            <ul>
+                <li>Each project includes up to <b>2 free revisions</b> after the initial mix delivery.</li>
+                <li>Additional revisions beyond the included limit will be charged at a per-revision rate, quoted before work begins.</li>
+                <li>All revision notes must be submitted through the AllEars Mix Feedback system. Notes sent via text, WhatsApp, or voice notes may be disregarded or delayed.</li>
+            </ul>
+
+            <h4>4. File Delivery</h4>
+            <ul>
+                <li>Final deliverables (mix, master, stems) will be delivered within the agreed timeline.</li>
+                <li>Files will be delivered as high-quality WAV files unless otherwise agreed.</li>
+                <li>Project files (DAW sessions) are not included in the deliverables unless separately purchased.</li>
+            </ul>
+
+            <h4>5. Intellectual Property</h4>
+            <ul>
+                <li>The artist retains full ownership of their composition, lyrics, and master recording upon full payment.</li>
+                <li>RocAudio reserves the right to use short audio clips (under 30 seconds) for portfolio and promotional purposes, unless the artist requests otherwise in writing.</li>
+            </ul>
+
+            <h4>6. Studio Conduct</h4>
+            <ul>
+                <li>Artists must arrive prepared as outlined in the Studio Protocol (Step 5).</li>
+                <li>Excessive lateness (over 30 minutes) may result in a shortened session with no partial refund.</li>
+                <li>RocAudio reserves the right to end a session if the artist is under the influence of substances that impair the recording process.</li>
+            </ul>
+
+            <h4>7. Liability</h4>
+            <ul>
+                <li>RocAudio is not responsible for data loss due to hardware failure, power outages, or unforeseen technical issues. All project files are backed up regularly.</li>
+                <li>AllEars is a beta platform. RocAudio is not liable for any temporary service interruptions or data display errors during the beta testing phase.</li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <button class="primary-btn" onclick="closeModal()">I Understand</button>
+        </div>
+    </div>
+</div>
 
 <script>
     let currentStep = 1;
@@ -634,7 +821,35 @@
         document.getElementById('fb-result').style.display = 'block';
     }
 
+    // --- T&C MODAL ---
+    function openModal() {
+        document.getElementById('tc-modal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        document.getElementById('tc-modal').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Close modal when clicking outside the box
+    document.getElementById('tc-modal').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+    });
+
+    // --- FINALIZE BUTTON TOGGLE ---
+    function toggleFinalizeBtn() {
+        var checkbox = document.getElementById('tc-checkbox');
+        var btn = document.getElementById('finalize-btn');
+        btn.disabled = !checkbox.checked;
+    }
+
     function submitAllData() {
+        if (!document.getElementById('tc-checkbox').checked) {
+            alert('Please agree to the Terms & Conditions before finalizing.');
+            return;
+        }
+
         var form = document.createElement('form');
         form.method = 'POST';
         form.action = FORM_RESPONSE_URL;
