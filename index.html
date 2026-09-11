@@ -653,16 +653,11 @@
         <div class="step-item" data-step="6"><div class="step-circle">6</div><div class="step-label">Session</div></div>
     </div>
 
-    <!-- STEP 1 -->
+    <!-- STEP 1 - CONTACT DETAILS ONLY -->
     <div id="step-1" class="step-content active">
         <div class="step-header">
-            <h2>Client Information</h2>
-            <p>Let's start with the basics. Tell us about yourself and the project.</p>
-        </div>
-        <div class="input-group">
-            <label>Full Legal Name * <span>(As it appears on bank documents)</span></label>
-            <input type="text" id="client-name" placeholder="e.g., John Doe">
-            <div class="error-message" id="client-name-error">Please enter your full legal name</div>
+            <h2>Contact Details</h2>
+            <p>How can we reach you?</p>
         </div>
         <div class="input-group">
             <label>Email Address *</label>
@@ -890,12 +885,19 @@
         </div>
     </div>
 
-    <!-- STEP 6 -->
+    <!-- STEP 6 - NOW INCLUDES LEGAL NAME -->
     <div id="step-6" class="step-content">
         <div class="step-header">
-            <h2>Final Review & Submit</h2>
-            <p>Add any additional notes and finalize your booking.</p>
+            <h2>Final Details</h2>
+            <p>Almost done! Just a few more details before we finalize.</p>
         </div>
+        
+        <div class="input-group">
+            <label>Full Legal Name * <span>(As it appears on bank documents)</span></label>
+            <input type="text" id="client-name" placeholder="e.g., John Doe">
+            <div class="error-message" id="client-name-error">Please enter your full legal name</div>
+        </div>
+
         <div class="input-group">
             <label>Additional Notes (Optional)</label>
             <textarea id="fb-input" placeholder="Any special requests, references, or notes for Roc..."></textarea>
@@ -999,7 +1001,6 @@
             </div>
         </div>
 
-        <!-- PAYMENT BUTTON (DISABLED UNTIL PAYSTACK READY) -->
         <button class="pay-btn" disabled>
             💳 Pay 50% Deposit to Secure Slot
         </button>
@@ -1114,13 +1115,12 @@
         }
     }
 
+    // UPDATED: Only validates 3 fields now
     function validateStep1() {
         var valid = true;
-        var clientName = document.getElementById('client-name').value.trim();
         var clientEmail = document.getElementById('client-email').value.trim();
         var artistName = document.getElementById('artist-name').value.trim();
 
-        if (!clientName) { showError('client-name', true); valid = false; } else { showError('client-name', false); }
         if (!clientEmail || !clientEmail.includes('@')) { showError('client-email', true); valid = false; } else { showError('client-email', false); }
         if (!artistName) { showError('artist-name', true); valid = false; } else { showError('artist-name', false); }
 
@@ -1384,6 +1384,13 @@
     }
 
     function submitAllData() {
+        var clientName = document.getElementById('client-name').value.trim();
+        if (!clientName) {
+            showError('client-name', true);
+            alert('Please enter your full legal name.');
+            return;
+        }
+
         if (!document.getElementById('tc-checkbox').checked) {
             alert('Please agree to the Terms & Conditions before finalizing.');
             return;
@@ -1406,7 +1413,6 @@
             form.appendChild(input);
         }
 
-        var clientName = document.getElementById('client-name').value;
         var clientEmail = document.getElementById('client-email').value;
         var clientPhone = document.getElementById('client-phone').value;
         var objective = document.getElementById('session-objective').value;
