@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AllEars | Producer-Client Hub</title>
+    <title>AllEars | Producer-Client OS</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -211,6 +211,7 @@
             border-radius: 13px;
             cursor: pointer;
             transition: background 0.3s;
+            flex-shrink: 0;
         }
         .toggle-switch.active {
             background: var(--warning);
@@ -522,11 +523,11 @@
             <span class="logo-beta">Beta</span>
         </div>
         <span class="logo-flourish"></span>
-        <p>Producer-Client Alignment OS</p>
+        <p>The Producer-Client Alignment Platform</p>
     </div>
 
     <div class="stepper">
-        <div class="step-item active" data-step="1"><div class="step-circle">1</div><div class="step-label">Brief</div></div>
+        <div class="step-item active" data-step="1"><div class="step-circle">1</div><div class="step-label">Client</div></div>
         <div class="step-line"></div>
         <div class="step-item" data-step="2"><div class="step-circle">2</div><div class="step-label">Vision</div></div>
         <div class="step-line"></div>
@@ -542,7 +543,7 @@
     <!-- STEP 1 -->
     <div id="step-1" class="step-content active">
         <div class="step-header">
-            <h2>Project Brief</h2>
+            <h2>Client Information</h2>
             <p>Let's start with the basics. Tell us about yourself and the project.</p>
         </div>
         <div class="input-group">
@@ -1162,7 +1163,6 @@
 
         var total = basePrice * parseInt(quantity || 1);
         
-        // Add 10% for emergency service
         if (isEmergency) {
             total = total * 1.10;
         }
