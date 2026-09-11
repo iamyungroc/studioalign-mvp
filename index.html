@@ -19,6 +19,8 @@
             --success: #4ade80;
             --success-soft: rgba(74, 222, 128, 0.08);
             --warning: #f59e0b;
+            --error: #f87171;
+            --error-soft: rgba(248, 113, 113, 0.08);
             --border: #2a2420;
             --border-light: #3d3530;
         }
@@ -91,7 +93,7 @@
 
         .input-group { margin-bottom: 18px; }
         label { display: block; font-size: 11px; font-weight: 600; margin-bottom: 6px; color: var(--text-secondary); letter-spacing: 0.5px; text-transform: uppercase; }
-        textarea, input[type="text"], input[type="date"], input[type="number"], select {
+        textarea, input[type="text"], input[type="email"], input[type="tel"], input[type="date"], input[type="number"], select {
             width: 100%; background-color: rgba(15, 13, 10, 0.6); border: 1px solid var(--border-light);
             border-radius: 10px; padding: 14px 16px; color: var(--text-primary); font-family: 'Inter', sans-serif;
             font-size: 16px; transition: border-color 0.3s, box-shadow 0.3s;
@@ -100,6 +102,10 @@
         textarea { height: 100px; resize: vertical; font-size: 15px; }
         textarea:focus, input:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
         select option { background: var(--bg-color); color: var(--text-primary); font-size: 16px; }
+
+        .error-input { border-color: var(--error) !important; }
+        .error-message { color: var(--error); font-size: 11px; margin-top: 4px; display: none; }
+        .error-message.show { display: block; }
 
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
         .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
@@ -187,7 +193,6 @@
         }
         .calendar-btn:active { transform: scale(0.97); opacity: 0.9; }
 
-        /* --- T&C CHECKBOX --- */
         .tc-agreement {
             display: flex;
             align-items: flex-start;
@@ -219,7 +224,6 @@
         }
         .tc-link:hover { opacity: 0.8; }
 
-        /* --- T&C MODAL --- */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -307,6 +311,84 @@
             flex: none;
         }
 
+        /* SUCCESS SCREEN */
+        .success-screen {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .success-screen.active { display: block; }
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: var(--success-soft);
+            border: 2px solid var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: var(--success);
+        }
+        .success-screen h2 {
+            color: var(--success);
+            font-size: 24px;
+            margin: 0 0 12px 0;
+        }
+        .success-screen p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0 0 24px 0;
+        }
+        .summary-card {
+            background: rgba(15, 13, 10, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .summary-card h4 {
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0 0 12px 0;
+        }
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+        }
+        .summary-item:last-child { border-bottom: none; }
+        .summary-label { color: var(--text-secondary); }
+        .summary-value { color: var(--text-primary); font-weight: 600; }
+        .contact-info {
+            background: var(--accent-soft);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            border-radius: 10px;
+            padding: 16px;
+            margin-top: 20px;
+        }
+        .contact-info h5 {
+            color: var(--accent);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0 0 8px 0;
+        }
+        .contact-info p {
+            color: var(--text-primary);
+            font-size: 13px;
+            margin: 4px 0;
+        }
+
         .footer { text-align: center; margin-top: 28px; font-size: 10px; color: var(--text-secondary); opacity: 0.5; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
 
         @media (max-width: 480px) {
@@ -324,6 +406,7 @@
             button { font-size: 12px; padding: 14px 12px; }
             .modal-box { max-height: 85vh; border-radius: 12px; }
             .modal-body { padding: 18px; }
+            .success-screen { padding: 30px 16px; }
         }
     </style>
 </head>
@@ -357,16 +440,47 @@
     <div id="step-1" class="step-content active">
         <div class="step-header">
             <h2>Project Brief</h2>
-            <p>Let's start with the basics. Tell us about the project.</p>
+            <p>Let's start with the basics. Tell us about yourself and the project.</p>
         </div>
         <div class="grid-2">
             <div class="input-group">
-                <label>Artist / Project Name</label>
-                <input type="text" id="artist-name" placeholder="e.g., Wizkid, Tems...">
+                <label>Your Name *</label>
+                <input type="text" id="client-name" placeholder="e.g., John Doe">
+                <div class="error-message" id="client-name-error">Please enter your name</div>
             </div>
             <div class="input-group">
-                <label>Song Title</label>
+                <label>Email Address *</label>
+                <input type="email" id="client-email" placeholder="e.g., john@example.com">
+                <div class="error-message" id="client-email-error">Please enter a valid email</div>
+            </div>
+        </div>
+        <div class="grid-2">
+            <div class="input-group">
+                <label>Phone Number</label>
+                <input type="tel" id="client-phone" placeholder="e.g., +234 801 234 5678">
+            </div>
+            <div class="input-group">
+                <label>Budget Range</label>
+                <select id="budget-range">
+                    <option value="">Select budget...</option>
+                    <option value="Under 50k">Under ₦50,000</option>
+                    <option value="50k - 100k">₦50,000 - ₦100,000</option>
+                    <option value="100k - 200k">₦100,000 - ₦200,000</option>
+                    <option value="200k - 500k">₦200,000 - ₦500,000</option>
+                    <option value="500k+">₦500,000+</option>
+                </select>
+            </div>
+        </div>
+        <div class="grid-2">
+            <div class="input-group">
+                <label>Artist / Project Name *</label>
+                <input type="text" id="artist-name" placeholder="e.g., Wizkid, Tems...">
+                <div class="error-message" id="artist-name-error">Please enter artist name</div>
+            </div>
+            <div class="input-group">
+                <label>Song Title *</label>
                 <input type="text" id="song-title" placeholder="e.g., Essence, Crazy...">
+                <div class="error-message" id="song-title-error">Please enter song title</div>
             </div>
         </div>
         <div class="grid-3">
@@ -396,7 +510,7 @@
         </div>
         <div class="nav-footer">
             <button class="secondary-btn" disabled>Back</button>
-            <button class="primary-btn" onclick="nextStep()">Save & Next</button>
+            <button class="primary-btn" onclick="validateStep1()">Save & Next</button>
         </div>
         <iframe name="hidden_iframe" style="display:none;"></iframe>
     </div>
@@ -486,8 +600,9 @@
             </div>
         </div>
         <div class="input-group">
-            <label>Arrangement Energy Map</label>
+            <label>Arrangement Energy Map *</label>
             <div id="sections-container"></div>
+            <div class="error-message" id="sections-error">Please add at least one section</div>
             <button class="secondary-btn" onclick="addSection()" style="margin-top: 12px; width: 100%;">+ Add Section</button>
         </div>
         <div id="autopsy-result" class="result-box">
@@ -496,7 +611,7 @@
         </div>
         <div class="nav-footer">
             <button class="secondary-btn" onclick="prevStep()">Back</button>
-            <button class="primary-btn" onclick="generateAutopsy(); nextStep();">Analyze & Next</button>
+            <button class="primary-btn" onclick="validateStep3()">Analyze & Next</button>
         </div>
     </div>
 
@@ -504,7 +619,7 @@
     <div id="step-4" class="step-content">
         <div class="step-header">
             <h2>Book Your Studio Session</h2>
-            <p>Select your date, time, and session objective.</p>
+            <p>Select your date, time, duration, and session objective.</p>
         </div>
         <div class="booking-section">
             <h4>Session Objective</h4>
@@ -518,6 +633,16 @@
                 <option value="Review">Review / Feedback Session</option>
                 <option value="Full Production">Full Production (Start to Finish)</option>
                 <option value="Mastering">Mastering</option>
+            </select>
+        </div>
+        <div class="booking-section">
+            <h4>Session Duration</h4>
+            <select id="session-duration">
+                <option value="">Select duration...</option>
+                <option value="2 hours">2 Hours</option>
+                <option value="4 hours">4 Hours</option>
+                <option value="6 hours">6 Hours</option>
+                <option value="Full Day (8+ hours)">Full Day (8+ hours)</option>
             </select>
         </div>
         <div class="booking-section">
@@ -535,6 +660,10 @@
                 <div class="time-slot unavailable">8:00 PM</div>
             </div>
         </div>
+        <div class="booking-section">
+            <h4>Studio Location</h4>
+            <p style="color: var(--text-secondary); font-size: 13px; line-height: 1.5;">RocAudio Studio<br>Lagos, Nigeria<br><i>Contact Roc for exact address after booking confirmation</i></p>
+        </div>
         <div class="booking-confirmation" id="booking-confirmation">
             <h5>Session Booked</h5>
             <p id="booking-details"></p>
@@ -542,7 +671,7 @@
         </div>
         <div class="nav-footer">
             <button class="secondary-btn" onclick="prevStep()">Back</button>
-            <button class="primary-btn" onclick="confirmBooking(); nextStep();">Confirm & Next</button>
+            <button class="primary-btn" onclick="validateStep4()">Confirm & Next</button>
         </div>
     </div>
 
@@ -590,7 +719,6 @@
             <div id="fb-translated-text"></div>
         </div>
 
-        <!-- T&C AGREEMENT -->
         <div class="tc-agreement">
             <input type="checkbox" class="tc-checkbox" id="tc-checkbox" onchange="toggleFinalizeBtn()">
             <div class="tc-text">
@@ -602,6 +730,54 @@
             <button class="secondary-btn" onclick="prevStep()">Back</button>
             <button class="primary-btn" id="finalize-btn" onclick="submitAllData()" disabled>Finalize Session</button>
         </div>
+    </div>
+
+    <!-- SUCCESS SCREEN -->
+    <div id="success-screen" class="success-screen">
+        <div class="success-icon">✓</div>
+        <h2>Session Finalized!</h2>
+        <p>Your booking has been confirmed and Roc has been notified. Check your email for details.</p>
+        
+        <div class="summary-card">
+            <h4>Session Summary</h4>
+            <div class="summary-item">
+                <span class="summary-label">Client</span>
+                <span class="summary-value" id="summary-client"></span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Artist</span>
+                <span class="summary-value" id="summary-artist"></span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Song</span>
+                <span class="summary-value" id="summary-song"></span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Genre</span>
+                <span class="summary-value" id="summary-genre"></span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Date</span>
+                <span class="summary-value" id="summary-date"></span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Time</span>
+                <span class="summary-value" id="summary-time"></span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Duration</span>
+                <span class="summary-value" id="summary-duration"></span>
+            </div>
+        </div>
+
+        <div class="contact-info">
+            <h5>Need to Contact Roc?</h5>
+            <p>Email: rocaudio@example.com</p>
+            <p>Phone: +234 XXX XXX XXXX</p>
+            <p>Instagram: @rocaudio</p>
+        </div>
+
+        <button class="primary-btn" onclick="resetApp()" style="margin-top: 24px; width: 100%;">Book Another Session</button>
     </div>
 </div>
 
@@ -705,6 +881,53 @@
         if (currentStep > 1) { currentStep--; updateStepperUI(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
     }
 
+    // VALIDATION FUNCTIONS
+    function showError(fieldId, show) {
+        var field = document.getElementById(fieldId);
+        var error = document.getElementById(fieldId + '-error');
+        if (show) {
+            field.classList.add('error-input');
+            error.classList.add('show');
+        } else {
+            field.classList.remove('error-input');
+            error.classList.remove('show');
+        }
+    }
+
+    function validateStep1() {
+        var valid = true;
+        var clientName = document.getElementById('client-name').value.trim();
+        var clientEmail = document.getElementById('client-email').value.trim();
+        var artistName = document.getElementById('artist-name').value.trim();
+        var songTitle = document.getElementById('song-title').value.trim();
+
+        if (!clientName) { showError('client-name', true); valid = false; } else { showError('client-name', false); }
+        if (!clientEmail || !clientEmail.includes('@')) { showError('client-email', true); valid = false; } else { showError('client-email', false); }
+        if (!artistName) { showError('artist-name', true); valid = false; } else { showError('artist-name', false); }
+        if (!songTitle) { showError('song-title', true); valid = false; } else { showError('song-title', false); }
+
+        if (valid) nextStep();
+    }
+
+    function validateStep3() {
+        if (songSections.length === 0) {
+            document.getElementById('sections-error').classList.add('show');
+            return;
+        }
+        document.getElementById('sections-error').classList.remove('show');
+        generateAutopsy();
+        nextStep();
+    }
+
+    function validateStep4() {
+        if (!selectedDate || !selectedTime) {
+            alert('Please select both a date and time slot.');
+            return;
+        }
+        confirmBooking();
+        nextStep();
+    }
+
     function toggleChip(el) {
         el.classList.toggle('selected');
         lovedElements = [];
@@ -729,11 +952,11 @@
     }
 
     function confirmBooking() {
-        if (!selectedDate || !selectedTime) { alert('Please select both a date and time slot.'); return; }
         var dateObj = new Date(selectedDate);
         var formattedDate = dateObj.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
         var objective = document.getElementById('session-objective').value || 'General Session';
-        document.getElementById('booking-details').textContent = 'Your ' + objective + ' session is confirmed for ' + formattedDate + ' at ' + selectedTime + '. Genre: ' + (selectedGenre || 'TBD') + '. Roc will prepare the studio accordingly.';
+        var duration = document.getElementById('session-duration').value || 'Not specified';
+        document.getElementById('booking-details').textContent = 'Your ' + objective + ' session (' + duration + ') is confirmed for ' + formattedDate + ' at ' + selectedTime + '. Genre: ' + (selectedGenre || 'TBD') + '. Roc will prepare the studio accordingly.';
         document.getElementById('calendar-link').href = generateCalendarLink(dateObj, selectedTime, objective);
         document.getElementById('booking-confirmation').style.display = 'block';
     }
@@ -821,7 +1044,6 @@
         document.getElementById('fb-result').style.display = 'block';
     }
 
-    // --- T&C MODAL ---
     function openModal() {
         document.getElementById('tc-modal').classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -832,12 +1054,10 @@
         document.body.style.overflow = '';
     }
 
-    // Close modal when clicking outside the box
     document.getElementById('tc-modal').addEventListener('click', function(e) {
         if (e.target === this) closeModal();
     });
 
-    // --- FINALIZE BUTTON TOGGLE ---
     function toggleFinalizeBtn() {
         var checkbox = document.getElementById('tc-checkbox');
         var btn = document.getElementById('finalize-btn');
@@ -863,8 +1083,14 @@
             form.appendChild(input);
         }
 
-        addField('entry.483934415', document.getElementById('artist-name').value);
-        addField('entry.1537868087', document.getElementById('song-title').value);
+        // Client Contact Info
+        var clientName = document.getElementById('client-name').value;
+        var clientEmail = document.getElementById('client-email').value;
+        var clientPhone = document.getElementById('client-phone').value;
+        var budget = document.getElementById('budget-range').value;
+
+        addField('entry.483934415', 'Client: ' + clientName + ' | Email: ' + clientEmail + ' | Phone: ' + clientPhone + ' | Budget: ' + budget);
+        addField('entry.1537868087', document.getElementById('artist-name').value + ' - ' + document.getElementById('song-title').value);
         addField('entry.1518598464', document.getElementById('bpm').value);
         addField('entry.1209461408', document.getElementById('song-key').value);
         addField('entry.1005218773', document.getElementById('deadline').value);
@@ -875,11 +1101,35 @@
         addField('entry.981525809', document.getElementById('dna-anti').value);
         addField('entry.1608215932', selectedGenre);
         addField('entry.42949322', songSections.map(function(s) { return s.name + ': ' + s.energy + '/5'; }).join(', '));
-        addField('entry.337309040', 'Objective: ' + document.getElementById('session-objective').value + ' | Time: ' + selectedTime);
+        
+        var duration = document.getElementById('session-duration').value || 'Not specified';
+        addField('entry.337309040', 'Objective: ' + document.getElementById('session-objective').value + ' | Duration: ' + duration + ' | Time: ' + selectedTime);
         addField('entry.18715465', 'Date: ' + selectedDate + ' | Feedback: ' + document.getElementById('fb-input').value);
 
         form.submit();
-        alert('Session finalized successfully! Roc has received your complete brief.');
+
+        // Show success screen
+        showSuccessScreen();
+    }
+
+    function showSuccessScreen() {
+        document.querySelectorAll('.step-content').forEach(function(c) { c.classList.remove('active'); });
+        document.querySelector('.stepper').style.display = 'none';
+        
+        document.getElementById('summary-client').textContent = document.getElementById('client-name').value;
+        document.getElementById('summary-artist').textContent = document.getElementById('artist-name').value;
+        document.getElementById('summary-song').textContent = document.getElementById('song-title').value;
+        document.getElementById('summary-genre').textContent = selectedGenre || 'TBD';
+        document.getElementById('summary-date').textContent = new Date(selectedDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        document.getElementById('summary-time').textContent = selectedTime;
+        document.getElementById('summary-duration').textContent = document.getElementById('session-duration').value || 'Not specified';
+
+        document.getElementById('success-screen').classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function resetApp() {
+        location.reload();
     }
 
     window.onload = function() {
