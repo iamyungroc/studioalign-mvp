@@ -67,15 +67,15 @@
         .logo-flourish { display: block; width: 120px; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); margin: 8px auto 0; }
         .header p { color: var(--text-secondary); font-size: 12px; font-weight: 500; margin-top: 12px; letter-spacing: 3px; text-transform: uppercase; }
 
-        .stepper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; position: relative; padding: 0 10px; }
+        .stepper { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; position: relative; padding: 0 5px; }
         .step-item { display: flex; flex-direction: column; align-items: center; z-index: 2; flex: 1; }
-        .step-circle { width: 32px; height: 32px; border-radius: 50%; background: var(--bg-color); border: 2px solid var(--border-light); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--text-secondary); transition: all 0.4s ease; margin-bottom: 8px; }
-        .step-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); transition: color 0.4s ease; text-align: center; }
+        .step-circle { width: 30px; height: 30px; border-radius: 50%; background: var(--bg-color); border: 2px solid var(--border-light); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--text-secondary); transition: all 0.4s ease; margin-bottom: 8px; }
+        .step-label { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-secondary); transition: color 0.4s ease; text-align: center; line-height: 1.3; }
         .step-item.active .step-circle { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 0 15px var(--accent-glow); }
         .step-item.active .step-label { color: var(--text-primary); }
         .step-item.completed .step-circle { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
         .step-item.completed .step-label { color: var(--accent); }
-        .step-line { flex: 1; height: 2px; background: var(--border-light); margin: 0 -10px; margin-bottom: 26px; transition: background 0.4s ease; z-index: 1; }
+        .step-line { flex: 1; height: 2px; background: var(--border-light); margin: 0 -5px; margin-top: 14px; transition: background 0.4s ease; z-index: 1; }
         .step-line.completed { background: var(--accent); }
 
         .step-content { display: none; animation: slideIn 0.4s ease; }
@@ -88,14 +88,22 @@
 
         .input-group { margin-bottom: 20px; }
         label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 8px; color: var(--text-secondary); letter-spacing: 0.5px; text-transform: uppercase; }
-        textarea, input[type="text"], input[type="date"], select {
+        textarea, input[type="text"], input[type="date"], input[type="number"], select {
             width: 100%; background-color: rgba(10, 10, 11, 0.6); border: 1px solid var(--border-light);
             border-radius: 10px; padding: 13px 16px; color: var(--text-primary); font-family: 'Inter', sans-serif;
             font-size: 14px; transition: border-color 0.3s, box-shadow 0.3s;
         }
         textarea { height: 100px; resize: vertical; }
-        textarea:focus, input[type="text"]:focus, input[type="date"]:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+        textarea:focus, input:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
         select option { background: var(--bg-color); color: var(--text-primary); }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+        @media (max-width: 600px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .container { padding: 32px 20px; }
+            .logo { font-size: 44px; }
+        }
 
         .nav-footer { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
         button.primary-btn {
@@ -142,6 +150,18 @@
         .genre-card:hover { border-color: var(--accent); color: var(--text-primary); transform: translateY(-2px); }
         .genre-card.selected { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); }
 
+        .chip-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+        .chip {
+            background: rgba(10, 10, 11, 0.6); border: 1px solid var(--border-light);
+            padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 600;
+            color: var(--text-secondary); cursor: pointer; transition: all 0.2s;
+            user-select: none;
+        }
+        .chip:hover { border-color: var(--accent); color: var(--text-primary); }
+        .chip.selected {
+            background: var(--accent-soft); border-color: var(--accent); color: var(--accent);
+        }
+
         .booking-section { background: rgba(10, 10, 11, 0.6); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
         .booking-section h4 { margin: 0 0 16px 0; color: var(--text-primary); font-size: 14px; font-weight: 700; }
         .time-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-top: 16px; }
@@ -180,23 +200,71 @@
     </div>
 
     <div class="stepper">
-        <div class="step-item active" data-step="1"><div class="step-circle">1</div><div class="step-label">Vision</div></div>
+        <div class="step-item active" data-step="1"><div class="step-circle">1</div><div class="step-label">Brief</div></div>
         <div class="step-line"></div>
-        <div class="step-item" data-step="2"><div class="step-circle">2</div><div class="step-label">Structure</div></div>
+        <div class="step-item" data-step="2"><div class="step-circle">2</div><div class="step-label">Vision</div></div>
         <div class="step-line"></div>
-        <div class="step-item" data-step="3"><div class="step-circle">3</div><div class="step-label">Booking</div></div>
+        <div class="step-item" data-step="3"><div class="step-circle">3</div><div class="step-label">Structure</div></div>
         <div class="step-line"></div>
-        <div class="step-item" data-step="4"><div class="step-circle">4</div><div class="step-label">Protocol</div></div>
+        <div class="step-item" data-step="4"><div class="step-circle">4</div><div class="step-label">Booking</div></div>
         <div class="step-line"></div>
-        <div class="step-item" data-step="5"><div class="step-circle">5</div><div class="step-label">Session</div></div>
+        <div class="step-item" data-step="5"><div class="step-circle">5</div><div class="step-label">Protocol</div></div>
+        <div class="step-line"></div>
+        <div class="step-item" data-step="6"><div class="step-circle">6</div><div class="step-label">Session</div></div>
     </div>
 
-    <!-- STEP 1 -->
     <div id="step-1" class="step-content active">
         <div class="step-header">
-            <h2>Define The Sonic DNA</h2>
-            <p>Before we touch a fader, we must define the atmosphere. Where does this song live?</p>
+            <h2>Project Brief</h2>
+            <p>Let's start with the basics. Tell us about the project.</p>
         </div>
+        <div class="grid-2">
+            <div class="input-group">
+                <label>Artist / Project Name</label>
+                <input type="text" id="artist-name" placeholder="e.g., Wizkid, Tems...">
+            </div>
+            <div class="input-group">
+                <label>Song Title</label>
+                <input type="text" id="song-title" placeholder="e.g., Essence, Crazy...">
+            </div>
+        </div>
+        <div class="grid-3">
+            <div class="input-group">
+                <label>BPM (Tempo)</label>
+                <input type="number" id="bpm" placeholder="e.g., 108" min="40" max="220">
+            </div>
+            <div class="input-group">
+                <label>Key</label>
+                <select id="song-key">
+                    <option value="">Select key...</option>
+                    <option>C Major</option><option>C# Major</option><option>D Major</option>
+                    <option>D# Major</option><option>E Major</option><option>F Major</option>
+                    <option>F# Major</option><option>G Major</option><option>G# Major</option>
+                    <option>A Major</option><option>A# Major</option><option>B Major</option>
+                    <option>C Minor</option><option>C# Minor</option><option>D Minor</option>
+                    <option>D# Minor</option><option>E Minor</option><option>F Minor</option>
+                    <option>F# Minor</option><option>G Minor</option><option>G# Minor</option>
+                    <option>A Minor</option><option>A# Minor</option><option>B Minor</option>
+                    <option>Not Sure</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Deadline</label>
+                <input type="date" id="deadline" min="">
+            </div>
+        </div>
+        <div class="nav-footer">
+            <button class="secondary-btn" disabled>Back</button>
+            <button class="primary-btn" onclick="nextStep()">Save & Next</button>
+        </div>
+    </div>
+
+    <div id="step-2" class="step-content">
+        <div class="step-header">
+            <h2>The Vision</h2>
+            <p>Define the atmosphere, creative direction, and references.</p>
+        </div>
+
         <div class="input-group">
             <label>The Sonic Location</label>
             <select id="dna-location">
@@ -207,22 +275,57 @@
                 <option value="Massive echoing stadium">Massive echoing stadium</option>
             </select>
         </div>
+
         <div class="input-group">
-            <label>The Anti-Reference (What to avoid)</label>
-            <input type="text" id="dna-anti" placeholder="e.g., Generic TikTok pop...">
+            <label>Creative Direction — What should the listener feel?</label>
+            <select id="creative-direction">
+                <option value="">Select the emotion...</option>
+                <option value="Nostalgic">Nostalgic</option>
+                <option value="Energized">Energized</option>
+                <option value="Heartbroken">Heartbroken</option>
+                <option value="Hypnotic">Hypnotic</option>
+                <option value="Triumphant">Triumphant</option>
+                <option value="Intimate">Intimate</option>
+                <option value="Melancholic">Melancholic</option>
+                <option value="Empowered">Empowered</option>
+                <option value="Euphoric">Euphoric</option>
+                <option value="Mysterious">Mysterious</option>
+            </select>
         </div>
+
         <div class="input-group">
-            <label>Core References</label>
-            <textarea id="dna-refs" placeholder="e.g., 1. The Weeknd - Blinding Lights (synths)"></textarea>
+            <label>Reference Track</label>
+            <input type="text" id="ref-track" placeholder="e.g., Burna Boy - Last Last">
         </div>
+
+        <div class="input-group">
+            <label>What I Love About The Reference (Select all that apply)</label>
+            <div class="chip-group" id="love-chips">
+                <div class="chip" onclick="toggleChip(this)">Vocals</div>
+                <div class="chip" onclick="toggleChip(this)">Drums</div>
+                <div class="chip" onclick="toggleChip(this)">Bass</div>
+                <div class="chip" onclick="toggleChip(this)">Width / Stereo</div>
+                <div class="chip" onclick="toggleChip(this)">Arrangement</div>
+                <div class="chip" onclick="toggleChip(this)">Effects</div>
+                <div class="chip" onclick="toggleChip(this)">Mix Quality</div>
+                <div class="chip" onclick="toggleChip(this)">Mastering</div>
+                <div class="chip" onclick="toggleChip(this)">Energy</div>
+                <div class="chip" onclick="toggleChip(this)">Vibe</div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>What I Don't Want (Anti-Reference)</label>
+            <textarea id="dna-anti" placeholder="e.g., Don't want it to sound like generic TikTok pop, or overly compressed..."></textarea>
+        </div>
+
         <div class="nav-footer">
-            <button class="secondary-btn" disabled>Back</button>
-            <button class="primary-btn" onclick="nextStep()">Generate Blueprint & Next</button>
+            <button class="secondary-btn" onclick="prevStep()">Back</button>
+            <button class="primary-btn" onclick="nextStep()">Save & Next</button>
         </div>
     </div>
 
-    <!-- STEP 2 -->
-    <div id="step-2" class="step-content">
+    <div id="step-3" class="step-content">
         <div class="step-header">
             <h2>Map The Structure</h2>
             <p>Define the genre and map the energy flow of your track.</p>
@@ -259,16 +362,32 @@
         </div>
     </div>
 
-    <!-- STEP 3 -->
-    <div id="step-3" class="step-content">
+    <div id="step-4" class="step-content">
         <div class="step-header">
             <h2>Book Your Studio Session</h2>
-            <p>Select your preferred date and time for the recording session.</p>
+            <p>Select your date, time, and session objective.</p>
         </div>
+
+        <div class="booking-section">
+            <h4>Session Objective — What are we doing today?</h4>
+            <select id="session-objective">
+                <option value="">Select objective...</option>
+                <option value="Recording">Recording Vocals</option>
+                <option value="Production">Production / Beat Making</option>
+                <option value="Writing">Songwriting / Topline</option>
+                <option value="Mixing">Mixing</option>
+                <option value="Editing">Vocal Editing / Comping</option>
+                <option value="Review">Review / Feedback Session</option>
+                <option value="Full Production">Full Production (Start to Finish)</option>
+                <option value="Mastering">Mastering</option>
+            </select>
+        </div>
+
         <div class="booking-section">
             <h4>Select Date</h4>
             <input type="date" id="booking-date" min="" onchange="updateTimeSlots()">
         </div>
+
         <div class="booking-section">
             <h4>Available Time Slots</h4>
             <div class="time-slots">
@@ -280,19 +399,20 @@
                 <div class="time-slot unavailable">8:00 PM</div>
             </div>
         </div>
+
         <div class="booking-confirmation" id="booking-confirmation">
             <h5>Session Booked</h5>
             <p id="booking-details"></p>
             <a href="#" id="calendar-link" class="calendar-btn" target="_blank">Add to Google Calendar</a>
         </div>
+
         <div class="nav-footer">
             <button class="secondary-btn" onclick="prevStep()">Back</button>
             <button class="primary-btn" onclick="confirmBooking(); nextStep();">Confirm & Next</button>
         </div>
     </div>
 
-    <!-- STEP 4 -->
-    <div id="step-4" class="step-content">
+    <div id="step-5" class="step-content">
         <div class="step-header">
             <h2>The Studio Protocol</h2>
             <p>To ensure radio-ready results, we adhere to strict professional standards.</p>
@@ -309,14 +429,17 @@
                 <li><b>Lyrics:</b> Memorized. We capture emotion, not reading.</li>
             </ul>
         </div>
+        <div class="prep-card">
+            <h4>The Feedback Agreement</h4>
+            <p>All revisions go through the <b>AllEars Mix Feedback</b> system. No random text messages or voice notes. This ensures every change is tracked and executed perfectly.</p>
+        </div>
         <div class="nav-footer">
             <button class="secondary-btn" onclick="prevStep()">Back</button>
             <button class="primary-btn" onclick="nextStep()">Accept Protocols & Next</button>
         </div>
     </div>
 
-    <!-- STEP 5 -->
-    <div id="step-5" class="step-content">
+    <div id="step-6" class="step-content">
         <div class="step-header">
             <h2>The Mix Session</h2>
             <p>Translate your creative feelings into technical actions for the producer.</p>
@@ -341,26 +464,46 @@
 
 <script>
     let currentStep = 1;
-    const totalSteps = 5;
+    const totalSteps = 6;
     let songSections = [];
     let selectedGenre = '';
     let selectedDate = '';
     let selectedTime = '';
+    let lovedElements = [];
 
-    const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+    // GOOGLE FORMS CONFIGURATION (EXTRACTED FROM YOUR LINK)
+    const FORM_BASE_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdnKJPL4nvoGG0rD8eXzfmUAZ_-D7pn_aWiieqdEIUZZvCwqg/viewform';
+    const ENTRY_IDS = {
+        artistName: 'entry.483934415',
+        songTitle: 'entry.1537868087',
+        bpm: 'entry.1518598464',
+        key: 'entry.1209461408',
+        deadline: 'entry.1005218773',
+        sonicLocation: 'entry.1366407779',
+        creativeDirection: 'entry.749912738',
+        referenceTrack: 'entry.42572067',
+        whatILove: 'entry.1276515905',
+        antiReference: 'entry.981525809',
+        genre: 'entry.1608215932',
+        arrangement: 'entry.42949322',
+        sessionObjective: 'entry.337309040', 
+        bookingDate: 'entry.18715465',       
+        bookingTime: 'entry.337309040',      
+        mixFeedback: 'entry.18715465'        
+    };
 
     function updateStepperUI() {
-        document.querySelectorAll('.step-item').forEach(item => {
+        document.querySelectorAll('.step-item').forEach(function(item) {
             const stepNum = parseInt(item.getAttribute('data-step'));
             item.classList.remove('active', 'completed');
             if (stepNum === currentStep) item.classList.add('active');
             else if (stepNum < currentStep) item.classList.add('completed');
         });
-        document.querySelectorAll('.step-line').forEach((line, index) => {
+        document.querySelectorAll('.step-line').forEach(function(line, index) {
             if (index < currentStep - 1) line.classList.add('completed');
             else line.classList.remove('completed');
         });
-        document.querySelectorAll('.step-content').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.step-content').forEach(function(c) { c.classList.remove('active'); });
         document.getElementById('step-' + currentStep).classList.add('active');
     }
 
@@ -372,8 +515,16 @@
         if (currentStep > 1) { currentStep--; updateStepperUI(); window.scrollTo(0, 0); }
     }
 
+    function toggleChip(el) {
+        el.classList.toggle('selected');
+        lovedElements = [];
+        document.querySelectorAll('#love-chips .chip.selected').forEach(function(c) {
+            lovedElements.push(c.textContent);
+        });
+    }
+
     function selectGenre(el, genre) {
-        document.querySelectorAll('.genre-card').forEach(c => c.classList.remove('selected'));
+        document.querySelectorAll('.genre-card').forEach(function(c) { c.classList.remove('selected'); });
         el.classList.add('selected');
         selectedGenre = genre;
     }
@@ -382,7 +533,7 @@
 
     function selectTimeSlot(el, time) {
         if (el.classList.contains('unavailable')) return;
-        document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+        document.querySelectorAll('.time-slot').forEach(function(s) { s.classList.remove('selected'); });
         el.classList.add('selected');
         selectedTime = time;
     }
@@ -391,12 +542,13 @@
         if (!selectedDate || !selectedTime) { alert('Please select both a date and time slot.'); return; }
         var dateObj = new Date(selectedDate);
         var formattedDate = dateObj.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-        document.getElementById('booking-details').textContent = 'Your session is confirmed for ' + formattedDate + ' at ' + selectedTime + '. Genre: ' + (selectedGenre || 'TBD') + '. Roc will prepare the studio accordingly.';
-        document.getElementById('calendar-link').href = generateCalendarLink(dateObj, selectedTime);
+        var objective = document.getElementById('session-objective').value || 'General Session';
+        document.getElementById('booking-details').textContent = 'Your ' + objective + ' session is confirmed for ' + formattedDate + ' at ' + selectedTime + '. Genre: ' + (selectedGenre || 'TBD') + '. Roc will prepare the studio accordingly.';
+        document.getElementById('calendar-link').href = generateCalendarLink(dateObj, selectedTime, objective);
         document.getElementById('booking-confirmation').style.display = 'block';
     }
 
-    function generateCalendarLink(dateObj, time) {
+    function generateCalendarLink(dateObj, time, objective) {
         var parts = time.split(' ');
         var hm = parts[0].split(':');
         var hours = parseInt(hm[0]);
@@ -414,8 +566,10 @@
                 d.getHours().toString().padStart(2, '0') +
                 d.getMinutes().toString().padStart(2, '0') + '00';
         }
-        var desc = 'Studio Session via AllEars | Genre: ' + (selectedGenre || 'TBD') + ' | Sonic DNA: ' + (document.getElementById('dna-location').value || 'N/A');
-        return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=AllEars+Studio+Session+with+Roc&dates=' + fmt(start) + '/' + fmt(end) + '&details=' + encodeURIComponent(desc) + '&location=RocAudio+Studio';
+        var artistName = document.getElementById('artist-name').value || 'Artist';
+        var songTitle = document.getElementById('song-title').value || 'Untitled';
+        var desc = 'AllEars Studio Session\n\nObjective: ' + objective + '\nArtist: ' + artistName + '\nSong: ' + songTitle + '\nGenre: ' + (selectedGenre || 'TBD') + '\nCreative Direction: ' + (document.getElementById('creative-direction').value || 'N/A');
+        return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(objective + ': ' + artistName + ' - ' + songTitle) + '&dates=' + fmt(start) + '/' + fmt(end) + '&details=' + encodeURIComponent(desc) + '&location=RocAudio+Studio';
     }
 
     function addSection() {
@@ -440,6 +594,7 @@
                 '<select onchange="updateSection(' + s.id + ',\'name\',this.value)" style="flex:1;">' +
                 '<option' + (s.name==='Intro'?' selected':'') + '>Intro</option>' +
                 '<option' + (s.name==='Verse'?' selected':'') + '>Verse</option>' +
+                '<option' + (s.name==='Pre-Chorus'?' selected':'') + '>Pre-Chorus</option>' +
                 '<option' + (s.name==='Chorus'?' selected':'') + '>Chorus</option>' +
                 '<option' + (s.name==='Bridge'?' selected':'') + '>Bridge</option>' +
                 '<option' + (s.name==='Outro'?' selected':'') + '>Outro</option>' +
@@ -477,31 +632,34 @@
     }
 
     function submitAllData() {
-        var data = {
-            'Sonic Location': document.getElementById('dna-location').value,
-            'Anti-Reference': document.getElementById('dna-anti').value,
-            'References': document.getElementById('dna-refs').value,
-            'Genre': selectedGenre,
-            'Arrangement': songSections.map(function(s) { return s.name + ': ' + s.energy + '/5'; }).join(', '),
-            'Booking Date': selectedDate,
-            'Booking Time': selectedTime,
-            'Mix Feedback': document.getElementById('fb-input').value
-        };
-        fetch(FORMSPREE_ENDPOINT, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify(data)
-        }).then(function() {
-            alert('Session finalized. Roc has been notified via email.');
-        }).catch(function() {
-            alert('Session finalized. Roc has been notified.');
-        });
+        var formUrl = FORM_BASE_URL + '?usp=pp_url&';
+        formUrl += ENTRY_IDS.artistName + '=' + encodeURIComponent(document.getElementById('artist-name').value) + '&';
+        formUrl += ENTRY_IDS.songTitle + '=' + encodeURIComponent(document.getElementById('song-title').value) + '&';
+        formUrl += ENTRY_IDS.bpm + '=' + encodeURIComponent(document.getElementById('bpm').value) + '&';
+        formUrl += ENTRY_IDS.key + '=' + encodeURIComponent(document.getElementById('song-key').value) + '&';
+        formUrl += ENTRY_IDS.deadline + '=' + encodeURIComponent(document.getElementById('deadline').value) + '&';
+        formUrl += ENTRY_IDS.sonicLocation + '=' + encodeURIComponent(document.getElementById('dna-location').value) + '&';
+        formUrl += ENTRY_IDS.creativeDirection + '=' + encodeURIComponent(document.getElementById('creative-direction').value) + '&';
+        formUrl += ENTRY_IDS.referenceTrack + '=' + encodeURIComponent(document.getElementById('ref-track').value) + '&';
+        formUrl += ENTRY_IDS.whatILove + '=' + encodeURIComponent(lovedElements.join(', ')) + '&';
+        formUrl += ENTRY_IDS.antiReference + '=' + encodeURIComponent(document.getElementById('dna-anti').value) + '&';
+        formUrl += ENTRY_IDS.genre + '=' + encodeURIComponent(selectedGenre) + '&';
+        formUrl += ENTRY_IDS.arrangement + '=' + encodeURIComponent(songSections.map(function(s) { return s.name + ': ' + s.energy + '/5'; }).join(', ')) + '&';
+        formUrl += ENTRY_IDS.sessionObjective + '=' + encodeURIComponent(document.getElementById('session-objective').value) + '&';
+        formUrl += ENTRY_IDS.bookingDate + '=' + encodeURIComponent(selectedDate) + '&';
+        formUrl += ENTRY_IDS.bookingTime + '=' + encodeURIComponent(selectedTime) + '&';
+        formUrl += ENTRY_IDS.mixFeedback + '=' + encodeURIComponent(document.getElementById('fb-input').value);
+
+        window.open(formUrl, '_blank');
+        alert('Your session data has been prepared. Please click "Submit" on the Google Form that just opened to finalize.');
     }
 
     window.onload = function() {
         addSection();
         updateStepperUI();
-        document.getElementById('booking-date').setAttribute('min', new Date().toISOString().split('T')[0]);
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementById('booking-date').setAttribute('min', today);
+        document.getElementById('deadline').setAttribute('min', today);
     };
 </script>
 
