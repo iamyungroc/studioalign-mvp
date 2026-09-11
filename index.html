@@ -312,7 +312,6 @@
             flex: none;
         }
 
-        /* SUCCESS SCREEN */
         .success-screen {
             display: none;
             text-align: center;
@@ -513,17 +512,10 @@
             <label>WhatsApp Number</label>
             <input type="tel" id="client-phone" placeholder="e.g., +234 801 234 5678">
         </div>
-        <div class="grid-2">
-            <div class="input-group">
-                <label>Artist / Project Name *</label>
-                <input type="text" id="artist-name" placeholder="e.g., Wizkid, Tems...">
-                <div class="error-message" id="artist-name-error">Please enter artist name</div>
-            </div>
-            <div class="input-group">
-                <label>Song Title *</label>
-                <input type="text" id="song-title" placeholder="e.g., Essence, Crazy...">
-                <div class="error-message" id="song-title-error">Please enter song title</div>
-            </div>
+        <div class="input-group">
+            <label>Artist / Project Name *</label>
+            <input type="text" id="artist-name" placeholder="e.g., Wizkid, Tems...">
+            <div class="error-message" id="artist-name-error">Please enter artist name</div>
         </div>
         <div class="grid-3">
             <div class="input-group">
@@ -781,8 +773,8 @@
                 <span class="summary-value" id="summary-client"></span>
             </div>
             <div class="summary-item">
-                <span class="summary-label">Artist / Song</span>
-                <span class="summary-value" id="summary-artist-song"></span>
+                <span class="summary-label">Artist</span>
+                <span class="summary-value" id="summary-artist"></span>
             </div>
             <div class="summary-item">
                 <span class="summary-label">Service</span>
@@ -921,12 +913,10 @@
         var clientName = document.getElementById('client-name').value.trim();
         var clientEmail = document.getElementById('client-email').value.trim();
         var artistName = document.getElementById('artist-name').value.trim();
-        var songTitle = document.getElementById('song-title').value.trim();
 
         if (!clientName) { showError('client-name', true); valid = false; } else { showError('client-name', false); }
         if (!clientEmail || !clientEmail.includes('@')) { showError('client-email', true); valid = false; } else { showError('client-email', false); }
         if (!artistName) { showError('artist-name', true); valid = false; } else { showError('artist-name', false); }
-        if (!songTitle) { showError('song-title', true); valid = false; } else { showError('song-title', false); }
 
         if (valid) nextStep();
     }
@@ -1004,9 +994,8 @@
                 d.getMinutes().toString().padStart(2, '0') + '00';
         }
         var artistName = document.getElementById('artist-name').value || 'Artist';
-        var songTitle = document.getElementById('song-title').value || 'Untitled';
-        var desc = 'AllEars Studio Session\n\nObjective: ' + objective + '\nArtist: ' + artistName + '\nSong: ' + songTitle + '\nGenre: ' + (selectedGenre || 'TBD');
-        return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(objective + ': ' + artistName + ' - ' + songTitle) + '&dates=' + fmt(start) + '/' + fmt(end) + '&details=' + encodeURIComponent(desc) + '&location=RocAudio+Studio+Lagos';
+        var desc = 'AllEars Studio Session\n\nObjective: ' + objective + '\nArtist: ' + artistName + '\nGenre: ' + (selectedGenre || 'TBD');
+        return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(objective + ' Session - ' + artistName) + '&dates=' + fmt(start) + '/' + fmt(end) + '&details=' + encodeURIComponent(desc) + '&location=RocAudio+Studio+Lagos';
     }
 
     function addSection() {
@@ -1088,7 +1077,6 @@
         btn.disabled = !checkbox.checked;
     }
 
-    // UPDATED SMART PRICING CALCULATOR
     function calculatePrice(objective, quantity) {
         if (objective === 'EP Production' || objective === 'Album Production') {
             return 'Contact Producer';
@@ -1099,7 +1087,7 @@
         else if (objective === 'Full Production') basePrice = 200000;
         else if (objective === 'Mixing' || objective === 'Mastering') basePrice = 100000;
         else if (objective === 'Meditation') basePrice = 80000;
-        else basePrice = 50000; // Default fallback
+        else basePrice = 50000;
 
         var total = basePrice * parseInt(quantity || 1);
         return total.toLocaleString();
@@ -1129,10 +1117,9 @@
         var clientPhone = document.getElementById('client-phone').value;
         var objective = document.getElementById('session-objective').value;
         var quantity = document.getElementById('session-quantity').value;
-        var duration = document.getElementById('session-duration') ? document.getElementById('session-duration').value : 'N/A';
 
         addField('entry.483934415', 'Client: ' + clientName + ' | Email: ' + clientEmail + ' | WhatsApp: ' + clientPhone);
-        addField('entry.1537868087', document.getElementById('artist-name').value + ' - ' + document.getElementById('song-title').value);
+        addField('entry.1537868087', document.getElementById('artist-name').value);
         addField('entry.1518598464', document.getElementById('bpm').value);
         addField('entry.1209461408', document.getElementById('song-key').value);
         addField('entry.1005218773', document.getElementById('deadline').value);
@@ -1143,7 +1130,7 @@
         addField('entry.981525809', document.getElementById('dna-anti').value);
         addField('entry.1608215932', selectedGenre);
         addField('entry.42949322', songSections.map(function(s) { return s.name + ': ' + s.energy + '/5'; }).join(', '));
-        addField('entry.337309040', 'Service: ' + objective + ' | Qty: ' + quantity + ' | Duration: ' + duration + ' | Time: ' + selectedTime);
+        addField('entry.337309040', 'Service: ' + objective + ' | Qty: ' + quantity + ' | Time: ' + selectedTime);
         addField('entry.18715465', 'Date: ' + selectedDate + ' | Feedback: ' + document.getElementById('fb-input').value);
 
         form.submit();
@@ -1158,7 +1145,7 @@
         var price = calculatePrice(objective, quantity);
         
         document.getElementById('summary-client').textContent = document.getElementById('client-name').value;
-        document.getElementById('summary-artist-song').textContent = document.getElementById('artist-name').value + ' - ' + document.getElementById('song-title').value;
+        document.getElementById('summary-artist').textContent = document.getElementById('artist-name').value;
         document.getElementById('summary-objective').textContent = objective || 'General Session';
         document.getElementById('summary-quantity').textContent = quantity + (quantity > 1 ? ' Tracks/Sessions' : ' Track/Session');
         document.getElementById('summary-datetime').textContent = formattedDate + ' @ ' + selectedTime;
