@@ -93,6 +93,7 @@
 
         .input-group { margin-bottom: 18px; }
         label { display: block; font-size: 11px; font-weight: 600; margin-bottom: 6px; color: var(--text-secondary); letter-spacing: 0.5px; text-transform: uppercase; }
+        label span { font-weight: 400; text-transform: none; font-size: 11px; color: var(--text-secondary); }
         textarea, input[type="text"], input[type="email"], input[type="tel"], input[type="date"], input[type="number"], select {
             width: 100%; background-color: rgba(15, 13, 10, 0.6); border: 1px solid var(--border-light);
             border-radius: 10px; padding: 14px 16px; color: var(--text-primary); font-family: 'Inter', sans-serif;
@@ -498,34 +499,19 @@
             <h2>Project Brief</h2>
             <p>Let's start with the basics. Tell us about yourself and the project.</p>
         </div>
-        <div class="grid-2">
-            <div class="input-group">
-                <label>Your Name *</label>
-                <input type="text" id="client-name" placeholder="e.g., John Doe">
-                <div class="error-message" id="client-name-error">Please enter your name</div>
-            </div>
-            <div class="input-group">
-                <label>Email Address *</label>
-                <input type="email" id="client-email" placeholder="e.g., john@example.com">
-                <div class="error-message" id="client-email-error">Please enter a valid email</div>
-            </div>
+        <div class="input-group">
+            <label>Full Legal Name * <span>(As it appears on bank documents)</span></label>
+            <input type="text" id="client-name" placeholder="e.g., John Doe">
+            <div class="error-message" id="client-name-error">Please enter your full legal name</div>
         </div>
-        <div class="grid-2">
-            <div class="input-group">
-                <label>WhatsApp Number</label>
-                <input type="tel" id="client-phone" placeholder="e.g., +234 801 234 5678">
-            </div>
-            <div class="input-group">
-                <label>Budget Range</label>
-                <select id="budget-range">
-                    <option value="">Select budget...</option>
-                    <option value="Under 50k">Under ₦50,000</option>
-                    <option value="50k - 100k">₦50,000 - ₦100,000</option>
-                    <option value="100k - 200k">₦100,000 - ₦200,000</option>
-                    <option value="200k - 500k">₦200,000 - ₦500,000</option>
-                    <option value="500k+">₦500,000+</option>
-                </select>
-            </div>
+        <div class="input-group">
+            <label>Email Address *</label>
+            <input type="email" id="client-email" placeholder="e.g., john@example.com">
+            <div class="error-message" id="client-email-error">Please enter a valid email</div>
+        </div>
+        <div class="input-group">
+            <label>WhatsApp Number</label>
+            <input type="tel" id="client-phone" placeholder="e.g., +234 801 234 5678">
         </div>
         <div class="grid-2">
             <div class="input-group">
@@ -675,31 +661,25 @@
     <div id="step-4" class="step-content">
         <div class="step-header">
             <h2>Book Your Studio Session</h2>
-            <p>Select your date, time, duration, and session objective.</p>
+            <p>Select your service, quantity, date, and time.</p>
         </div>
         <div class="booking-section">
-            <h4>Session Objective *</h4>
+            <h4>Service Required *</h4>
             <select id="session-objective">
-                <option value="">Select objective...</option>
-                <option value="Recording">Voicing Only (Recording)</option>
-                <option value="Production">Beats Only (Production)</option>
-                <option value="Mixing">Mixing</option>
-                <option value="Mastering">Mastering</option>
-                <option value="Full Production">Full Production (Start to Finish)</option>
-                <option value="Writing">Songwriting / Topline</option>
-                <option value="Editing">Vocal Editing / Comping</option>
-                <option value="Review">Review / Feedback Session</option>
+                <option value="">Select service...</option>
+                <option value="Recording">Voicing Only (Recording) - ₦50,000/track</option>
+                <option value="Production">Beats Only (Production) - ₦100,000/beat</option>
+                <option value="Mixing">Mixing - ₦100,000/track</option>
+                <option value="Mastering">Mastering - ₦100,000/track</option>
+                <option value="Full Production">Full Production (Start to Finish) - ₦200,000/track</option>
+                <option value="Meditation">Meditation Session (from 10 mins) - ₦80,000</option>
+                <option value="EP Production">EP Production - Contact Producer</option>
+                <option value="Album Production">Full Album Production - Contact Producer</option>
             </select>
         </div>
         <div class="booking-section">
-            <h4>Session Duration *</h4>
-            <select id="session-duration">
-                <option value="">Select duration...</option>
-                <option value="2 hours">2 Hours</option>
-                <option value="4 hours">4 Hours</option>
-                <option value="6 hours">6 Hours</option>
-                <option value="Full Day">Full Day (8+ hours)</option>
-            </select>
+            <h4>Quantity (Number of Tracks/Sessions) *</h4>
+            <input type="number" id="session-quantity" min="1" value="1" style="width: 100%;">
         </div>
         <div class="booking-section">
             <h4>Select Date *</h4>
@@ -797,7 +777,7 @@
         <div class="summary-card">
             <h4>Session Summary & Estimate</h4>
             <div class="summary-item">
-                <span class="summary-label">Client</span>
+                <span class="summary-label">Client (Legal Name)</span>
                 <span class="summary-value" id="summary-client"></span>
             </div>
             <div class="summary-item">
@@ -805,16 +785,16 @@
                 <span class="summary-value" id="summary-artist-song"></span>
             </div>
             <div class="summary-item">
-                <span class="summary-label">Objective</span>
+                <span class="summary-label">Service</span>
                 <span class="summary-value" id="summary-objective"></span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Quantity</span>
+                <span class="summary-value" id="summary-quantity"></span>
             </div>
             <div class="summary-item">
                 <span class="summary-label">Date & Time</span>
                 <span class="summary-value" id="summary-datetime"></span>
-            </div>
-            <div class="summary-item">
-                <span class="summary-label">Duration</span>
-                <span class="summary-value" id="summary-duration"></span>
             </div>
             <div class="summary-item total">
                 <span class="summary-label">Estimated Total</span>
@@ -963,9 +943,9 @@
 
     function validateStep4() {
         var objective = document.getElementById('session-objective').value;
-        var duration = document.getElementById('session-duration').value;
-        if (!objective || !duration || !selectedDate || !selectedTime) {
-            alert('Please select an objective, duration, date, and time slot.');
+        var quantity = document.getElementById('session-quantity').value;
+        if (!objective || !quantity || quantity < 1 || !selectedDate || !selectedTime) {
+            alert('Please select a service, valid quantity, date, and time slot.');
             return;
         }
         confirmBooking();
@@ -999,8 +979,8 @@
         var dateObj = new Date(selectedDate);
         var formattedDate = dateObj.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
         var objective = document.getElementById('session-objective').value || 'General Session';
-        var duration = document.getElementById('session-duration').value || 'Not specified';
-        document.getElementById('booking-details').textContent = 'Your ' + objective + ' session (' + duration + ') is confirmed for ' + formattedDate + ' at ' + selectedTime + '. Genre: ' + (selectedGenre || 'TBD') + '. Roc will prepare the studio accordingly.';
+        var quantity = document.getElementById('session-quantity').value || 1;
+        document.getElementById('booking-details').textContent = 'Your ' + objective + ' session (Qty: ' + quantity + ') is confirmed for ' + formattedDate + ' at ' + selectedTime + '. Genre: ' + (selectedGenre || 'TBD') + '. Roc will prepare the studio accordingly.';
         document.getElementById('calendar-link').href = generateCalendarLink(dateObj, selectedTime, objective);
         document.getElementById('booking-confirmation').style.display = 'block';
     }
@@ -1108,21 +1088,21 @@
         btn.disabled = !checkbox.checked;
     }
 
-    // UPDATED PRICING CALCULATOR
-    function calculatePrice(objective, duration) {
-        var basePrice = 0;
-        if (objective === 'Recording') {
-            basePrice = 50000; // Voicing Only
-        } else if (objective === 'Production') {
-            basePrice = 100000; // Beats Only
-        } else if (objective === 'Full Production') {
-            basePrice = 200000; // Full Production
-        } else if (objective === 'Mixing' || objective === 'Mastering') {
-            basePrice = 100000; // Mixing & Mastering
-        } else {
-            basePrice = 50000; // Default base for Writing, Editing, Review
+    // UPDATED SMART PRICING CALCULATOR
+    function calculatePrice(objective, quantity) {
+        if (objective === 'EP Production' || objective === 'Album Production') {
+            return 'Contact Producer';
         }
-        return basePrice.toLocaleString();
+        var basePrice = 0;
+        if (objective === 'Recording') basePrice = 50000;
+        else if (objective === 'Production') basePrice = 100000;
+        else if (objective === 'Full Production') basePrice = 200000;
+        else if (objective === 'Mixing' || objective === 'Mastering') basePrice = 100000;
+        else if (objective === 'Meditation') basePrice = 80000;
+        else basePrice = 50000; // Default fallback
+
+        var total = basePrice * parseInt(quantity || 1);
+        return total.toLocaleString();
     }
 
     function submitAllData() {
@@ -1147,11 +1127,11 @@
         var clientName = document.getElementById('client-name').value;
         var clientEmail = document.getElementById('client-email').value;
         var clientPhone = document.getElementById('client-phone').value;
-        var budget = document.getElementById('budget-range').value;
         var objective = document.getElementById('session-objective').value;
-        var duration = document.getElementById('session-duration').value;
+        var quantity = document.getElementById('session-quantity').value;
+        var duration = document.getElementById('session-duration') ? document.getElementById('session-duration').value : 'N/A';
 
-        addField('entry.483934415', 'Client: ' + clientName + ' | Email: ' + clientEmail + ' | WhatsApp: ' + clientPhone + ' | Budget: ' + budget);
+        addField('entry.483934415', 'Client: ' + clientName + ' | Email: ' + clientEmail + ' | WhatsApp: ' + clientPhone);
         addField('entry.1537868087', document.getElementById('artist-name').value + ' - ' + document.getElementById('song-title').value);
         addField('entry.1518598464', document.getElementById('bpm').value);
         addField('entry.1209461408', document.getElementById('song-key').value);
@@ -1163,25 +1143,26 @@
         addField('entry.981525809', document.getElementById('dna-anti').value);
         addField('entry.1608215932', selectedGenre);
         addField('entry.42949322', songSections.map(function(s) { return s.name + ': ' + s.energy + '/5'; }).join(', '));
-        addField('entry.337309040', 'Objective: ' + objective + ' | Duration: ' + duration + ' | Time: ' + selectedTime);
+        addField('entry.337309040', 'Service: ' + objective + ' | Qty: ' + quantity + ' | Duration: ' + duration + ' | Time: ' + selectedTime);
         addField('entry.18715465', 'Date: ' + selectedDate + ' | Feedback: ' + document.getElementById('fb-input').value);
 
         form.submit();
-        showSuccessScreen(objective, duration);
+        showSuccessScreen(objective, quantity);
     }
 
-    function showSuccessScreen(objective, duration) {
+    function showSuccessScreen(objective, quantity) {
         document.querySelectorAll('.step-content').forEach(function(c) { c.classList.remove('active'); });
         document.querySelector('.stepper').style.display = 'none';
         
         var formattedDate = new Date(selectedDate).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+        var price = calculatePrice(objective, quantity);
         
         document.getElementById('summary-client').textContent = document.getElementById('client-name').value;
         document.getElementById('summary-artist-song').textContent = document.getElementById('artist-name').value + ' - ' + document.getElementById('song-title').value;
         document.getElementById('summary-objective').textContent = objective || 'General Session';
+        document.getElementById('summary-quantity').textContent = quantity + (quantity > 1 ? ' Tracks/Sessions' : ' Track/Session');
         document.getElementById('summary-datetime').textContent = formattedDate + ' @ ' + selectedTime;
-        document.getElementById('summary-duration').textContent = duration || 'Not specified';
-        document.getElementById('summary-price').textContent = '₦' + calculatePrice(objective, duration);
+        document.getElementById('summary-price').textContent = price === 'Contact Producer' ? price : '₦' + price;
 
         document.getElementById('success-screen').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
