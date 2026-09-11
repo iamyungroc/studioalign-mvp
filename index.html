@@ -653,7 +653,7 @@
         <div class="step-item" data-step="6"><div class="step-circle">6</div><div class="step-label">Session</div></div>
     </div>
 
-    <!-- STEP 1 - CONTACT DETAILS ONLY -->
+    <!-- STEP 1 -->
     <div id="step-1" class="step-content active">
         <div class="step-header">
             <h2>Contact Details</h2>
@@ -807,7 +807,7 @@
         </div>
         <div class="booking-section">
             <h4>Select Booking Date * <span style="font-size: 10px; color: var(--text-secondary); text-transform: none;">(Mon-Fri only)</span></h4>
-            <input type="date" id="booking-date" min="" onchange="validateBookingDate()">
+            <input type="date" id="booking-date" min="">
             <div class="error-message" id="date-error">Weekend bookings are not available. Please select a weekday.</div>
         </div>
         <div class="booking-section">
@@ -885,7 +885,7 @@
         </div>
     </div>
 
-    <!-- STEP 6 - NOW INCLUDES LEGAL NAME -->
+    <!-- STEP 6 -->
     <div id="step-6" class="step-content">
         <div class="step-header">
             <h2>Final Details</h2>
@@ -903,7 +903,6 @@
             <textarea id="fb-input" placeholder="Any special requests, references, or notes for Roc..."></textarea>
         </div>
 
-        <!-- FAQ SECTION -->
         <div class="faq-section">
             <div class="faq-header" onclick="toggleFAQ()">
                 <span>Frequently Asked Questions</span>
@@ -1115,7 +1114,6 @@
         }
     }
 
-    // UPDATED: Only validates 3 fields now
     function validateStep1() {
         var valid = true;
         var clientEmail = document.getElementById('client-email').value.trim();
@@ -1142,6 +1140,7 @@
         if (!bookingDate) {
             showError('booking-date', false);
             document.getElementById('delivery-date').value = '';
+            selectedDate = '';
             return;
         }
         
@@ -1493,11 +1492,19 @@
         location.reload();
     }
 
+    // BULLETPROOF DATE INPUT HANDLERS - Works on ALL browsers and devices
     window.onload = function() {
         addSection();
         updateStepperUI();
         var today = new Date().toISOString().split('T')[0];
-        document.getElementById('booking-date').setAttribute('min', today);
+        var bookingInput = document.getElementById('booking-date');
+        bookingInput.setAttribute('min', today);
+        
+        // Multiple event listeners to ensure the date change is caught on ALL browsers
+        // (especially iOS Safari where inline onchange is unreliable)
+        bookingInput.addEventListener('change', validateBookingDate);
+        bookingInput.addEventListener('input', validateBookingDate);
+        bookingInput.addEventListener('blur', validateBookingDate);
     };
 </script>
 
