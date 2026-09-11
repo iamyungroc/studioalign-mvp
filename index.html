@@ -653,11 +653,16 @@
         <div class="step-item" data-step="6"><div class="step-circle">6</div><div class="step-label">Session</div></div>
     </div>
 
-    <!-- STEP 1 -->
+    <!-- STEP 1 - ARTIST NAME FIRST -->
     <div id="step-1" class="step-content active">
         <div class="step-header">
             <h2>Contact Details</h2>
             <p>How can we reach you?</p>
+        </div>
+        <div class="input-group">
+            <label>Artist / Project Name *</label>
+            <input type="text" id="artist-name" placeholder="e.g., Wizkid, Tems...">
+            <div class="error-message" id="artist-name-error">Please enter artist name</div>
         </div>
         <div class="input-group">
             <label>Email Address *</label>
@@ -667,11 +672,6 @@
         <div class="input-group">
             <label>WhatsApp Number</label>
             <input type="tel" id="client-phone" placeholder="e.g., +234 801 234 5678">
-        </div>
-        <div class="input-group">
-            <label>Artist / Project Name *</label>
-            <input type="text" id="artist-name" placeholder="e.g., Wizkid, Tems...">
-            <div class="error-message" id="artist-name-error">Please enter artist name</div>
         </div>
         <div class="nav-footer">
             <button class="secondary-btn" disabled>Back</button>
@@ -1119,8 +1119,8 @@
         var clientEmail = document.getElementById('client-email').value.trim();
         var artistName = document.getElementById('artist-name').value.trim();
 
-        if (!clientEmail || !clientEmail.includes('@')) { showError('client-email', true); valid = false; } else { showError('client-email', false); }
         if (!artistName) { showError('artist-name', true); valid = false; } else { showError('artist-name', false); }
+        if (!clientEmail || !clientEmail.includes('@')) { showError('client-email', true); valid = false; } else { showError('client-email', false); }
 
         if (valid) nextStep();
     }
@@ -1492,7 +1492,6 @@
         location.reload();
     }
 
-    // BULLETPROOF DATE INPUT HANDLERS - Works on ALL browsers and devices
     window.onload = function() {
         addSection();
         updateStepperUI();
@@ -1500,8 +1499,6 @@
         var bookingInput = document.getElementById('booking-date');
         bookingInput.setAttribute('min', today);
         
-        // Multiple event listeners to ensure the date change is caught on ALL browsers
-        // (especially iOS Safari where inline onchange is unreliable)
         bookingInput.addEventListener('change', validateBookingDate);
         bookingInput.addEventListener('input', validateBookingDate);
         bookingInput.addEventListener('blur', validateBookingDate);
