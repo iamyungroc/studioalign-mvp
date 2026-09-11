@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AllEars | Producer-Client OS</title>
+    <title>AllEars | The Producer-Client Alignment Platform</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -71,6 +71,19 @@
         .logo-beta { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; color: var(--warning); text-transform: uppercase; letter-spacing: 1px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); padding: 3px 8px; border-radius: 4px; margin-bottom: 6px; }
         .logo-flourish { display: block; width: 100px; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); margin: 6px auto 0; }
         .header p { color: var(--text-secondary); font-size: 11px; font-weight: 500; margin-top: 10px; letter-spacing: 2px; text-transform: uppercase; }
+        
+        .trust-badge {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 6px 14px;
+            background: var(--accent-soft);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 0.5px;
+        }
 
         .stepper { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; position: relative; padding: 0 4px; }
         .step-item { display: flex; flex-direction: column; align-items: center; z-index: 2; flex: 1; min-width: 0; }
@@ -108,8 +121,6 @@
         .error-input { border-color: var(--error) !important; }
         .error-message { color: var(--error); font-size: 11px; margin-top: 4px; display: none; }
         .error-message.show { display: block; }
-
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
         .nav-footer { display: flex; justify-content: space-between; margin-top: 32px; gap: 12px; }
         button {
@@ -183,6 +194,35 @@
         .time-slot.selected { background: var(--accent); border-color: var(--accent); color: var(--bg-color); }
         .time-slot.unavailable { opacity: 0.3; cursor: not-allowed; text-decoration: line-through; }
 
+        .live-price-box {
+            background: rgba(212, 165, 116, 0.08);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            border-radius: 10px;
+            padding: 16px;
+            margin-top: 16px;
+            text-align: center;
+        }
+        .live-price-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        .live-price-amount {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 0.5px;
+        }
+        .live-price-note {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 6px;
+            font-style: italic;
+        }
+
         .emergency-toggle {
             display: flex;
             align-items: center;
@@ -213,9 +253,7 @@
             transition: background 0.3s;
             flex-shrink: 0;
         }
-        .toggle-switch.active {
-            background: var(--warning);
-        }
+        .toggle-switch.active { background: var(--warning); }
         .toggle-switch::after {
             content: '';
             position: absolute;
@@ -227,9 +265,7 @@
             border-radius: 50%;
             transition: transform 0.3s;
         }
-        .toggle-switch.active::after {
-            transform: translateX(24px);
-        }
+        .toggle-switch.active::after { transform: translateX(24px); }
 
         .booking-confirmation { margin-top: 18px; padding: 18px; background: var(--success-soft); border: 1px solid rgba(74, 222, 128, 0.2); border-radius: 10px; display: none; }
         .booking-confirmation h5 { margin: 0 0 6px 0; color: var(--success); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
@@ -272,6 +308,55 @@
             font-weight: 600;
         }
         .tc-link:hover { opacity: 0.8; }
+
+        .faq-section {
+            margin-top: 24px;
+            background: rgba(15, 13, 10, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .faq-header {
+            padding: 16px 18px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .faq-header:active { background: rgba(255,255,255,0.03); }
+        .faq-toggle {
+            font-size: 18px;
+            transition: transform 0.3s;
+        }
+        .faq-toggle.open { transform: rotate(45deg); }
+        .faq-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .faq-body.open { max-height: 800px; }
+        .faq-item {
+            padding: 14px 18px;
+            border-top: 1px solid var(--border);
+        }
+        .faq-item:first-child { border-top: none; }
+        .faq-question {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+        .faq-answer {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin: 0;
+        }
 
         .modal-overlay {
             display: none;
@@ -390,6 +475,29 @@
             line-height: 1.6;
             margin: 0 0 24px 0;
         }
+        .next-steps {
+            background: rgba(74, 222, 128, 0.08);
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+        .next-steps h5 {
+            color: var(--success);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0 0 10px 0;
+        }
+        .next-steps ol {
+            margin: 0;
+            padding-left: 20px;
+            color: var(--text-primary);
+            font-size: 13px;
+            line-height: 1.7;
+        }
         .summary-card {
             background: rgba(15, 13, 10, 0.6);
             border: 1px solid var(--border);
@@ -478,20 +586,24 @@
             width: 100%;
             margin-top: 12px;
             padding: 14px;
-            background: linear-gradient(135deg, var(--success), #22c55e);
-            color: #fff;
+            background: var(--border-light);
+            color: var(--text-secondary);
             text-decoration: none;
             border-radius: 10px;
             font-size: 14px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: all 0.2s;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(74, 222, 128, 0.3);
+            cursor: not-allowed;
+            opacity: 0.6;
         }
-        .pay-btn:active { transform: scale(0.97); opacity: 0.9; }
+        .pay-note {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            font-style: italic;
+            text-align: center;
+        }
 
         .footer { text-align: center; margin-top: 28px; font-size: 10px; color: var(--text-secondary); opacity: 0.5; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
 
@@ -502,7 +614,6 @@
             .step-circle { width: 24px; height: 24px; font-size: 10px; }
             .step-label { font-size: 8px; letter-spacing: 0.3px; }
             .step-line { margin-top: 10px; }
-            .grid-2 { grid-template-columns: 1fr; gap: 12px; }
             .genre-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
             .time-slots { grid-template-columns: repeat(2, 1fr); gap: 8px; }
             .energy-label { width: 70px; font-size: 10px; }
@@ -511,6 +622,7 @@
             .modal-box { max-height: 85vh; border-radius: 12px; }
             .modal-body { padding: 18px; }
             .success-screen { padding: 30px 16px; }
+            .live-price-amount { font-size: 20px; }
         }
     </style>
 </head>
@@ -524,10 +636,11 @@
         </div>
         <span class="logo-flourish"></span>
         <p>The Producer-Client Alignment Platform</p>
+        <div class="trust-badge">Trusted by 50+ Artists Across Nigeria</div>
     </div>
 
     <div class="stepper">
-        <div class="step-item active" data-step="1"><div class="step-circle">1</div><div class="step-label">Client</div></div>
+        <div class="step-item active" data-step="1"><div class="step-circle">1</div><div class="step-label">Info</div></div>
         <div class="step-line"></div>
         <div class="step-item" data-step="2"><div class="step-circle">2</div><div class="step-label">Vision</div></div>
         <div class="step-line"></div>
@@ -680,7 +793,7 @@
         </div>
         <div class="booking-section">
             <h4>Service Required *</h4>
-            <select id="session-objective">
+            <select id="session-objective" onchange="updateLivePrice()">
                 <option value="">Select service...</option>
                 <option value="Recording">Voicing Only (Recording) - ₦50,000/track</option>
                 <option value="Production">Beats Only (Production) - ₦100,000/beat</option>
@@ -694,14 +807,16 @@
         </div>
         <div class="booking-section">
             <h4>Quantity (Number of Tracks/Sessions) *</h4>
-            <input type="number" id="session-quantity" min="1" value="1" style="width: 100%;">
+            <input type="number" id="session-quantity" min="1" value="1" style="width: 100%;" oninput="updateLivePrice()">
+            <div class="error-message" id="quantity-error">Please enter a valid quantity (minimum 1)</div>
         </div>
         <div class="booking-section">
-            <h4>Select Booking Date *</h4>
-            <input type="date" id="booking-date" min="" onchange="updateDeliveryDate()">
+            <h4>Select Booking Date * <span style="font-size: 10px; color: var(--text-secondary); text-transform: none;">(Mon-Fri only)</span></h4>
+            <input type="date" id="booking-date" min="" onchange="validateBookingDate()">
+            <div class="error-message" id="date-error">Weekend bookings are not available. Please select a weekday.</div>
         </div>
         <div class="booking-section">
-            <h4>Available Time Slots *</h4>
+            <h4>Available Time Slots * <span style="font-size: 10px; color: var(--text-secondary); text-transform: none;">(WAT - Lagos Time)</span></h4>
             <div class="time-slots">
                 <div class="time-slot" onclick="selectTimeSlot(this, '10:00 AM')">10:00 AM</div>
                 <div class="time-slot" onclick="selectTimeSlot(this, '12:00 PM')">12:00 PM</div>
@@ -725,6 +840,13 @@
             </div>
             <div class="toggle-switch" id="emergency-toggle" onclick="toggleEmergency()"></div>
         </div>
+        
+        <div class="live-price-box">
+            <div class="live-price-label">Estimated Total</div>
+            <div class="live-price-amount" id="live-price">₦0</div>
+            <div class="live-price-note" id="live-price-note">Select a service to see pricing</div>
+        </div>
+
         <div class="booking-section" style="margin-top: 16px;">
             <h4>Studio Location</h4>
             <p style="color: var(--text-secondary); font-size: 13px; line-height: 1.5;">RocAudio Studio<br>Lagos, Nigeria<br><i>Exact address shared upon booking confirmation</i></p>
@@ -771,17 +893,46 @@
     <!-- STEP 6 -->
     <div id="step-6" class="step-content">
         <div class="step-header">
-            <h2>The Mix Session</h2>
-            <p>Translate your creative feelings into technical actions for the producer.</p>
+            <h2>Final Review & Submit</h2>
+            <p>Add any additional notes and finalize your booking.</p>
         </div>
         <div class="input-group">
-            <label>Your Feedback</label>
-            <textarea id="fb-input" placeholder="e.g., Chorus needs to hit harder, vocals muddy..."></textarea>
+            <label>Additional Notes (Optional)</label>
+            <textarea id="fb-input" placeholder="Any special requests, references, or notes for Roc..."></textarea>
         </div>
-        <button class="primary-btn" onclick="translateFeedback()" style="margin-bottom: 20px; width: 100%;">Translate Notes</button>
-        <div id="fb-result" class="result-box">
-            <h3>Technical Translation</h3>
-            <div id="fb-translated-text"></div>
+
+        <!-- FAQ SECTION -->
+        <div class="faq-section">
+            <div class="faq-header" onclick="toggleFAQ()">
+                <span>Frequently Asked Questions</span>
+                <span class="faq-toggle" id="faq-toggle">+</span>
+            </div>
+            <div class="faq-body" id="faq-body">
+                <div class="faq-item">
+                    <div class="faq-question">How do I pay?</div>
+                    <p class="faq-answer">After finalizing your booking, a 50% deposit is required to secure your slot. Payment is made via Paystack (card, bank transfer, or USSD). The remaining balance is due on or before the session date.</p>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">What if I need to reschedule?</div>
+                    <p class="faq-answer">Rescheduling is allowed once with at least 24 hours notice, at no extra cost. Cancellations within 24 hours are non-refundable.</p>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">How many revisions are included?</div>
+                    <p class="faq-answer">Each project includes up to 2 free revisions after the initial delivery. Additional revisions are charged at a per-revision rate, quoted before work begins.</p>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">What files will I receive?</div>
+                    <p class="faq-answer">You will receive high-quality WAV files (mix and/or master). Stems are available upon request. Project files (DAW sessions) are not included unless separately purchased.</p>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Do you offer refunds?</div>
+                    <p class="faq-answer">Deposits are non-refundable once a session is confirmed. However, you may reschedule once with 24+ hours notice.</p>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">What happens after I submit?</div>
+                    <p class="faq-answer">You'll receive a confirmation email within 5 minutes. Roc will reach out on WhatsApp within 24 hours to confirm all details, discuss next steps, and arrange payment.</p>
+                </div>
+            </div>
         </div>
 
         <div class="tc-agreement">
@@ -801,8 +952,17 @@
     <div id="success-screen" class="success-screen">
         <div class="success-icon">✓</div>
         <h2>Session Finalized!</h2>
-        <p>Your booking brief has been sent to Roc. Review your summary and secure your slot below.</p>
         
+        <div class="next-steps">
+            <h5>What Happens Next</h5>
+            <ol>
+                <li>You'll receive a confirmation email within 5 minutes</li>
+                <li>Roc will reach out on WhatsApp within 24 hours</li>
+                <li>Discuss details, confirm payment, and finalize your slot</li>
+                <li>Show up prepared and let's make magic happen</li>
+            </ol>
+        </div>
+
         <div class="summary-card">
             <h4>Session Summary & Estimate</h4>
             <div class="summary-item">
@@ -839,13 +999,13 @@
             </div>
         </div>
 
-        <!-- PAYMENT & ACTION BUTTONS -->
-        <!-- TODO: Replace '#' with your actual Paystack Payment Link when ready -->
-        <a href="#" class="pay-btn">
+        <!-- PAYMENT BUTTON (DISABLED UNTIL PAYSTACK READY) -->
+        <button class="pay-btn" disabled>
             💳 Pay 50% Deposit to Secure Slot
-        </a>
+        </button>
+        <div class="pay-note">Payment integration coming soon. Roc will send you a payment link via WhatsApp.</div>
         
-        <a href="https://wa.me/2348037643281?text=Hi%20Roc,%20I%20just%20finalized%20my%20session%20brief%20on%20AllEars!%20Let's%20connect." target="_blank" class="whatsapp-btn">
+        <a href="#" id="whatsapp-link" target="_blank" class="whatsapp-btn">
             💬 Chat with Roc on WhatsApp
         </a>
 
@@ -977,14 +1137,58 @@
         nextStep();
     }
 
-    function validateStep4() {
-        var objective = document.getElementById('session-objective').value;
-        var quantity = document.getElementById('session-quantity').value;
-        var deliveryDate = document.getElementById('delivery-date').value;
-        if (!objective || !quantity || quantity < 1 || !selectedDate || !selectedTime || !deliveryDate) {
-            alert('Please select a service, valid quantity, date, time slot, and confirm delivery date.');
+    function validateBookingDate() {
+        var bookingDate = document.getElementById('booking-date').value;
+        if (!bookingDate) {
+            showError('booking-date', false);
+            document.getElementById('delivery-date').value = '';
             return;
         }
+        
+        var date = new Date(bookingDate);
+        var dayOfWeek = date.getDay();
+        
+        if (dayOfWeek === 0 || dayOfWeek === 6) {
+            showError('booking-date', true);
+            document.getElementById('booking-date').value = '';
+            document.getElementById('delivery-date').value = '';
+            selectedDate = '';
+            return;
+        }
+        
+        showError('booking-date', false);
+        selectedDate = bookingDate;
+        updateDeliveryDate();
+    }
+
+    function validateStep4() {
+        var objective = document.getElementById('session-objective').value;
+        var quantity = parseInt(document.getElementById('session-quantity').value);
+        var deliveryDate = document.getElementById('delivery-date').value;
+        
+        if (!objective) {
+            alert('Please select a service.');
+            return;
+        }
+        if (!quantity || quantity < 1) {
+            showError('session-quantity', true);
+            return;
+        } else {
+            showError('session-quantity', false);
+        }
+        if (!selectedDate) {
+            alert('Please select a booking date (weekdays only).');
+            return;
+        }
+        if (!selectedTime) {
+            alert('Please select a time slot.');
+            return;
+        }
+        if (!deliveryDate) {
+            alert('Please confirm your delivery date.');
+            return;
+        }
+        
         confirmBooking();
         nextStep();
     }
@@ -1003,8 +1207,6 @@
         selectedGenre = genre;
     }
 
-    function updateTimeSlots() { selectedDate = document.getElementById('booking-date').value; }
-
     function selectTimeSlot(el, time) {
         if (el.classList.contains('unavailable')) return;
         document.querySelectorAll('.time-slot').forEach(function(s) { s.classList.remove('selected'); });
@@ -1013,13 +1215,11 @@
     }
 
     function updateDeliveryDate() {
-        var bookingDate = document.getElementById('booking-date').value;
-        if (!bookingDate) {
+        if (!selectedDate) {
             document.getElementById('delivery-date').value = '';
             return;
         }
-        selectedDate = bookingDate;
-        var date = new Date(bookingDate);
+        var date = new Date(selectedDate);
         var daysToAdd = isEmergency ? 7 : 14;
         date.setDate(date.getDate() + daysToAdd);
         var formattedDate = date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
@@ -1033,6 +1233,45 @@
         if (selectedDate) {
             updateDeliveryDate();
         }
+        updateLivePrice();
+    }
+
+    function updateLivePrice() {
+        var objective = document.getElementById('session-objective').value;
+        var quantity = parseInt(document.getElementById('session-quantity').value) || 0;
+        var priceDisplay = document.getElementById('live-price');
+        var noteDisplay = document.getElementById('live-price-note');
+        
+        if (!objective || quantity < 1) {
+            priceDisplay.textContent = '₦0';
+            noteDisplay.textContent = 'Select a service and quantity to see pricing';
+            return;
+        }
+        
+        if (objective === 'EP Production' || objective === 'Album Production') {
+            priceDisplay.textContent = 'Contact Producer';
+            noteDisplay.textContent = 'Custom pricing for EP/Album projects';
+            return;
+        }
+        
+        var basePrice = 0;
+        if (objective === 'Recording') basePrice = 50000;
+        else if (objective === 'Production') basePrice = 100000;
+        else if (objective === 'Full Production') basePrice = 200000;
+        else if (objective === 'Mixing' || objective === 'Mastering') basePrice = 100000;
+        else if (objective === 'Meditation') basePrice = 80000;
+        else basePrice = 50000;
+
+        var total = basePrice * quantity;
+        
+        if (isEmergency) {
+            total = total * 1.10;
+            noteDisplay.textContent = 'Includes 10% emergency service fee';
+        } else {
+            noteDisplay.textContent = 'Standard 2-week delivery';
+        }
+        
+        priceDisplay.textContent = '₦' + total.toLocaleString();
     }
 
     function confirmBooking() {
@@ -1117,16 +1356,11 @@
         document.getElementById('autopsy-result').style.display = 'block';
     }
 
-    function translateFeedback() {
-        var input = document.getElementById('fb-input').value.toLowerCase();
-        var translations = [];
-        if (input.includes('pop') || input.includes('vocal')) translations.push('<span class="badge">Vocals</span> Increase presence (EQ 3-5kHz), add saturation.');
-        if (input.includes('hit harder') || input.includes('kick')) translations.push('<span class="badge">Drums</span> Enhance transients, sidechain bass.');
-        if (input.includes('muddy')) translations.push('<span class="badge">Clarity</span> Cut low-mids (200-400Hz).');
-        if (input.includes('vibe') || input.includes('wide')) translations.push('<span class="badge">Space</span> Widen stereo imaging, add delay throws.');
-        if (translations.length === 0) translations.push('Notes received. Clarification requested.');
-        document.getElementById('fb-translated-text').innerHTML = translations.join('<br><br>');
-        document.getElementById('fb-result').style.display = 'block';
+    function toggleFAQ() {
+        var body = document.getElementById('faq-body');
+        var toggle = document.getElementById('faq-toggle');
+        body.classList.toggle('open');
+        toggle.classList.toggle('open');
     }
 
     function openModal() {
@@ -1149,32 +1383,15 @@
         btn.disabled = !checkbox.checked;
     }
 
-    function calculatePrice(objective, quantity) {
-        if (objective === 'EP Production' || objective === 'Album Production') {
-            return 'Contact Producer';
-        }
-        var basePrice = 0;
-        if (objective === 'Recording') basePrice = 50000;
-        else if (objective === 'Production') basePrice = 100000;
-        else if (objective === 'Full Production') basePrice = 200000;
-        else if (objective === 'Mixing' || objective === 'Mastering') basePrice = 100000;
-        else if (objective === 'Meditation') basePrice = 80000;
-        else basePrice = 50000;
-
-        var total = basePrice * parseInt(quantity || 1);
-        
-        if (isEmergency) {
-            total = total * 1.10;
-        }
-        
-        return total.toLocaleString();
-    }
-
     function submitAllData() {
         if (!document.getElementById('tc-checkbox').checked) {
             alert('Please agree to the Terms & Conditions before finalizing.');
             return;
         }
+
+        var btn = document.getElementById('finalize-btn');
+        btn.disabled = true;
+        btn.textContent = 'Submitting...';
 
         var form = document.createElement('form');
         form.method = 'POST';
@@ -1210,10 +1427,13 @@
         addField('entry.1608215932', selectedGenre);
         addField('entry.42949322', songSections.map(function(s) { return s.name + ': ' + s.energy + '/5'; }).join(', '));
         addField('entry.337309040', 'Service: ' + objective + ' | Qty: ' + quantity + ' | Time: ' + selectedTime + ' | Emergency: ' + emergencyStatus);
-        addField('entry.18715465', 'Booking Date: ' + selectedDate + ' | Delivery: ' + deliveryDate + ' | Feedback: ' + document.getElementById('fb-input').value);
+        addField('entry.18715465', 'Booking Date: ' + selectedDate + ' | Delivery: ' + deliveryDate + ' | Notes: ' + document.getElementById('fb-input').value);
 
         form.submit();
-        showSuccessScreen(objective, quantity);
+        
+        setTimeout(function() {
+            showSuccessScreen(objective, quantity);
+        }, 800);
     }
 
     function showSuccessScreen(objective, quantity) {
@@ -1233,8 +1453,34 @@
         document.getElementById('summary-emergency').textContent = isEmergency ? 'Yes (+10%)' : 'No (Standard)';
         document.getElementById('summary-price').textContent = price === 'Contact Producer' ? price : '₦' + price;
 
+        var clientName = document.getElementById('client-name').value;
+        var artistName = document.getElementById('artist-name').value;
+        var whatsappMessage = 'Hi Roc, I\'m ' + clientName + ' (artist: ' + artistName + '). I just finalized my ' + objective + ' booking on AllEars for ' + formattedBookingDate + ' at ' + selectedTime + '. Let\'s connect!';
+        document.getElementById('whatsapp-link').href = 'https://wa.me/2348037643281?text=' + encodeURIComponent(whatsappMessage);
+
         document.getElementById('success-screen').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function calculatePrice(objective, quantity) {
+        if (objective === 'EP Production' || objective === 'Album Production') {
+            return 'Contact Producer';
+        }
+        var basePrice = 0;
+        if (objective === 'Recording') basePrice = 50000;
+        else if (objective === 'Production') basePrice = 100000;
+        else if (objective === 'Full Production') basePrice = 200000;
+        else if (objective === 'Mixing' || objective === 'Mastering') basePrice = 100000;
+        else if (objective === 'Meditation') basePrice = 80000;
+        else basePrice = 50000;
+
+        var total = basePrice * parseInt(quantity || 1);
+        
+        if (isEmergency) {
+            total = total * 1.10;
+        }
+        
+        return total.toLocaleString();
     }
 
     function resetApp() {
